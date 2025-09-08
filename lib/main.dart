@@ -16,6 +16,7 @@ syncRecords();
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  SyncService.init();
   await Hive.initFlutter();
   await Hive.openBox('recordsBox');
   runApp(const SgcGoApp());
