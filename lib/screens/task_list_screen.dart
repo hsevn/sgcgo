@@ -71,7 +71,6 @@ class _TaskListScreenState extends State<TaskListScreen> {
               ),
             ),
 
-          // FILTER trạng thái
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 12.0),
             child: Row(
@@ -93,7 +92,6 @@ class _TaskListScreenState extends State<TaskListScreen> {
             ),
           ),
 
-          // HÀNG TIÊU ĐỀ (di chuyển xuống đúng chỗ)
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
             color: Colors.grey.shade200,
@@ -108,7 +106,6 @@ class _TaskListScreenState extends State<TaskListScreen> {
             ),
           ),
 
-          // DANH SÁCH
           Expanded(
             child: ListView.builder(
               itemCount: filtered.length,
@@ -119,53 +116,61 @@ class _TaskListScreenState extends State<TaskListScreen> {
                 else if (task['status'] == 'Tạm hoãn') statusColor = Colors.red;
                 else if (task['status'] == 'Hoàn thành') statusColor = Colors.green;
 
-                return Container(
-                  padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 12),
-                  margin: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(8),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.grey.shade200,
-                        blurRadius: 4,
-                        offset: const Offset(0, 2),
-                      )
-                    ],
-                  ),
-                  child: Row(
-                    children: [
-                      Expanded(flex: 2, child: Text(task['name']!)),
-                      Expanded(flex: 2, child: Text(task['address']!)),
-                      const Expanded(flex: 1, child: Icon(Icons.map, color: Colors.blue)),
-                      Expanded(flex: 2, child: Text(task['date']!)),
-                      Expanded(
-                        flex: 1,
-                        child: Container(
-                          padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 4),
-                          decoration: BoxDecoration(
-                            color: statusColor.withOpacity(0.2),
-                            borderRadius: BorderRadius.circular(8),
-                          ),
-                          child: Text(
-                            task['status']!,
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                              color: statusColor,
-                              fontWeight: FontWeight.w600,
-                              fontSize: 12,
+                return InkWell(
+                  onTap: () {
+                    Navigator.pushNamed(
+                      context,
+                      '/records',
+                      arguments: {'companyId': task['name']},
+                    );
+                  },
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 12),
+                    margin: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(8),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.grey.shade200,
+                          blurRadius: 4,
+                          offset: const Offset(0, 2),
+                        )
+                      ],
+                    ),
+                    child: Row(
+                      children: [
+                        Expanded(flex: 2, child: Text(task['name']!)),
+                        Expanded(flex: 2, child: Text(task['address']!)),
+                        const Expanded(flex: 1, child: Icon(Icons.map, color: Colors.blue)),
+                        Expanded(flex: 2, child: Text(task['date']!)),
+                        Expanded(
+                          flex: 1,
+                          child: Container(
+                            padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 4),
+                            decoration: BoxDecoration(
+                              color: statusColor.withOpacity(0.2),
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                            child: Text(
+                              task['status']!,
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                color: statusColor,
+                                fontWeight: FontWeight.w600,
+                                fontSize: 12,
+                              ),
                             ),
                           ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 );
               },
             ),
           ),
 
-          // FOOTER: Tin nhắn + Home
           Container(
             color: Colors.white,
             padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 12.0),

@@ -99,7 +99,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
                 const SizedBox(height: 16),
 
-                // Signin Button
+                // Sign in Button
                 SizedBox(
                   width: double.infinity,
                   child: ElevatedButton(
@@ -112,7 +112,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                     ),
                     child: const Text(
-                      'Signin',
+                      'Sign in',
                       style: TextStyle(fontSize: 16, color: Colors.white),
                     ),
                   ),
