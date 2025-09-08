@@ -51,3 +51,6 @@ class SgcGoApp extends StatelessWidget {
     );
   }
 }
+await Hive.initFlutter();
+Hive.registerAdapter(JobMeasurementAdapter()); // Thêm dòng này
+await Hive.openBox<JobMeasurement>('measurementsBox');

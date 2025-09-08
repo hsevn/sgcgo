@@ -1,9 +1,25 @@
-import 'dart:io';
+import 'package:hive/hive.dart';
+import '../models/job_measurement.dart';
 
-import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:geolocator/geolocator.dart';
+// Thuật toán lưu
+var box = Hive.box<JobMeasurement>('measurementsBox');
+var record = JobMeasurement(
+  companyId: widget.companyId,
+  locationL1: entry.area!,
+  locationL2: entry.location ?? '',
+  locationL3: entry.detail ?? '',
+  light: entry.light ?? 0.0,
+  temperature: entry.temp ?? 0.0,
+  humidity: entry.humidity ?? 0.0,
+  imagePath: entry.photoPath,
+  latitude: entry.latitude,
+  longitude: entry.longitude,
+  timestamp: DateTime.now(),
+);
+await box.add(record);
+
+// Hiển thị xác nhận
+ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Đã lưu nháp')));
 
 class RecordListScreen extends StatefulWidget {
   final String companyId;
