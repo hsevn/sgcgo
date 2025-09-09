@@ -18,23 +18,25 @@ class JobMeasurementAdapter extends TypeAdapter<JobMeasurement> {
     };
     return JobMeasurement(
       companyId: fields[0] as String,
-      locationL1: fields[1] as String,
-      locationL2: fields[2] as String,
-      locationL3: fields[3] as String,
-      light: fields[4] as double,
-      temperature: fields[5] as double,
-      humidity: fields[6] as double,
+      locationL1: fields[1] as String?,
+      locationL2: fields[2] as String?,
+      locationL3: fields[3] as String?,
+      light: fields[4] as double?,
+      temperature: fields[5] as double?,
+      humidity: fields[6] as double?,
       imagePath: fields[7] as String?,
       latitude: fields[8] as double?,
       longitude: fields[9] as double?,
-      timestamp: fields[10] as DateTime,
+      timestamp: fields[10] as DateTime?,
+      isInHive: fields[11] as bool,
+      description: fields[12] as String?,
     );
   }
 
   @override
   void write(BinaryWriter writer, JobMeasurement obj) {
     writer
-      ..writeByte(11)
+      ..writeByte(13)
       ..writeByte(0)
       ..write(obj.companyId)
       ..writeByte(1)
@@ -56,7 +58,11 @@ class JobMeasurementAdapter extends TypeAdapter<JobMeasurement> {
       ..writeByte(9)
       ..write(obj.longitude)
       ..writeByte(10)
-      ..write(obj.timestamp);
+      ..write(obj.timestamp)
+      ..writeByte(11)
+      ..write(obj.isInHive)
+      ..writeByte(12)
+      ..write(obj.description);
   }
 
   @override

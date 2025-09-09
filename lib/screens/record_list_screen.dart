@@ -1,298 +1,348 @@
-import 'package:hive/hive.dart';
+// lib/screens/record_list_screen.dart
+
+import 'dart:io';
+import 'package:flutter/material.dart';
+import 'package:hive_flutter/hive_flutter.dart';
+import 'package:file_selector/file_selector.dart';
+
 import '../models/job_measurement.dart';
 
-// Thuật toán lưu
-var box = Hive.box<JobMeasurement>('measurementsBox');
-var record = JobMeasurement(
-  companyId: widget.companyId,
-  locationL1: entry.area!,
-  locationL2: entry.location ?? '',
-  locationL3: entry.detail ?? '',
-  light: entry.light ?? 0.0,
-  temperature: entry.temp ?? 0.0,
-  humidity: entry.humidity ?? 0.0,
-  imagePath: entry.photoPath,
-  latitude: entry.latitude,
-  longitude: entry.longitude,
-  timestamp: DateTime.now(),
-);
-await box.add(record);
-
-// Hiển thị xác nhận
-ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Đã lưu nháp')));
-
 class RecordListScreen extends StatefulWidget {
-  final String companyId;
-  const RecordListScreen({super.key, required this.companyId});
+  final String companyName;
+  final String companyAddress;
+
+  const RecordListScreen({
+    Key? key,
+    required this.companyName,
+    required this.companyAddress,
+  }) : super(key: key);
+
+class LocationEntry {
+  final String l1Code;
+  final String l2Code;
+  final String l3Code;
+  final String description;
+
+  LocationEntry({
+    required this.l1Code,
+    required this.l2Code,
+    required this.l3Code,
+    required this.description,
+  });
+}
 
   @override
   State<RecordListScreen> createState() => _RecordListScreenState();
 }
 
 class _RecordListScreenState extends State<RecordListScreen> {
-  final List<RecordEntry> entries = [RecordEntry()];
-  final ImagePicker _picker = ImagePicker();
-  Position? _currentPosition;
+  late Box<JobMeasurement> box;
 
   @override
   void initState() {
     super.initState();
-    _determinePosition();
-  }
-
-  Future<void> _determinePosition() async {
-    bool serviceEnabled = await Geolocator.isLocationServiceEnabled();
-    if (!serviceEnabled) return;
-    LocationPermission permission = await Geolocator.checkPermission();
-    if (permission == LocationPermission.denied) {
-      permission = await Geolocator.requestPermission();
-      if (permission == LocationPermission.denied) return;
-    }
-    if (permission == LocationPermission.deniedForever) return;
-
-    Position pos = await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.best);
-    setState(() => _currentPosition = pos);
-  }
-
-  void _addEntry() => setState(() => entries.add(RecordEntry()));
-  void _removeEntry(int idx) {
-    if (entries.length > 1) setState(() => entries.removeAt(idx));
-  }
-
-  Future<void> _pickImage(int idx) async {
-    final XFile? image = await _picker.pickImage(source: ImageSource.gallery);
-    if (image != null) {
-      setState(() => entries[idx].photoPath = image.path);
+    box = Hive.box<JobMeasurement>('measurements');
+    if (box.isEmpty) {
+      box.add(JobMeasurement(companyId: widget.companyName));
     }
   }
 
-  Future<void> _save({required bool complete}) async {
-    final firestore = FirebaseFirestore.instance;
-    final companyRef = firestore.collection('companies').doc(widget.companyId).collection('records');
+  void addCard() {
+    box.add(JobMeasurement(companyId: widget.companyName));
+  }
 
-    for (var entry in entries) {
-      final data = entry.toMap();
+  void deleteCard(JobMeasurement entry) {
+    entry.delete();
+  }
 
-      data['timestamp'] = FieldValue.serverTimestamp();
-      if (_currentPosition != null) {
-        data['gps'] = GeoPoint(_currentPosition!.latitude, _currentPosition!.longitude);
-      }
+  void saveDraft() {
+    ScaffoldMessenger.of(context)
+        .showSnackBar(const SnackBar(content: Text('Đã lưu nháp')));
+  }
 
-      await companyRef.add(data);
+  void submit() {
+    ScaffoldMessenger.of(context)
+        .showSnackBar(const SnackBar(content: Text('Đã lưu & Gửi')));
+  }
+
+  Future<void> pickImage(JobMeasurement entry) async {
+    final typeGroup =
+        const XTypeGroup(label: 'images', extensions: ['jpg', 'png', 'jpeg']);
+    final file = await openFile(acceptedTypeGroups: [typeGroup]);
+    if (file != null) {
+      entry.imagePath = file.path;
+      entry.timestamp = DateTime.now();
+      await entry.save();
+      setState(() {});
     }
+  }
 
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text('${complete ? 'Hoàn tất' : 'Đã lưu nháp'} ${entries.length} mục')),
+  Widget buildOwasBox(JobMeasurement entry) {
+    if (entry.imagePath != null && File(entry.imagePath!).existsSync()) {
+      return GestureDetector(
+        onTap: () => pickImage(entry),
+        child: Image.file(
+          File(entry.imagePath!),
+          width: 48,
+          height: 48,
+          fit: BoxFit.cover,
+        ),
+      );
+    }
+    return IconButton(
+      icon: const Icon(Icons.camera_alt),
+      onPressed: () => pickImage(entry),
     );
   }
 
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Biên bản: ${widget.companyId}'),
+  void editValue(JobMeasurement entry, String label) {
+    final ctrl = TextEditingController();
+    showDialog(
+      context: context,
+      builder: (ctx) => AlertDialog(
+        title: Text('Nhập $label'),
+        content: TextField(
+          controller: ctrl,
+          keyboardType: const TextInputType.numberWithOptions(decimal: true),
+        ),
         actions: [
-          IconButton(icon: const Icon(Icons.save), onPressed: () => _save(complete: false)),
-          IconButton(icon: const Icon(Icons.check), onPressed: () => _save(complete: true)),
+          TextButton(
+            onPressed: () => Navigator.pop(ctx),
+            child: const Text('Hủy'),
+          ),
+          ElevatedButton(
+            onPressed: () {
+              final v = double.tryParse(ctrl.text);
+              if (v != null) {
+                if (label == 'Ánh sáng')
+                  entry.light = v;
+                else if (label == 'Nhiệt độ')
+                  entry.temperature = v;
+                else if (label == 'Độ ẩm') entry.humidity = v;
+                entry.save();
+                setState(() {});
+              }
+              Navigator.pop(ctx);
+            },
+            child: const Text('Đồng ý'),
+          ),
         ],
       ),
-      floatingActionButton: FloatingActionButton(onPressed: _addEntry, child: const Icon(Icons.add)),
-      body: ListView.builder(
-        padding: const EdgeInsets.all(12),
-        itemCount: entries.length,
-        itemBuilder: (context, idx) {
-          return RecordCard(
-            entry: entries[idx],
-            onPickImage: () => _pickImage(idx),
-            onDelete: () => _removeEntry(idx),
-          );
-        },
-      ),
     );
   }
-}
 
-class RecordEntry {
-  String? area, location, detail, address, inspector, weather, photoPath;
-  DateTime? date;
-  TimeOfDay? timeIn, timeOut;
-  double? temp, humidity, light, windSpeed, noise, vibration, co2, o2, co, electricField, radiation;
+  Widget measBox(JobMeasurement entry, String label) {
+    double? val;
+    if (label == 'Ánh sáng')
+      val = entry.light;
+    else if (label == 'Nhiệt độ')
+      val = entry.temperature;
+    else if (label == 'Độ ẩm') val = entry.humidity;
 
-  Map<String, dynamic> toMap() => {
-    'area': area,
-    'location': location,
-    'detail': detail,
-    'address': address,
-    'date': date?.toIso8601String(),
-    'timeIn': timeIn?.formatTimeOfDay(),
-    'timeOut': timeOut?.formatTimeOfDay(),
-    'inspector': inspector,
-    'weather': weather,
-    'temp': temp,
-    'humidity': humidity,
-    'light': light,
-    'windSpeed': windSpeed,
-    'noise': noise,
-    'vibration': vibration,
-    'co2': co2,
-    'o2': o2,
-    'co': co,
-    'electricField': electricField,
-    'radiation': radiation,
-    'photoPath': photoPath,
-  };
-}
-
-class RecordCard extends StatefulWidget {
-  final RecordEntry entry;
-  final VoidCallback onPickImage;
-  final VoidCallback onDelete;
-
-  const RecordCard({
-    super.key,
-    required this.entry,
-    required this.onPickImage,
-    required this.onDelete,
-  });
-
-  @override
-  State<RecordCard> createState() => _RecordCardState();
-}
-
-extension on TimeOfDay {
-  String formatTimeOfDay() {
-    final h = hour.toString().padLeft(2, '0');
-    final m = minute.toString().padLeft(2, '0');
-    return '$h:$m';
-  }
-}
-
-class _RecordCardState extends State<RecordCard> {
-  final areas = ['Xưởng ống thẳng', 'Xưởng ống tròn']; // ví dụ
-  final locations = {
-    'Xưởng ống thẳng': ['Khu vực công cộng', 'Khu vực chỉnh thẳng'],
-    'Xưởng ống tròn': ['Khu vực A', 'Khu vực B'],
-  };
-  final details = {
-    'Khu vực công cộng': ['5.9.5 Phòng tắm trị liệu'],
-    'Khu vực chỉnh thẳng': ['2.1 Công đoạn...'],
-  };
-
-  final tempCtrl = TextEditingController();
-  final humidCtrl = TextEditingController();
-  final inspectorCtrl = TextEditingController();
-  final addressCtrl = TextEditingController();
-  final weatherCtrl = TextEditingController();
-
-  @override
-  void dispose() {
-    tempCtrl.dispose();
-    humidCtrl.dispose();
-    inspectorCtrl.dispose();
-    addressCtrl.dispose();
-    weatherCtrl.dispose();
-    super.dispose();
+    return SizedBox(
+      width: 80,
+      child: Column(
+        children: [
+          Text(label, style: const TextStyle(fontSize: 12)),
+          Text(val?.toString() ?? '-'),
+          IconButton(
+            icon: const Icon(Icons.edit, size: 18),
+            onPressed: () => editValue(entry, label),
+          ),
+        ],
+      ),
+    );
   }
 
   @override
   Widget build(BuildContext context) {
-    final entry = widget.entry;
-    final locList = entry.area != null ? locations[entry.area!] ?? [] : <String>[];
-    final detailList = entry.location != null ? details[entry.location!] ?? [] : <String>[];
+    final titleStyle = Theme.of(context).textTheme.titleLarge;
 
-    return Card(
-      margin: const EdgeInsets.only(bottom: 16),
-      child: Padding(
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Biên bản quan trắc môi trường lao động'),
+      ),
+      body: SingleChildScrollView(
         padding: const EdgeInsets.all(12),
         child: Column(
           children: [
-            // Dropdowns
-            DropdownButtonFormField<String>(
-              decoration: const InputDecoration(labelText: 'Cấp 1 (Khu vực)'),
-              value: entry.area,
-              items: areas.map((a) => DropdownMenuItem(value: a, child: Text(a))).toList(),
-              onChanged: (v) => setState(() {
-                entry.area = v;
-                entry.location = null;
-                entry.detail = null;
-              }),
-            ),
-            const SizedBox(height: 8),
-            DropdownButtonFormField<String>(
-              decoration: const InputDecoration(labelText: 'Cấp 2 (Vị trí)'),
-              value: entry.location,
-              items: locList.map((l) => DropdownMenuItem(value: l, child: Text(l))).toList(),
-              onChanged: (v) => setState(() {
-                entry.location = v;
-                entry.detail = null;
-              }),
-            ),
-            const SizedBox(height: 8),
-            DropdownButtonFormField<String>(
-              decoration: const InputDecoration(labelText: 'Cấp 3 (Chi tiết)'),
-              value: entry.detail,
-              items: detailList.map((d) => DropdownMenuItem(value: d, child: Text(d))).toList(),
-              onChanged: (v) => setState(() => entry.detail = v),
-            ),
-            const Divider(height: 20),
-            TextFormField(
-              controller: addressCtrl,
-              decoration: const InputDecoration(labelText: 'Địa chỉ'),
-              onChanged: (v) => entry.address = v,
-            ),
-            const SizedBox(height: 8),
-            TextFormField(
-              controller: inspectorCtrl,
-              decoration: const InputDecoration(labelText: 'Người quan trắc'),
-              onChanged: (v) => entry.inspector = v,
-            ),
-            const SizedBox(height: 8),
-            TextFormField(
-              controller: weatherCtrl,
-              decoration: const InputDecoration(labelText: 'Thời tiết'),
-              onChanged: (v) => entry.weather = v,
-            ),
-            const Divider(height: 20),
-
-            // Measurements
+            // Công ty + địa chỉ + icon định vị
             Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Expanded(
-                  child: TextFormField(
-                    controller: tempCtrl,
-                    decoration: const InputDecoration(labelText: 'Nhiệt độ (°C)'),
-                    keyboardType: TextInputType.number,
-                    onChanged: (v) => entry.temp = double.tryParse(v),
+                  child: Text(
+                    '${widget.companyName}\n${widget.companyAddress}',
+                    style: titleStyle,
                   ),
                 ),
-                const SizedBox(width: 8),
-                Expanded(
-                  child: TextFormField(
-                    controller: humidCtrl,
-                    decoration: const InputDecoration(labelText: 'Độ ẩm (%)'),
-                    keyboardType: TextInputType.number,
-                    onChanged: (v) => entry.humidity = double.tryParse(v),
-                  ),
+                IconButton(
+                  icon: const Icon(Icons.location_on),
+                  onPressed: () {
+                    // TODO: Mở Google Maps theo địa chỉ
+                  },
                 ),
               ],
             ),
-            const SizedBox(height: 8),
+            const SizedBox(height: 16),
 
-            // Photo picker
-            if (entry.photoPath != null)
-              Image.file(File(entry.photoPath!), height: 100),
-            ElevatedButton.icon(
-              onPressed: widget.onPickImage,
-              icon: const Icon(Icons.photo),
-              label: const Text('Chọn ảnh'),
+            // Danh sách điểm đo
+            ValueListenableBuilder<Box<JobMeasurement>>(
+              valueListenable: box.listenable(),
+              builder: (context, box, _) {
+                final entries = box.values.toList();
+                return Column(
+                  children: entries.map((entry) {
+                    final idx = entries.indexOf(entry) + 1;
+                    return Card(
+                      margin: const EdgeInsets.symmetric(vertical: 8),
+                      child: Padding(
+                        padding: const EdgeInsets.all(12),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            // Tiêu đề điểm đo + nút thêm/xóa
+                            Row(
+                              children: [
+                                Text(
+                                  'Điểm đo $idx',
+                                  style: const TextStyle(
+                                      fontWeight: FontWeight.bold),
+                                ),
+                                const Spacer(),
+                                IconButton(
+                                  icon: const Icon(Icons.delete),
+                                  onPressed: () => deleteCard(entry),
+                                ),
+                                IconButton(
+                                  icon: const Icon(Icons.add),
+                                  onPressed: addCard,
+                                ),
+                              ],
+                            ),
+                            const SizedBox(height: 8),
+
+                            // Vị trí và các cấp
+                            TextFormField(
+                              initialValue: entry.locationL1,
+                              decoration: const InputDecoration(
+                                  labelText: 'Vị trí (mặc định)'),
+                              onChanged: (v) {
+                                entry.locationL1 = v;
+                                entry.save();
+                              },
+                            ),
+                            const SizedBox(height: 8),
+                            Row(
+                              children: [
+                                Expanded(
+                                  child: DropdownButtonFormField<String>(
+                                    decoration: const InputDecoration(
+                                        labelText: 'Cấp 1'),
+                                    value: entry.locationL2,
+                                    items: const [],
+                                    onChanged: (v) {
+                                      entry.locationL2 = v;
+                                      entry.save();
+                                    },
+                                  ),
+                                ),
+                                const SizedBox(width: 8),
+                                Expanded(
+                                  child: DropdownButtonFormField<String>(
+                                    decoration: const InputDecoration(
+                                        labelText: 'Cấp 2'),
+                                    value: entry.locationL3,
+                                    items: const [],
+                                    onChanged: (v) {
+                                      entry.locationL3 = v;
+                                      entry.save();
+                                    },
+                                  ),
+                                ),
+                                const SizedBox(width: 8),
+                                Expanded(
+                                  child: DropdownButtonFormField<String>(
+                                    decoration: const InputDecoration(
+                                        labelText: 'Cấp 3'),
+                                    value: entry.locationL3,
+                                    items: const [],
+                                    onChanged: (v) {
+                                      entry.locationL3 = v;
+                                      entry.save();
+                                    },
+                                  ),
+                                ),
+                              ],
+                            ),
+                            const SizedBox(height: 12),
+
+                            // Các chỉ tiêu đo
+                            Wrap(
+                              spacing: 8,
+                              runSpacing: 8,
+                              children: [
+                                measBox(entry, 'Ánh sáng'),
+                                measBox(entry, 'Nhiệt độ'),
+                                measBox(entry, 'Độ ẩm'),
+                                measBox(entry, 'VT gió'),
+                                measBox(entry, 'Bụi TP'),
+                                measBox(entry, 'CO'),
+                                measBox(entry, 'NO2'),
+                                measBox(entry, 'SO2'),
+                                buildOwasBox(entry),
+                              ],
+                            ),
+                            const SizedBox(height: 12),
+
+                            // Mô tả tư thế + nút thêm chỉ tiêu
+                            Row(
+                              children: [
+                                Expanded(
+                                  child: TextFormField(
+                                    initialValue: entry.description,
+                                    decoration: const InputDecoration(
+                                        labelText: 'Mô tả tư thế lao động'),
+                                    onChanged: (v) {
+                                      entry.description = v;
+                                      entry.save();
+                                    },
+                                  ),
+                                ),
+                                IconButton(
+                                  icon: const Icon(Icons.add_circle_outline),
+                                  onPressed: () {
+                                    // TODO: thêm chỉ tiêu mới động
+                                  },
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                      ),
+                    );
+                  }).toList(),
+                );
+              },
             ),
 
-            Align(
-              alignment: Alignment.centerRight,
-              child: IconButton(
-                icon: const Icon(Icons.delete, color: Colors.red),
-                onPressed: widget.onDelete,
-              ),
+            const SizedBox(height: 16),
+            Row(
+              children: [
+                Expanded(
+                  child: ElevatedButton(
+                    onPressed: saveDraft,
+                    child: const Text('Lưu nháp'),
+                  ),
+                ),
+                const SizedBox(width: 12),
+                Expanded(
+                  child: ElevatedButton(
+                    onPressed: submit,
+                    child: const Text('Lưu & Gửi'),
+                  ),
+                ),
+              ],
             ),
           ],
         ),

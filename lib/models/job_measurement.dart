@@ -8,22 +8,22 @@ class JobMeasurement extends HiveObject {
   String companyId;
 
   @HiveField(1)
-  String locationL1;
+  String? locationL1;
 
   @HiveField(2)
-  String locationL2;
+  String? locationL2;
 
   @HiveField(3)
-  String locationL3;
+  String? locationL3;
 
   @HiveField(4)
-  double light;
+  double? light;
 
   @HiveField(5)
-  double temperature;
+  double? temperature;
 
   @HiveField(6)
-  double humidity;
+  double? humidity;
 
   @HiveField(7)
   String? imagePath;
@@ -35,19 +35,27 @@ class JobMeasurement extends HiveObject {
   double? longitude;
 
   @HiveField(10)
-  DateTime timestamp;
+  DateTime? timestamp;
+
+  @HiveField(11)
+  bool isInHive;
+
+  @HiveField(12)
+  String? description;
 
   JobMeasurement({
     required this.companyId,
-    required this.locationL1,
-    required this.locationL2,
-    required this.locationL3,
-    required this.light,
-    required this.temperature,
-    required this.humidity,
+    this.locationL1,
+    this.locationL2,
+    this.locationL3,
+    this.light,
+    this.temperature,
+    this.humidity,
     this.imagePath,
     this.latitude,
     this.longitude,
-    required this.timestamp,
+    this.timestamp,
+    this.isInHive = true,
+    this.description,
   });
 }
