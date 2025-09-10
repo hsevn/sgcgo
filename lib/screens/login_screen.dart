@@ -63,7 +63,9 @@ class _LoginScreenState extends State<LoginScreen> {
                       borderRadius: BorderRadius.circular(12),
                     ),
                   ),
-                  validator: (value) => value == null || value.isEmpty ? 'Không để trống email' : null,
+                  validator: (value) => value == null || value.isEmpty
+                      ? 'Không để trống email'
+                      : null,
                 ),
                 const SizedBox(height: 16),
 
@@ -78,11 +80,16 @@ class _LoginScreenState extends State<LoginScreen> {
                       borderRadius: BorderRadius.circular(12),
                     ),
                     suffixIcon: IconButton(
-                      icon: Icon(_obscureText ? Icons.visibility_off : Icons.visibility),
-                      onPressed: () => setState(() => _obscureText = !_obscureText),
+                      icon: Icon(_obscureText
+                          ? Icons.visibility_off
+                          : Icons.visibility),
+                      onPressed: () =>
+                          setState(() => _obscureText = !_obscureText),
                     ),
                   ),
-                  validator: (value) => value == null || value.isEmpty ? 'Không để trống mật khẩu' : null,
+                  validator: (value) => value == null || value.isEmpty
+                      ? 'Không để trống mật khẩu'
+                      : null,
                 ),
                 const SizedBox(height: 16),
 

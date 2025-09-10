@@ -48,11 +48,13 @@ class DashboardScreen extends StatelessWidget {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Icon(item['icon'] as IconData, size: 40, color: Colors.green),
+                    Icon(item['icon'] as IconData,
+                        size: 40, color: Colors.green),
                     const SizedBox(height: 12),
                     Text(
                       item['label'] as String,
-                      style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+                      style: const TextStyle(
+                          fontSize: 16, fontWeight: FontWeight.w600),
                     ),
                   ],
                 ),

@@ -11,8 +11,20 @@ class JobMeasurement extends HiveObject {
   String? areaName;
 
   @HiveField(2)
-  String? postureNote;
+  String? l1;
 
   @HiveField(3)
+  String? l2;
+
+  @HiveField(4)
+  String? l3;
+
+  @HiveField(5)
+  String? owasPhotoPath;
+
+  @HiveField(6)
+  String? postureNote;
+
+  @HiveField(7)
   Map<String, String>? indicatorValues;
 }

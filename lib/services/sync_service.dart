@@ -31,7 +31,6 @@ Future<void> syncRecords() async {
   }
 }
 
-
 class SyncService {
   static void init() {
     Connectivity().onConnectivityChanged.listen((status) {
@@ -45,16 +44,15 @@ class SyncService {
     var box = Hive.box<JobMeasurement>('measurementsBox');
     for (var i = 0; i < box.length; i++) {
       var rec = box.getAt(i)!;
-      if (!rec.isInHive != null) { // Bạn có thể dùng field isSynced nếu muốn
-        var json = rec.toMap();
-        var res = await http.post(
-          Uri.parse('http://<YOUR_BACKEND>/api/save_record'),
-          headers: {'Content-Type': 'application/json'},
-          body: jsonEncode(json),
-        );
-        if (res.statusCode == 200) {
-          rec.delete(); // Xóa bản ghi sau khi đã sync thành công
-        }
+      // Bạn có thể dùng field isSynced nếu muốn
+      var json = rec.toMap();
+      var res = await http.post(
+        Uri.parse('http://<YOUR_BACKEND>/api/save_record'),
+        headers: {'Content-Type': 'application/json'},
+        body: jsonEncode(json),
+      );
+      if (res.statusCode == 200) {
+        rec.delete(); // Xóa bản ghi sau khi đã sync thành công
       }
     }
   }

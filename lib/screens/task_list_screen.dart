@@ -26,8 +26,10 @@ class _TaskListScreenState extends State<TaskListScreen> {
   @override
   Widget build(BuildContext context) {
     final filtered = _allTasks.where((task) {
-      final matchesSearch = task['name']!.toLowerCase().contains(_search.toLowerCase());
-      final matchesStatus = _filterStatus == 'Tất cả' || task['status'] == _filterStatus;
+      final matchesSearch =
+          task['name']!.toLowerCase().contains(_search.toLowerCase());
+      final matchesStatus =
+          _filterStatus == 'Tất cả' || task['status'] == _filterStatus;
       return matchesSearch && matchesStatus;
     }).toList();
 
@@ -37,7 +39,8 @@ class _TaskListScreenState extends State<TaskListScreen> {
         backgroundColor: Colors.blue,
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
-          onPressed: () => Navigator.pushReplacementNamed(context, '/dashboard'),
+          onPressed: () =>
+              Navigator.pushReplacementNamed(context, '/dashboard'),
         ),
         actions: [
           IconButton(
@@ -65,56 +68,76 @@ class _TaskListScreenState extends State<TaskListScreen> {
                       });
                     },
                   ),
-                  border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
+                  border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(8)),
                 ),
                 onChanged: (val) => setState(() => _search = val),
               ),
             ),
-
           Padding(
-            padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 12.0),
+            padding:
+                const EdgeInsets.symmetric(vertical: 8.0, horizontal: 12.0),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: ['Tất cả', 'Tạm hoãn', 'Đang làm', 'Hoàn thành'].map((label) {
+              children:
+                  ['Tất cả', 'Tạm hoãn', 'Đang làm', 'Hoàn thành'].map((label) {
                 final isSelected = _filterStatus == label;
                 return ElevatedButton(
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: isSelected ? Colors.blue : Colors.grey.shade300,
+                    backgroundColor:
+                        isSelected ? Colors.blue : Colors.grey.shade300,
                     elevation: isSelected ? 2 : 0,
                   ),
                   onPressed: () => setState(() => _filterStatus = label),
                   child: Text(
                     label,
-                    style: TextStyle(color: isSelected ? Colors.white : Colors.black),
+                    style: TextStyle(
+                        color: isSelected ? Colors.white : Colors.black),
                   ),
                 );
               }).toList(),
             ),
           ),
-
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
             color: Colors.grey.shade200,
             child: Row(
               children: const [
-                Expanded(flex: 2, child: Text('Tên Cty', style: TextStyle(fontWeight: FontWeight.bold))),
-                Expanded(flex: 2, child: Text('Địa chỉ', style: TextStyle(fontWeight: FontWeight.bold))),
-                Expanded(flex: 1, child: Text('Bản đồ', style: TextStyle(fontWeight: FontWeight.bold))),
-                Expanded(flex: 2, child: Text('Ngày QT', style: TextStyle(fontWeight: FontWeight.bold))),
-                Expanded(flex: 1, child: Text('Trạng thái', style: TextStyle(fontWeight: FontWeight.bold))),
+                Expanded(
+                    flex: 2,
+                    child: Text('Tên Cty',
+                        style: TextStyle(fontWeight: FontWeight.bold))),
+                Expanded(
+                    flex: 2,
+                    child: Text('Địa chỉ',
+                        style: TextStyle(fontWeight: FontWeight.bold))),
+                Expanded(
+                    flex: 1,
+                    child: Text('Bản đồ',
+                        style: TextStyle(fontWeight: FontWeight.bold))),
+                Expanded(
+                    flex: 2,
+                    child: Text('Ngày QT',
+                        style: TextStyle(fontWeight: FontWeight.bold))),
+                Expanded(
+                    flex: 1,
+                    child: Text('Trạng thái',
+                        style: TextStyle(fontWeight: FontWeight.bold))),
               ],
             ),
           ),
-
           Expanded(
             child: ListView.builder(
               itemCount: filtered.length,
               itemBuilder: (context, index) {
                 final task = filtered[index];
                 Color statusColor = Colors.grey;
-                if (task['status'] == 'Đang làm') statusColor = Colors.orange;
-                else if (task['status'] == 'Tạm hoãn') statusColor = Colors.red;
-                else if (task['status'] == 'Hoàn thành') statusColor = Colors.green;
+                if (task['status'] == 'Đang làm')
+                  statusColor = Colors.orange;
+                else if (task['status'] == 'Tạm hoãn')
+                  statusColor = Colors.red;
+                else if (task['status'] == 'Hoàn thành')
+                  statusColor = Colors.green;
 
                 return InkWell(
                   onTap: () {
@@ -125,8 +148,10 @@ class _TaskListScreenState extends State<TaskListScreen> {
                     );
                   },
                   child: Container(
-                    padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 12),
-                    margin: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                    padding: const EdgeInsets.symmetric(
+                        vertical: 12, horizontal: 12),
+                    margin:
+                        const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                     decoration: BoxDecoration(
                       color: Colors.white,
                       borderRadius: BorderRadius.circular(8),
@@ -142,12 +167,15 @@ class _TaskListScreenState extends State<TaskListScreen> {
                       children: [
                         Expanded(flex: 2, child: Text(task['name']!)),
                         Expanded(flex: 2, child: Text(task['address']!)),
-                        const Expanded(flex: 1, child: Icon(Icons.map, color: Colors.blue)),
+                        const Expanded(
+                            flex: 1,
+                            child: Icon(Icons.map, color: Colors.blue)),
                         Expanded(flex: 2, child: Text(task['date']!)),
                         Expanded(
                           flex: 1,
                           child: Container(
-                            padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 4),
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 6, vertical: 4),
                             decoration: BoxDecoration(
                               color: statusColor.withOpacity(0.2),
                               borderRadius: BorderRadius.circular(8),
@@ -170,10 +198,10 @@ class _TaskListScreenState extends State<TaskListScreen> {
               },
             ),
           ),
-
           Container(
             color: Colors.white,
-            padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 12.0),
+            padding:
+                const EdgeInsets.symmetric(vertical: 8.0, horizontal: 12.0),
             child: Row(
               children: [
                 IconButton(
@@ -184,7 +212,8 @@ class _TaskListScreenState extends State<TaskListScreen> {
                 ),
                 const Spacer(),
                 IconButton(
-                  onPressed: () => Navigator.pushReplacementNamed(context, '/dashboard'),
+                  onPressed: () =>
+                      Navigator.pushReplacementNamed(context, '/dashboard'),
                   icon: const Icon(Icons.home, color: Colors.blue, size: 32),
                 ),
               ],

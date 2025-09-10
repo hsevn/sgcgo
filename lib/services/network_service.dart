@@ -1,6 +1,5 @@
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:hive/hive.dart';
-import '../models/record_entry.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
@@ -15,7 +14,8 @@ class NetworkService {
 
   static void syncPendingRecords() async {
     final box = Hive.box('recordsBox');
-    final unsynced = box.values.cast<Map>().where((e) => e['isSynced'] == false).toList();
+    final unsynced =
+        box.values.cast<Map>().where((e) => e['isSynced'] == false).toList();
 
     for (int i = 0; i < unsynced.length; i++) {
       final entry = unsynced[i];

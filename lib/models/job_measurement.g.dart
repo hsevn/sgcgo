@@ -19,21 +19,33 @@ class JobMeasurementAdapter extends TypeAdapter<JobMeasurement> {
     return JobMeasurement()
       ..companyId = fields[0] as String?
       ..areaName = fields[1] as String?
-      ..postureNote = fields[2] as String?
-      ..indicatorValues = (fields[3] as Map?)?.cast<String, String>();
+      ..l1 = fields[2] as String?
+      ..l2 = fields[3] as String?
+      ..l3 = fields[4] as String?
+      ..owasPhotoPath = fields[5] as String?
+      ..postureNote = fields[6] as String?
+      ..indicatorValues = (fields[7] as Map?)?.cast<String, String>();
   }
 
   @override
   void write(BinaryWriter writer, JobMeasurement obj) {
     writer
-      ..writeByte(4)
+      ..writeByte(8)
       ..writeByte(0)
       ..write(obj.companyId)
       ..writeByte(1)
       ..write(obj.areaName)
       ..writeByte(2)
-      ..write(obj.postureNote)
+      ..write(obj.l1)
       ..writeByte(3)
+      ..write(obj.l2)
+      ..writeByte(4)
+      ..write(obj.l3)
+      ..writeByte(5)
+      ..write(obj.owasPhotoPath)
+      ..writeByte(6)
+      ..write(obj.postureNote)
+      ..writeByte(7)
       ..write(obj.indicatorValues);
   }
 
