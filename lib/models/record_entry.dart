@@ -12,16 +12,16 @@ class RecordEntry {
   });
 
   Map<String, dynamic> toMap() => {
-    'company': company,
-    'area': area,
-    'temperature': temperature,
-    'isSynced': isSynced,
-  };
+        'company': company,
+        'area': area,
+        'temperature': temperature,
+        'isSynced': isSynced,
+      };
 
   static RecordEntry fromMap(Map map) => RecordEntry(
-    company: map['company'],
-    area: map['area'],
-    temperature: map['temperature'],
-    isSynced: map['isSynced'] ?? false,
-  );
+        company: map['company'],
+        area: map['area'],
+        temperature: map['temperature'],
+        isSynced: map['isSynced'] ?? false,
+      );
 }

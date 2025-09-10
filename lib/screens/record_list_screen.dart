@@ -1,352 +1,536 @@
-// lib/screens/record_list_screen.dart
-
-import 'dart:io';
+import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:file_selector/file_selector.dart';
-
 import '../models/job_measurement.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class RecordListScreen extends StatefulWidget {
   final String companyName;
   final String companyAddress;
-
   const RecordListScreen({
-    Key? key,
+    super.key,
     required this.companyName,
     required this.companyAddress,
-  }) : super(key: key);
-
-class LocationEntry {
-  final String l1Code;
-  final String l2Code;
-  final String l3Code;
-  final String description;
-
-  LocationEntry({
-    required this.l1Code,
-    required this.l2Code,
-    required this.l3Code,
-    required this.description,
   });
-}
 
   @override
   State<RecordListScreen> createState() => _RecordListScreenState();
 }
 
 class _RecordListScreenState extends State<RecordListScreen> {
-  late Box<JobMeasurement> box;
+  late final Box<JobMeasurement> box;
+  late final Future<void> _initFuture;
+  List<Map<String, dynamic>> locationData = [];
+
+  bool phoneVisible = false;
 
   @override
   void initState() {
     super.initState();
     box = Hive.box<JobMeasurement>('measurements');
-    if (box.isEmpty) {
-      box.add(JobMeasurement(companyId: widget.companyName));
+    _initFuture = _loadAssets();
+  }
+
+  Future<void> _loadAssets() async {
+    final rawLoc = await rootBundle.loadString('assets/phan_cap.json');
+    locationData = List<Map<String, dynamic>>.from(json.decode(rawLoc));
+  }
+
+  Future<void> _openMap(String address) async {
+    final Uri url = Uri.parse(
+        "https://www.google.com/maps/search/?api=1&query=${Uri.encodeComponent(address)}");
+    if (!await launchUrl(url, mode: LaunchMode.externalApplication)) {
+      throw Exception('Không mở được Google Maps');
     }
   }
 
-  void addCard() {
-    box.add(JobMeasurement(companyId: widget.companyName));
-  }
-
-  void deleteCard(JobMeasurement entry) {
-    entry.delete();
-  }
-
-  void saveDraft() {
-    ScaffoldMessenger.of(context)
-        .showSnackBar(const SnackBar(content: Text('Đã lưu nháp')));
-  }
-
-  void submit() {
-    ScaffoldMessenger.of(context)
-        .showSnackBar(const SnackBar(content: Text('Đã lưu & Gửi')));
-  }
-
-  Future<void> pickImage(JobMeasurement entry) async {
-    final typeGroup =
-        const XTypeGroup(label: 'images', extensions: ['jpg', 'png', 'jpeg']);
-    final file = await openFile(acceptedTypeGroups: [typeGroup]);
-    if (file != null) {
-      entry.imagePath = file.path;
-      entry.timestamp = DateTime.now();
-      await entry.save();
-      setState(() {});
-    }
-  }
-
-  Widget buildOwasBox(JobMeasurement entry) {
-    if (entry.imagePath != null && File(entry.imagePath!).existsSync()) {
-      return GestureDetector(
-        onTap: () => pickImage(entry),
-        child: Image.file(
-          File(entry.imagePath!),
-          width: 48,
-          height: 48,
-          fit: BoxFit.cover,
-        ),
-      );
-    }
-    return IconButton(
-      icon: const Icon(Icons.camera_alt),
-      onPressed: () => pickImage(entry),
-    );
-  }
-
-  void editValue(JobMeasurement entry, String label) {
-    final ctrl = TextEditingController();
-    showDialog(
-      context: context,
-      builder: (ctx) => AlertDialog(
-        title: Text('Nhập $label'),
-        content: TextField(
-          controller: ctrl,
-          keyboardType: const TextInputType.numberWithOptions(decimal: true),
-        ),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(ctx),
-            child: const Text('Hủy'),
-          ),
-          ElevatedButton(
-            onPressed: () {
-              final v = double.tryParse(ctrl.text);
-              if (v != null) {
-                if (label == 'Ánh sáng')
-                  entry.light = v;
-                else if (label == 'Nhiệt độ')
-                  entry.temperature = v;
-                else if (label == 'Độ ẩm') entry.humidity = v;
-                entry.save();
-                setState(() {});
-              }
-              Navigator.pop(ctx);
-            },
-            child: const Text('Đồng ý'),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget measBox(JobMeasurement entry, String label) {
-    double? val;
-    if (label == 'Ánh sáng')
-      val = entry.light;
-    else if (label == 'Nhiệt độ')
-      val = entry.temperature;
-    else if (label == 'Độ ẩm') val = entry.humidity;
-
-    return SizedBox(
-      width: 80,
-      child: Column(
-        children: [
-          Text(label, style: const TextStyle(fontSize: 12)),
-          Text(val?.toString() ?? '-'),
-          IconButton(
-            icon: const Icon(Icons.edit, size: 18),
-            onPressed: () => editValue(entry, label),
-          ),
-        ],
-      ),
-    );
-  }
+  void saveDraft() => ScaffoldMessenger.of(context)
+      .showSnackBar(const SnackBar(content: Text('Đã lưu nháp')));
+  void submit() => ScaffoldMessenger.of(context)
+      .showSnackBar(const SnackBar(content: Text('Đã lưu & Gửi')));
 
   @override
   Widget build(BuildContext context) {
-    final titleStyle = Theme.of(context).textTheme.titleLarge;
+    return FutureBuilder(
+      future: _initFuture,
+      builder: (context, snap) {
+        if (snap.connectionState != ConnectionState.done) {
+          return const Scaffold(
+              body: Center(child: CircularProgressIndicator()));
+        }
+        return _buildMainUI(context);
+      },
+    );
+  }
 
+  Widget _buildMainUI(BuildContext context) {
     return Scaffold(
+      backgroundColor: const Color(0xFFE0F7FA),
       appBar: AppBar(
-        title: const Text('Biên bản quan trắc môi trường lao động'),
+        toolbarHeight: 60,
+        backgroundColor: const Color(0xFFB3E5FC),
+        leading: Container(
+          margin: const EdgeInsets.all(8),
+          decoration: BoxDecoration(
+            color: Colors.purple,
+            borderRadius: BorderRadius.circular(8),
+          ),
+          child: IconButton(
+            icon: const Icon(Icons.arrow_back, size: 24, color: Colors.white),
+            onPressed: () => Navigator.pop(context),
+          ),
+        ),
+        centerTitle: true,
+        title: const Text(
+          "BIÊN BẢN QUAN TRẮC MÔI TRƯỜNG LAO ĐỘNG",
+          style: TextStyle(
+            fontSize: 16,
+            fontWeight: FontWeight.bold,
+            color: Colors.black,
+          ),
+        ),
       ),
       body: SingleChildScrollView(
-        padding: const EdgeInsets.all(12),
+        padding: const EdgeInsets.all(16),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            // Công ty + địa chỉ + icon định vị
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Expanded(
-                  child: Text(
-                    '${widget.companyName}\n${widget.companyAddress}',
-                    style: titleStyle,
-                  ),
-                ),
-                IconButton(
-                  icon: const Icon(Icons.location_on),
-                  onPressed: () {
-                    // TODO: Mở Google Maps theo địa chỉ
-                  },
-                ),
-              ],
-            ),
+            _buildCustomerInfo(),
             const SizedBox(height: 16),
-
-            // Danh sách điểm đo
+            _buildObservationInfo(),
+            const SizedBox(height: 16),
             ValueListenableBuilder<Box<JobMeasurement>>(
               valueListenable: box.listenable(),
               builder: (context, box, _) {
                 final entries = box.values.toList();
+                if (entries.isEmpty) {
+                  WidgetsBinding.instance.addPostFrameCallback((_) {
+                    final jm = JobMeasurement();
+                    jm.companyId = widget.companyName;
+                    box.add(jm);
+                  });
+                  return const SizedBox();
+                }
                 return Column(
-                  children: entries.map((entry) {
-                    final idx = entries.indexOf(entry) + 1;
-                    return Card(
-                      margin: const EdgeInsets.symmetric(vertical: 8),
-                      child: Padding(
-                        padding: const EdgeInsets.all(12),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            // Tiêu đề điểm đo + nút thêm/xóa
-                            Row(
-                              children: [
-                                Text(
-                                  'Điểm đo $idx',
-                                  style: const TextStyle(
-                                      fontWeight: FontWeight.bold),
-                                ),
-                                const Spacer(),
-                                IconButton(
-                                  icon: const Icon(Icons.delete),
-                                  onPressed: () => deleteCard(entry),
-                                ),
-                                IconButton(
-                                  icon: const Icon(Icons.add),
-                                  onPressed: addCard,
-                                ),
-                              ],
-                            ),
-                            const SizedBox(height: 8),
-
-                            // Vị trí và các cấp
-                            TextFormField(
-                              initialValue: entry.locationL1,
-                              decoration: const InputDecoration(
-                                  labelText: 'Vị trí (mặc định)'),
-                              onChanged: (v) {
-                                entry.locationL1 = v;
-                                entry.save();
-                              },
-                            ),
-                            const SizedBox(height: 8),
-                            Row(
-                              children: [
-                                Expanded(
-                                  child: DropdownButtonFormField<String>(
-                                    decoration: const InputDecoration(
-                                        labelText: 'Cấp 1'),
-                                    value: entry.locationL2,
-                                    items: const [],
-                                    onChanged: (v) {
-                                      entry.locationL2 = v;
-                                      entry.save();
-                                    },
-                                  ),
-                                ),
-                                const SizedBox(width: 8),
-                                Expanded(
-                                  child: DropdownButtonFormField<String>(
-                                    decoration: const InputDecoration(
-                                        labelText: 'Cấp 2'),
-                                    value: entry.locationL3,
-                                    items: const [],
-                                    onChanged: (v) {
-                                      entry.locationL3 = v;
-                                      entry.save();
-                                    },
-                                  ),
-                                ),
-                                const SizedBox(width: 8),
-                                Expanded(
-                                  child: DropdownButtonFormField<String>(
-                                    decoration: const InputDecoration(
-                                        labelText: 'Cấp 3'),
-                                    value: entry.locationL3,
-                                    items: const [],
-                                    onChanged: (v) {
-                                      entry.locationL3 = v;
-                                      entry.save();
-                                    },
-                                  ),
-                                ),
-                              ],
-                            ),
-                            const SizedBox(height: 12),
-
-                            // Các chỉ tiêu đo
-                            Wrap(
-                              spacing: 8,
-                              runSpacing: 8,
-                              children: [
-                                measBox(entry, 'Ánh sáng'),
-                                measBox(entry, 'Nhiệt độ'),
-                                measBox(entry, 'Độ ẩm'),
-                                measBox(entry, 'VT gió'),
-                                measBox(entry, 'Bụi TP'),
-                                measBox(entry, 'CO'),
-                                measBox(entry, 'NO2'),
-                                measBox(entry, 'SO2'),
-                                buildOwasBox(entry),
-                              ],
-                            ),
-                            const SizedBox(height: 12),
-
-                            // Mô tả tư thế + nút thêm chỉ tiêu
-                            Row(
-                              children: [
-                                Expanded(
-                                  child: TextFormField(
-                                    initialValue: entry.description,
-                                    decoration: const InputDecoration(
-                                        labelText: 'Mô tả tư thế lao động'),
-                                    onChanged: (v) {
-                                      entry.description = v;
-                                      entry.save();
-                                    },
-                                  ),
-                                ),
-                                IconButton(
-                                  icon: const Icon(Icons.add_circle_outline),
-                                  onPressed: () {
-                                    // TODO: thêm chỉ tiêu mới động
-                                  },
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
-                      ),
-                    );
-                  }).toList(),
+                  children: entries.map(_buildMeasurementCard).toList(),
                 );
               },
             ),
-
-            const SizedBox(height: 16),
-            Row(
-              children: [
-                Expanded(
+            const SizedBox(height: 24),
+            Row(children: [
+              Expanded(
+                child: SizedBox(
+                  height: 50,
                   child: ElevatedButton(
                     onPressed: saveDraft,
-                    child: const Text('Lưu nháp'),
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: const Color(0xFF4DD0E1),
+                      foregroundColor: Colors.black,
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(25)),
+                      elevation: 0,
+                    ),
+                    child: const Text("Lưu nháp",
+                        style: TextStyle(
+                            fontSize: 16, fontWeight: FontWeight.w600)),
                   ),
                 ),
-                const SizedBox(width: 12),
-                Expanded(
+              ),
+              const SizedBox(width: 16),
+              Expanded(
+                child: SizedBox(
+                  height: 50,
                   child: ElevatedButton(
                     onPressed: submit,
-                    child: const Text('Lưu & Gửi'),
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: const Color(0xFF4DD0E1),
+                      foregroundColor: Colors.black,
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(25)),
+                      elevation: 0,
+                    ),
+                    child: const Text("Lưu & Gửi",
+                        style: TextStyle(
+                            fontSize: 16, fontWeight: FontWeight.w600)),
                   ),
                 ),
-              ],
-            ),
+              ),
+            ]),
+            const SizedBox(height: 24),
           ],
         ),
       ),
+    );
+  }
+
+  // 🟣 Customer Info UI
+  Widget _buildCustomerInfo() {
+    return Column(
+      children: [
+        // Company Name Row
+        Row(
+          children: [
+            _buildChip("Tên"),
+            const SizedBox(width: 12),
+            Expanded(
+              child: _buildValueBox(widget.companyName),
+            ),
+          ],
+        ),
+        const SizedBox(height: 12),
+
+        // Address Row
+        Row(
+          children: [
+            _buildChip("Địa chỉ"),
+            const SizedBox(width: 12),
+            Expanded(
+              child: _buildValueBox(widget.companyAddress),
+            ),
+            const SizedBox(width: 8),
+            _buildIconBox(Icons.location_on,
+                onTap: () => _openMap(widget.companyAddress)),
+          ],
+        ),
+        const SizedBox(height: 12),
+
+        // Contact Row
+        Row(
+          children: [
+            _buildChip("Liên hệ"),
+            const SizedBox(width: 12),
+            Expanded(
+              child: _buildValueBox("Tên KH: Nguyễn Văn A"),
+            ),
+            const SizedBox(width: 8),
+            _buildIconBox(
+              phoneVisible ? Icons.visibility_off : Icons.visibility,
+              onTap: () => setState(() => phoneVisible = !phoneVisible),
+            ),
+          ],
+        ),
+      ],
+    );
+  }
+
+  Widget _buildChip(String text) => Container(
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+        decoration: BoxDecoration(
+          color: const Color(0xFFB39DDB),
+          borderRadius: BorderRadius.circular(20),
+        ),
+        child: Text(text,
+            style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w600)),
+      );
+
+  Widget _buildValueBox(String text) => Container(
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+        decoration: BoxDecoration(
+          color: const Color(0xFF4DD0E1),
+          borderRadius: BorderRadius.circular(20),
+        ),
+        child: Text(text,
+            style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w500)),
+      );
+
+  Widget _buildIconBox(IconData icon, {VoidCallback? onTap}) => Container(
+        decoration: BoxDecoration(
+          color: Colors.purple,
+          borderRadius: BorderRadius.circular(20),
+        ),
+        child: IconButton(
+          icon: Icon(icon, color: Colors.white, size: 24),
+          onPressed: onTap,
+        ),
+      );
+
+  // 🟣 Observation Info
+  Widget _buildObservationInfo() {
+    return Row(
+      children: [
+        Expanded(
+          child: _buildInfoCard([
+            "Người QT: Nguyễn Văn B",
+            "Ngày QT: 05/9/2025",
+            "Thời tiết: nắng, không mưa",
+            "Ca làm việc: 2 ca",
+            "Tổng số người LĐ: 2846",
+          ]),
+        ),
+        const SizedBox(width: 12),
+        Expanded(
+          child: _buildInfoCard([
+            "Giờ vào: 08 giờ 30",
+            "VKH lúc vào: nắng, gió nhẹ",
+            "Giờ ra: 13 giờ 30",
+            "VKH lúc ra: nắng, gió nhẹ",
+            "Đại diện KH: Nguyễn Văn C",
+          ]),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildInfoCard(List<String> lines) => Container(
+        padding: const EdgeInsets.all(16),
+        decoration: BoxDecoration(
+          color: const Color(0xFF4DD0E1),
+          borderRadius: BorderRadius.circular(16),
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: lines
+              .map((t) => Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 2),
+                    child: Text(t,
+                        style: const TextStyle(
+                            fontSize: 14, fontWeight: FontWeight.w500)),
+                  ))
+              .toList(),
+        ),
+      );
+
+  // 🟣 Measurement Card
+  Widget _buildMeasurementCard(JobMeasurement entry) {
+    final idx = box.values.toList().indexOf(entry) + 1;
+
+    return Container(
+      margin: const EdgeInsets.only(bottom: 16),
+      padding: const EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        color: const Color(0xFF4DD0E1),
+        borderRadius: BorderRadius.circular(16),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              Text("Điểm $idx",
+                  style: const TextStyle(
+                      fontSize: 16, fontWeight: FontWeight.bold)),
+              const Spacer(),
+              _buildAddButton(),
+            ],
+          ),
+          const SizedBox(height: 16),
+          _buildDropdownRow(entry),
+          const SizedBox(height: 16),
+          _buildIndicatorsGrid(),
+          const SizedBox(height: 16),
+          _buildPhotoAndDescription(idx),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildAddButton() => Container(
+        decoration: BoxDecoration(
+          color: const Color(0xFF4DD0E1),
+          borderRadius: BorderRadius.circular(20),
+          border: Border.all(color: Colors.purple, width: 2),
+        ),
+        child: TextButton.icon(
+          onPressed: () {
+            final jm = JobMeasurement();
+            jm.companyId = widget.companyName;
+            box.add(jm);
+          },
+          icon: Container(
+            padding: const EdgeInsets.all(4),
+            decoration: BoxDecoration(
+              color: Colors.purple,
+              borderRadius: BorderRadius.circular(12),
+            ),
+            child: const Icon(Icons.add, color: Colors.white, size: 20),
+          ),
+          label: const Text("Thêm thẻ",
+              style:
+                  TextStyle(color: Colors.black, fontWeight: FontWeight.w600)),
+        ),
+      );
+
+  Widget _buildDropdownRow(JobMeasurement entry) {
+    return Row(
+      children: [
+        Expanded(
+          child: Column(
+            children: [
+              _buildValueBox("Kho nguyên liệu"),
+              const SizedBox(height: 8),
+              _buildValueBox("L2_NAME"),
+            ],
+          ),
+        ),
+        const SizedBox(width: 8),
+        Expanded(
+          child: Column(
+            children: [
+              _buildValueBox("L1_NAME"),
+              const SizedBox(height: 8),
+              _buildValueBox("L3_NAME"),
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildIndicatorsGrid() {
+    final indicators = [
+      {"title": "Ánh sáng", "unit": "Lux", "value": "234"},
+      {"title": "Ôn chung", "unit": "dB", "value": "64,5"},
+      {"title": "Nhiệt độ", "unit": "°C", "value": "21,3"},
+      {"title": "Độ ẩm", "unit": "%", "value": "32,3"},
+      {"title": "Tốc độ gió", "unit": "m/s", "value": "0,12"},
+      {"title": "Rung", "unit": "mm/s2", "value": "R"},
+      {"title": "Điện trường", "unit": "KV/m", "value": "0,21"},
+      {"title": "Từ trường", "unit": "MA/m", "value": "0,013"},
+      {"title": "Bụi toàn phần", "unit": "mg/m³", "value": "0,13"},
+      {"title": "Bức xạ nhiệt", "unit": "°C", "value": "22,3"},
+      {"title": "O2", "unit": "%", "value": "0,16"},
+      {"title": "CO", "unit": "ppm", "value": "K1"},
+      {"title": "CO2", "unit": "ppm", "value": "650"},
+      {"title": "SO2", "unit": "ppm", "value": "K1"},
+      {"title": "NO2", "unit": "ppm", "value": "K1"},
+    ];
+
+    return GridView.count(
+      crossAxisCount: 5,
+      mainAxisSpacing: 8,
+      crossAxisSpacing: 8,
+      shrinkWrap: true,
+      physics: const NeverScrollableScrollPhysics(),
+      childAspectRatio: 0.85,
+      children: [
+        ...indicators.map((e) => Container(
+              decoration: BoxDecoration(
+                color: const Color(0xFF4DD0E1),
+                borderRadius: BorderRadius.circular(12),
+                border: Border.all(color: Colors.blue.shade200),
+              ),
+              padding: const EdgeInsets.all(8),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(e['title']!,
+                      style: const TextStyle(
+                          fontSize: 11, fontWeight: FontWeight.w600),
+                      textAlign: TextAlign.center),
+                  const SizedBox(height: 4),
+                  Container(
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                    decoration: BoxDecoration(
+                      color: const Color(0xFFE1BEE7),
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    child: Text(e['value']!,
+                        style: const TextStyle(
+                            fontSize: 13, fontWeight: FontWeight.bold),
+                        textAlign: TextAlign.center),
+                  ),
+                  const SizedBox(height: 2),
+                  Text(e['unit']!,
+                      style:
+                          const TextStyle(fontSize: 10, color: Colors.black87),
+                      textAlign: TextAlign.center),
+                ],
+              ),
+            )),
+      ],
+    );
+  }
+
+  Widget _buildPhotoAndDescription(int idx) {
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        // OWAS Photo Button
+        Container(
+          width: 80,
+          height: 80,
+          margin: const EdgeInsets.only(right: 12),
+          decoration: BoxDecoration(
+            color: Colors.purple,
+            borderRadius: BorderRadius.circular(12),
+          ),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const Text("OWAS",
+                  style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 12,
+                      fontWeight: FontWeight.bold)),
+              const SizedBox(height: 4),
+              Container(
+                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                decoration: BoxDecoration(
+                  color: const Color(0xFF4DD0E1),
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                child: Text("Ảnh $idx",
+                    style: const TextStyle(
+                        fontSize: 12, fontWeight: FontWeight.bold)),
+              ),
+            ],
+          ),
+        ),
+        // Description
+        Expanded(
+          child: Container(
+            padding: const EdgeInsets.all(12),
+            decoration: BoxDecoration(
+              color: const Color(0xFF4DD0E1),
+              borderRadius: BorderRadius.circular(12),
+              border: Border.all(color: Colors.blue.shade200),
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: const [
+                Text("Mô tả tư thế lao động",
+                    style:
+                        TextStyle(fontSize: 12, fontWeight: FontWeight.bold)),
+                SizedBox(height: 4),
+                Text(
+                  "Nhân viên công đoạn này có nhiệm vụ cho liệu vào máy Chỉnh lý...",
+                  style: TextStyle(fontSize: 11),
+                ),
+              ],
+            ),
+          ),
+        ),
+        // Add Indicator Button
+        Container(
+          width: 80,
+          height: 80,
+          margin: const EdgeInsets.only(left: 12),
+          decoration: BoxDecoration(
+            color: const Color(0xFF4DD0E1),
+            borderRadius: BorderRadius.circular(12),
+            border: Border.all(color: Colors.blue.shade200),
+          ),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const Text("Thêm chỉ tiêu",
+                  style: TextStyle(fontSize: 10, fontWeight: FontWeight.w600),
+                  textAlign: TextAlign.center),
+              const SizedBox(height: 4),
+              Container(
+                padding: const EdgeInsets.all(8),
+                decoration: BoxDecoration(
+                  color: const Color(0xFF4DD0E1),
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                child: const Icon(Icons.add, color: Colors.blue, size: 24),
+              ),
+            ],
+          ),
+        ),
+      ],
     );
   }
 }

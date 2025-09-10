@@ -1,0 +1,1926 @@
+[{
+    "L1_CODE": 1,
+    "L1_NAME": "1_ Khu vực chung trong nhà",
+    "L2_CODE": "1_1",
+    "L2_NAME": "1_1 khu vực chung",
+    "L3_CODE": "1_1_1",
+    "L3_NAME": "1_1_1 Tiền sảnh"
+}, {
+    "L1_CODE": 1,
+    "L1_NAME": "1_ Khu vực chung trong nhà",
+    "L2_CODE": "1_1",
+    "L2_NAME": "1_1 khu vực chung",
+    "L3_CODE": "1_1_2",
+    "L3_NAME": "1_1_2 Phòng đợi"
+}, {
+    "L1_CODE": 1,
+    "L1_NAME": "1_ Khu vực chung trong nhà",
+    "L2_CODE": "1_1",
+    "L2_NAME": "1_1 khu vực chung",
+    "L3_CODE": "1_1_3",
+    "L3_NAME": "1_1_3 Khu vực lưu thông và hành lang"
+}, {
+    "L1_CODE": 1,
+    "L1_NAME": "1_ Khu vực chung trong nhà",
+    "L2_CODE": "1_1",
+    "L2_NAME": "1_1 khu vực chung",
+    "L3_CODE": "1_1_4",
+    "L3_NAME": "1_1_4 Cầu thang (máy, bộ), thang cuốn"
+}, {
+    "L1_CODE": 1,
+    "L1_NAME": "1_ Khu vực chung trong nhà",
+    "L2_CODE": "1_1",
+    "L2_NAME": "1_1 khu vực chung",
+    "L3_CODE": "1_1_5",
+    "L3_NAME": "1_1_5 Căng tin"
+}, {
+    "L1_CODE": 1,
+    "L1_NAME": "1_ Khu vực chung trong nhà",
+    "L2_CODE": "1_1",
+    "L2_NAME": "1_1 khu vực chung",
+    "L3_CODE": "1_1_6",
+    "L3_NAME": "1_1_6 Phòng nghỉ"
+}, {
+    "L1_CODE": 1,
+    "L1_NAME": "1_ Khu vực chung trong nhà",
+    "L2_CODE": "1_1",
+    "L2_NAME": "1_1 khu vực chung",
+    "L3_CODE": "1_1_7",
+    "L3_NAME": "1_1_7 Phòng tập thể dục"
+}, {
+    "L1_CODE": 1,
+    "L1_NAME": "1_ Khu vực chung trong nhà",
+    "L2_CODE": "1_1",
+    "L2_NAME": "1_1 khu vực chung",
+    "L3_CODE": "1_1_8",
+    "L3_NAME": "1_1_8 Phòng gửi đồ, phòng rửa mặt, phòng tắm, nhà vệ sinh"
+}, {
+    "L1_CODE": 1,
+    "L1_NAME": "1_ Khu vực chung trong nhà",
+    "L2_CODE": "1_1",
+    "L2_NAME": "1_1 khu vực chung",
+    "L3_CODE": "1_1_9",
+    "L3_NAME": "1_1_9 Phòng cho người bệnh"
+}, {
+    "L1_CODE": 1,
+    "L1_NAME": "1_ Khu vực chung trong nhà",
+    "L2_CODE": "1_1",
+    "L2_NAME": "1_1 khu vực chung",
+    "L3_CODE": "1_1_10",
+    "L3_NAME": "1_1_10 Phòng y tế"
+}, {
+    "L1_CODE": 1,
+    "L1_NAME": "1_ Khu vực chung trong nhà",
+    "L2_CODE": "1_1",
+    "L2_NAME": "1_1 khu vực chung",
+    "L3_CODE": "1_1_11",
+    "L3_NAME": "1_1_11 Phòng đặt tủ điện"
+}, {
+    "L1_CODE": 1,
+    "L1_NAME": "1_ Khu vực chung trong nhà",
+    "L2_CODE": "1_1",
+    "L2_NAME": "1_1 khu vực chung",
+    "L3_CODE": "1_1_12",
+    "L3_NAME": "1_1_12 Phòng thư báo, bảng điện"
+}, {
+    "L1_CODE": 1,
+    "L1_NAME": "1_ Khu vực chung trong nhà",
+    "L2_CODE": "1_1",
+    "L2_NAME": "1_1 khu vực chung",
+    "L3_CODE": "1_1_13",
+    "L3_NAME": "1_1_13 Nhà kho, kho lạnh"
+}, {
+    "L1_CODE": 1,
+    "L1_NAME": "1_ Khu vực chung trong nhà",
+    "L2_CODE": "1_1",
+    "L2_NAME": "1_1 khu vực chung",
+    "L3_CODE": "1_1_14",
+    "L3_NAME": "1_1_14 Khu vực đóng gói hàng gửi đi"
+}, {
+    "L1_CODE": 1,
+    "L1_NAME": "1_ Khu vực chung trong nhà",
+    "L2_CODE": "1_1",
+    "L2_NAME": "1_1 khu vực chung",
+    "L3_CODE": "1_1_15",
+    "L3_NAME": "1_1_15 Băng tải"
+}, {
+    "L1_CODE": 1,
+    "L1_NAME": "1_ Khu vực chung trong nhà",
+    "L2_CODE": "1_1",
+    "L2_NAME": "1_1 khu vực chung",
+    "L3_CODE": "1_1_16",
+    "L3_NAME": "1_1_16 Khu vực giá để hàng hóa"
+}, {
+    "L1_CODE": 1,
+    "L1_NAME": "1_ Khu vực chung trong nhà",
+    "L2_CODE": "1_1",
+    "L2_NAME": "1_1 khu vực chung",
+    "L3_CODE": "1_1_17",
+    "L3_NAME": "1_1_17 Khu vực kiểm tra"
+}, {
+    "L1_CODE": 2,
+    "L1_NAME": "2_ Hoạt động công nghiệp và thủ công",
+    "L2_CODE": "2_1",
+    "L2_NAME": "2_1_ Công nghiệp sắt thép",
+    "L3_CODE": "2_1_1",
+    "L3_NAME": "2_1_1 Máy móc sản xuất không yêu cầu thao tác bằng tay"
+}, {
+    "L1_CODE": 2,
+    "L1_NAME": "2_ Hoạt động công nghiệp và thủ công",
+    "L2_CODE": "2_1",
+    "L2_NAME": "2_1_ Công nghiệp sắt thép",
+    "L3_CODE": "2_1_2",
+    "L3_NAME": "2_1_2 Máy móc sản xuất đôi khi yêu cầu thao tác bằng tay"
+}, {
+    "L1_CODE": 2,
+    "L1_NAME": "2_ Hoạt động công nghiệp và thủ công",
+    "L2_CODE": "2_1",
+    "L2_NAME": "2_1_ Công nghiệp sắt thép",
+    "L3_CODE": "2_1_3",
+    "L3_NAME": "2_1_3 Khu vực sản xuất thường xuyên thao tác bằng tay"
+}, {
+    "L1_CODE": 2,
+    "L1_NAME": "2_ Hoạt động công nghiệp và thủ công",
+    "L2_CODE": "2_1",
+    "L2_NAME": "2_1_ Công nghiệp sắt thép",
+    "L3_CODE": "2_1_4",
+    "L3_NAME": "2_1_4 Kho thép"
+}, {
+    "L1_CODE": 2,
+    "L1_NAME": "2_ Hoạt động công nghiệp và thủ công",
+    "L2_CODE": "2_1",
+    "L2_NAME": "2_1_ Công nghiệp sắt thép",
+    "L3_CODE": "2_1_5",
+    "L3_NAME": "2_1_5 Lò luyện"
+}, {
+    "L1_CODE": 2,
+    "L1_NAME": "2_ Hoạt động công nghiệp và thủ công",
+    "L2_CODE": "2_1",
+    "L2_NAME": "2_1_ Công nghiệp sắt thép",
+    "L3_CODE": "2_1_6",
+    "L3_NAME": "2_1_6 Máy cán, cuộn, cắt thép"
+}, {
+    "L1_CODE": 2,
+    "L1_NAME": "2_ Hoạt động công nghiệp và thủ công",
+    "L2_CODE": "2_1",
+    "L2_NAME": "2_1_ Công nghiệp sắt thép",
+    "L3_CODE": "2_1_7",
+    "L3_NAME": "2_1_7 Sàn Điều khiển và bảng Điều khiển"
+}, {
+    "L1_CODE": 2,
+    "L1_NAME": "2_ Hoạt động công nghiệp và thủ công",
+    "L2_CODE": "2_1",
+    "L2_NAME": "2_1_ Công nghiệp sắt thép",
+    "L3_CODE": "2_1_8",
+    "L3_NAME": "2_1_8 Thử nghiệm, đo đạc và kiểm tra"
+}, {
+    "L1_CODE": 2,
+    "L1_NAME": "2_ Hoạt động công nghiệp và thủ công",
+    "L2_CODE": "2_1",
+    "L2_NAME": "2_1_ Công nghiệp sắt thép",
+    "L3_CODE": "2_1_9",
+    "L3_NAME": "2_1_9 Đường hầm dưới sàn, băng tải, hầm chứa"
+}, {
+    "L1_CODE": 2,
+    "L1_NAME": "2_ Hoạt động công nghiệp và thủ công",
+    "L2_CODE": "2_2",
+    "L2_NAME": "2_2_ Các lò đúc và xí nghiệp đúc kim loại",
+    "L3_CODE": "2_2_1",
+    "L3_NAME": "2_2_1 Đường hầm dưới sàn, hầm chứa"
+}, {
+    "L1_CODE": 2,
+    "L1_NAME": "2_ Hoạt động công nghiệp và thủ công",
+    "L2_CODE": "2_2",
+    "L2_NAME": "2_2_ Các lò đúc và xí nghiệp đúc kim loại",
+    "L3_CODE": "2_2_2",
+    "L3_NAME": "2_2_2 Sàn thao tác"
+}, {
+    "L1_CODE": 2,
+    "L1_NAME": "2_ Hoạt động công nghiệp và thủ công",
+    "L2_CODE": "2_2",
+    "L2_NAME": "2_2_ Các lò đúc và xí nghiệp đúc kim loại",
+    "L3_CODE": "2_2_3",
+    "L3_NAME": "2_2_3 Chuẩn bị cát"
+}, {
+    "L1_CODE": 2,
+    "L1_NAME": "2_ Hoạt động công nghiệp và thủ công",
+    "L2_CODE": "2_2",
+    "L2_NAME": "2_2_ Các lò đúc và xí nghiệp đúc kim loại",
+    "L3_CODE": "2_2_4",
+    "L3_NAME": "2_2_4 Gọt giũa ba via"
+}, {
+    "L1_CODE": 2,
+    "L1_NAME": "2_ Hoạt động công nghiệp và thủ công",
+    "L2_CODE": "2_2",
+    "L2_NAME": "2_2_ Các lò đúc và xí nghiệp đúc kim loại",
+    "L3_CODE": "2_2_5",
+    "L3_NAME": "2_2_5 Sàn làm việc khu vực lò đúc và trạm trộn"
+}, {
+    "L1_CODE": 2,
+    "L1_NAME": "2_ Hoạt động công nghiệp và thủ công",
+    "L2_CODE": "2_2",
+    "L2_NAME": "2_2_ Các lò đúc và xí nghiệp đúc kim loại",
+    "L3_CODE": "2_2_6",
+    "L3_NAME": "2_2_6 Xưởng làm khuôn đúc"
+}, {
+    "L1_CODE": 2,
+    "L1_NAME": "2_ Hoạt động công nghiệp và thủ công",
+    "L2_CODE": "2_2",
+    "L2_NAME": "2_2_ Các lò đúc và xí nghiệp đúc kim loại",
+    "L3_CODE": "2_2_7",
+    "L3_NAME": "2_2_7 Khu vực dỡ khuôn"
+}, {
+    "L1_CODE": 2,
+    "L1_NAME": "2_ Hoạt động công nghiệp và thủ công",
+    "L2_CODE": "2_2",
+    "L2_NAME": "2_2_ Các lò đúc và xí nghiệp đúc kim loại",
+    "L3_CODE": "2_2_8",
+    "L3_NAME": "2_2_8 Đúc máy"
+}, {
+    "L1_CODE": 2,
+    "L1_NAME": "2_ Hoạt động công nghiệp và thủ công",
+    "L2_CODE": "2_2",
+    "L2_NAME": "2_2_ Các lò đúc và xí nghiệp đúc kim loại",
+    "L3_CODE": "2_2_9",
+    "L3_NAME": "2_2_9 Đổ khuôn bằng tay và đúc lõi"
+}, {
+    "L1_CODE": 2,
+    "L1_NAME": "2_ Hoạt động công nghiệp và thủ công",
+    "L2_CODE": "2_2",
+    "L2_NAME": "2_2_ Các lò đúc và xí nghiệp đúc kim loại",
+    "L3_CODE": "2_2_10",
+    "L3_NAME": "2_2_10 Đúc khuôn dập"
+}, {
+    "L1_CODE": 2,
+    "L1_NAME": "2_ Hoạt động công nghiệp và thủ công",
+    "L2_CODE": "2_2",
+    "L2_NAME": "2_2_ Các lò đúc và xí nghiệp đúc kim loại",
+    "L3_CODE": "2_2_11",
+    "L3_NAME": "2_2_11 Nhà làm mẫu"
+}, {
+    "L1_CODE": 2,
+    "L1_NAME": "2_ Hoạt động công nghiệp và thủ công",
+    "L2_CODE": "2_3",
+    "L2_NAME": "2_3_ Công nghiệp cơ khí chế tạo",
+    "L3_CODE": "2_3_1",
+    "L3_NAME": "2_3_1 Tháo khuôn phôi"
+}, {
+    "L1_CODE": 2,
+    "L1_NAME": "2_ Hoạt động công nghiệp và thủ công",
+    "L2_CODE": "2_3",
+    "L2_NAME": "2_3_ Công nghiệp cơ khí chế tạo",
+    "L3_CODE": "2_3_2",
+    "L3_NAME": "2_3_2 Rèn, hàn, nguội"
+}, {
+    "L1_CODE": 2,
+    "L1_NAME": "2_ Hoạt động công nghiệp và thủ công",
+    "L2_CODE": "2_3",
+    "L2_NAME": "2_3_ Công nghiệp cơ khí chế tạo",
+    "L3_CODE": "2_3_3",
+    "L3_NAME": "2_3_3 Gia công thô và chính xác trung bình: dung sai ≥ 0,1 mm"
+}, {
+    "L1_CODE": 2,
+    "L1_NAME": "2_ Hoạt động công nghiệp và thủ công",
+    "L2_CODE": "2_3",
+    "L2_NAME": "2_3_ Công nghiệp cơ khí chế tạo",
+    "L3_CODE": "2_3_5",
+    "L3_NAME": "2_3_5 Gia công chính xác: dung sai<0,1mm"
+}, {
+    "L1_CODE": 2,
+    "L1_NAME": "2_ Hoạt động công nghiệp và thủ công",
+    "L2_CODE": "2_3",
+    "L2_NAME": "2_3_ Công nghiệp cơ khí chế tạo",
+    "L3_CODE": "2_3_6",
+    "L3_NAME": "2_3_6 Vạch dấu, kiểm tra"
+}, {
+    "L1_CODE": 2,
+    "L1_NAME": "2_ Hoạt động công nghiệp và thủ công",
+    "L2_CODE": "2_3",
+    "L2_NAME": "2_3_ Công nghiệp cơ khí chế tạo",
+    "L3_CODE": "2_3_7",
+    "L3_NAME": "2_3_7 Xưởng kéo dây, làm ống (nguội)"
+}, {
+    "L1_CODE": 2,
+    "L1_NAME": "2_ Hoạt động công nghiệp và thủ công",
+    "L2_CODE": "2_3",
+    "L2_NAME": "2_3_ Công nghiệp cơ khí chế tạo",
+    "L3_CODE": "2_3_8",
+    "L3_NAME": "2_3_8 Gia công đĩa độ dày ≥5mm"
+}, {
+    "L1_CODE": 2,
+    "L1_NAME": "2_ Hoạt động công nghiệp và thủ công",
+    "L2_CODE": "2_3",
+    "L2_NAME": "2_3_ Công nghiệp cơ khí chế tạo",
+    "L3_CODE": "2_3_9",
+    "L3_NAME": "2_3_9 Gia công thép tấm độ dày <5mm"
+}, {
+    "L1_CODE": 2,
+    "L1_NAME": "2_ Hoạt động công nghiệp và thủ công",
+    "L2_CODE": "2_3",
+    "L2_NAME": "2_3_ Công nghiệp cơ khí chế tạo",
+    "L3_CODE": "2_3_10",
+    "L3_NAME": "2_3_10 Chế tạo dụng cụ, thiết bị cắt"
+}, {
+    "L1_CODE": 2,
+    "L1_NAME": "2_ Hoạt động công nghiệp và thủ công",
+    "L2_CODE": "2_3",
+    "L2_NAME": "2_3_ Công nghiệp cơ khí chế tạo",
+    "L3_CODE": "2_3_11",
+    "L3_NAME": "2_3_11 Lắp ráp chi Tiết Thô"
+}, {
+    "L1_CODE": 2,
+    "L1_NAME": "2_ Hoạt động công nghiệp và thủ công",
+    "L2_CODE": "2_3",
+    "L2_NAME": "2_3_ Công nghiệp cơ khí chế tạo",
+    "L3_CODE": "2_3_12",
+    "L3_NAME": "2_3_12 Lắp ráp chi Tiết Trung bình"
+}, {
+    "L1_CODE": 2,
+    "L1_NAME": "2_ Hoạt động công nghiệp và thủ công",
+    "L2_CODE": "2_3",
+    "L2_NAME": "2_3_ Công nghiệp cơ khí chế tạo",
+    "L3_CODE": "2_3_13",
+    "L3_NAME": "2_3_13 Lắp ráp chi Tiết Nhỏ"
+}, {
+    "L1_CODE": 2,
+    "L1_NAME": "2_ Hoạt động công nghiệp và thủ công",
+    "L2_CODE": "2_3",
+    "L2_NAME": "2_3_ Công nghiệp cơ khí chế tạo",
+    "L3_CODE": "2_3_14",
+    "L3_NAME": "2_3_14 Lắp ráp chi Tiết Chính xác"
+}, {
+    "L1_CODE": 2,
+    "L1_NAME": "2_ Hoạt động công nghiệp và thủ công",
+    "L2_CODE": "2_3",
+    "L2_NAME": "2_3_ Công nghiệp cơ khí chế tạo",
+    "L3_CODE": "2_3_15",
+    "L3_NAME": "2_3_15 Mạ điện"
+}, {
+    "L1_CODE": 2,
+    "L1_NAME": "2_ Hoạt động công nghiệp và thủ công",
+    "L2_CODE": "2_3",
+    "L2_NAME": "2_3_ Công nghiệp cơ khí chế tạo",
+    "L3_CODE": "2_3_16",
+    "L3_NAME": "2_3_16 Xử lý bề mặt và sơn"
+}, {
+    "L1_CODE": 2,
+    "L1_NAME": "2_ Hoạt động công nghiệp và thủ công",
+    "L2_CODE": "2_3",
+    "L2_NAME": "2_3_ Công nghiệp cơ khí chế tạo",
+    "L3_CODE": "2_3_17",
+    "L3_NAME": "2_3_17 Chế tạo công cụ, khuôn mẫu, đồ gá lắp, cơ khí chính xác và siêu nhỏ"
+}, {
+    "L1_CODE": 2,
+    "L1_NAME": "2_ Hoạt động công nghiệp và thủ công",
+    "L2_CODE": "2_4",
+    "L2_NAME": "2_4_ Công nghiệp chế tạo và sửa chữa ô tô",
+    "L3_CODE": "2_4_1",
+    "L3_NAME": "2_4_1 Làm thân xe và lắp ráp"
+}, {
+    "L1_CODE": 2,
+    "L1_NAME": "2_ Hoạt động công nghiệp và thủ công",
+    "L2_CODE": "2_4",
+    "L2_NAME": "2_4_ Công nghiệp chế tạo và sửa chữa ô tô",
+    "L3_CODE": "2_4_2",
+    "L3_NAME": "2_4_2 Sơn, buồng phun sơn, buồng đánh bóng"
+}, {
+    "L1_CODE": 2,
+    "L1_NAME": "2_ Hoạt động công nghiệp và thủ công",
+    "L2_CODE": "2_4",
+    "L2_NAME": "2_4_ Công nghiệp chế tạo và sửa chữa ô tô",
+    "L3_CODE": "2_4_3",
+    "L3_NAME": "2_4_3 Sơn: sửa, kiểm tra"
+}, {
+    "L1_CODE": 2,
+    "L1_NAME": "2_ Hoạt động công nghiệp và thủ công",
+    "L2_CODE": "2_4",
+    "L2_NAME": "2_4_ Công nghiệp chế tạo và sửa chữa ô tô",
+    "L3_CODE": "2_4_4",
+    "L3_NAME": "2_4_4 Sản xuất ghế"
+}, {
+    "L1_CODE": 2,
+    "L1_NAME": "2_ Hoạt động công nghiệp và thủ công",
+    "L2_CODE": "2_4",
+    "L2_NAME": "2_4_ Công nghiệp chế tạo và sửa chữa ô tô",
+    "L3_CODE": "2_4_5",
+    "L3_NAME": "2_4_5 Kiểm tra hoàn thiện"
+}, {
+    "L1_CODE": 2,
+    "L1_NAME": "2_ Hoạt động công nghiệp và thủ công",
+    "L2_CODE": "2_4",
+    "L2_NAME": "2_4_ Công nghiệp chế tạo và sửa chữa ô tô",
+    "L3_CODE": "2_4_6",
+    "L3_NAME": "2_4_6 Dịch vụ ô tô, sửa chữa, kiểm tra"
+}, {
+    "L1_CODE": 2,
+    "L1_NAME": "2_ Hoạt động công nghiệp và thủ công",
+    "L2_CODE": "2_5",
+    "L2_NAME": "2_5_ Nhà máy điện",
+    "L3_CODE": "2_5_1",
+    "L3_NAME": "2_5_1 Trạm cấp nhiên liệu"
+}, {
+    "L1_CODE": 2,
+    "L1_NAME": "2_ Hoạt động công nghiệp và thủ công",
+    "L2_CODE": "2_5",
+    "L2_NAME": "2_5_ Nhà máy điện",
+    "L3_CODE": "2_5_2",
+    "L3_NAME": "2_5_2 Xưởng nồi hơi"
+}, {
+    "L1_CODE": 2,
+    "L1_NAME": "2_ Hoạt động công nghiệp và thủ công",
+    "L2_CODE": "2_5",
+    "L2_NAME": "2_5_ Nhà máy điện",
+    "L3_CODE": "2_5_3",
+    "L3_NAME": "2_5_3 Phòng máy"
+}, {
+    "L1_CODE": 2,
+    "L1_NAME": "2_ Hoạt động công nghiệp và thủ công",
+    "L2_CODE": "2_5",
+    "L2_NAME": "2_5_ Nhà máy điện",
+    "L3_CODE": "2_5_4",
+    "L3_NAME": "2_5_4 Các phòng phụ trợ, phòng máy bơm, phòng ngưng tụ, bảng điện"
+}, {
+    "L1_CODE": 2,
+    "L1_NAME": "2_ Hoạt động công nghiệp và thủ công",
+    "L2_CODE": "2_5",
+    "L2_NAME": "2_5_ Nhà máy điện",
+    "L3_CODE": "2_5_5",
+    "L3_NAME": "2_5_5 Phòng Điều khiển"
+}, {
+    "L1_CODE": 2,
+    "L1_NAME": "2_ Hoạt động công nghiệp và thủ công",
+    "L2_CODE": "2_6",
+    "L2_NAME": "2_6_ Công nghiệp điện",
+    "L3_CODE": "2_6_1",
+    "L3_NAME": "2_6_1 Sản xuất cáp và dây điện"
+}, {
+    "L1_CODE": 2,
+    "L1_NAME": "2_ Hoạt động công nghiệp và thủ công",
+    "L2_CODE": "2_6",
+    "L2_NAME": "2_6_ Công nghiệp điện",
+    "L3_CODE": "2_6_2",
+    "L3_NAME": "2_6_2 quấn dây Cuộn dây lớn"
+}, {
+    "L1_CODE": 2,
+    "L1_NAME": "2_ Hoạt động công nghiệp và thủ công",
+    "L2_CODE": "2_6",
+    "L2_NAME": "2_6_ Công nghiệp điện",
+    "L3_CODE": "2_6_3",
+    "L3_NAME": "2_6_3 quấn dây : Cuộn dây trung bình"
+}, {
+    "L1_CODE": 2,
+    "L1_NAME": "2_ Hoạt động công nghiệp và thủ công",
+    "L2_CODE": "2_6",
+    "L2_NAME": "2_6_ Công nghiệp điện",
+    "L3_CODE": "2_6_4",
+    "L3_NAME": "2_6_4 quấn dây :Cuộn dây nhỏ"
+}, {
+    "L1_CODE": 2,
+    "L1_NAME": "2_ Hoạt động công nghiệp và thủ công",
+    "L2_CODE": "2_6",
+    "L2_NAME": "2_6_ Công nghiệp điện",
+    "L3_CODE": "2_6_5",
+    "L3_NAME": "2_6_5 Nhúng cách điện"
+}, {
+    "L1_CODE": 2,
+    "L1_NAME": "2_ Hoạt động công nghiệp và thủ công",
+    "L2_CODE": "2_6",
+    "L2_NAME": "2_6_ Công nghiệp điện",
+    "L3_CODE": "2_6_6",
+    "L3_NAME": "2_6_6 Mạ điện"
+}, {
+    "L1_CODE": 2,
+    "L1_NAME": "2_ Hoạt động công nghiệp và thủ công",
+    "L2_CODE": "2_6",
+    "L2_NAME": "2_6_ Công nghiệp điện",
+    "L3_CODE": "2_6_7",
+    "L3_NAME": "2_6_7 lắp ráp Chi Tiết thô; ví dụ: biến thế lớn"
+}, {
+    "L1_CODE": 2,
+    "L1_NAME": "2_ Hoạt động công nghiệp và thủ công",
+    "L2_CODE": "2_6",
+    "L2_NAME": "2_6_ Công nghiệp điện",
+    "L3_CODE": "2_6_8",
+    "L3_NAME": "2_6_8 lắp ráp Chi Tiết trung bình; ví dụ: bảng điện"
+}, {
+    "L1_CODE": 2,
+    "L1_NAME": "2_ Hoạt động công nghiệp và thủ công",
+    "L2_CODE": "2_6",
+    "L2_NAME": "2_6_ Công nghiệp điện",
+    "L3_CODE": "2_6_9",
+    "L3_NAME": "2_6_9 lắp ráp Chi Tiết nhỏ; ví dụ: điện thoại, đài radio, sản phẩm kỹ thuật thông tin (máy vi tính)"
+}, {
+    "L1_CODE": 2,
+    "L1_NAME": "2_ Hoạt động công nghiệp và thủ công",
+    "L2_CODE": "2_6",
+    "L2_NAME": "2_6_ Công nghiệp điện",
+    "L3_CODE": "2_6_10",
+    "L3_NAME": "2_6_10 Chính xác; ví dụ: thiết bị đo lường, bảng mạch in"
+}, {
+    "L1_CODE": 2,
+    "L1_NAME": "2_ Hoạt động công nghiệp và thủ công",
+    "L2_CODE": "2_6",
+    "L2_NAME": "2_6_ Công nghiệp điện",
+    "L3_CODE": "2_6_11",
+    "L3_NAME": "2_6_11 Xưởng điện tử, thử nghiệm, hiệu chỉnh"
+}, {
+    "L1_CODE": 2,
+    "L1_NAME": "2_ Hoạt động công nghiệp và thủ công",
+    "L2_CODE": "2_7",
+    "L2_NAME": "2_7_ Công nghiệp xi măng, bê tông, gạch",
+    "L3_CODE": "2_7_1",
+    "L3_NAME": "2_7_1 Phơi sấy vật liệu"
+}, {
+    "L1_CODE": 2,
+    "L1_NAME": "2_ Hoạt động công nghiệp và thủ công",
+    "L2_CODE": "2_7",
+    "L2_NAME": "2_7_ Công nghiệp xi măng, bê tông, gạch",
+    "L3_CODE": "2_7_2",
+    "L3_NAME": "2_7_2 Chuẩn bị vật liệu, làm việc ở máy trộn, lò nung"
+}, {
+    "L1_CODE": 2,
+    "L1_NAME": "2_ Hoạt động công nghiệp và thủ công",
+    "L2_CODE": "2_7",
+    "L2_NAME": "2_7_ Công nghiệp xi măng, bê tông, gạch",
+    "L3_CODE": "2_7_3",
+    "L3_NAME": "2_7_3 Vận hành máy móc"
+}, {
+    "L1_CODE": 2,
+    "L1_NAME": "2_ Hoạt động công nghiệp và thủ công",
+    "L2_CODE": "2_7",
+    "L2_NAME": "2_7_ Công nghiệp xi măng, bê tông, gạch",
+    "L3_CODE": "2_7_4",
+    "L3_NAME": "2_7_4 Làm khuôn thô"
+}, {
+    "L1_CODE": 2,
+    "L1_NAME": "2_ Hoạt động công nghiệp và thủ công",
+    "L2_CODE": "2_8",
+    "L2_NAME": "2_8_ Công nghiệp gốm, thủy tinh, tấm lợp",
+    "L3_CODE": "2_8_1",
+    "L3_NAME": "2_8_1 Phơi sấy vật liệu"
+}, {
+    "L1_CODE": 2,
+    "L1_NAME": "2_ Hoạt động công nghiệp và thủ công",
+    "L2_CODE": "2_8",
+    "L2_NAME": "2_8_ Công nghiệp gốm, thủy tinh, tấm lợp",
+    "L3_CODE": "2_8_2",
+    "L3_NAME": "2_8_2 Chuẩn bị, vận hành máy móc"
+}, {
+    "L1_CODE": 2,
+    "L1_NAME": "2_ Hoạt động công nghiệp và thủ công",
+    "L2_CODE": "2_8",
+    "L2_NAME": "2_8_ Công nghiệp gốm, thủy tinh, tấm lợp",
+    "L3_CODE": "2_8_3",
+    "L3_NAME": "2_8_3 Tráng men, lăn, ép, tạo hình các chi Tiết đơn giản, lắp kính, thổi thủy tinh"
+}, {
+    "L1_CODE": 2,
+    "L1_NAME": "2_ Hoạt động công nghiệp và thủ công",
+    "L2_CODE": "2_8",
+    "L2_NAME": "2_8_ Công nghiệp gốm, thủy tinh, tấm lợp",
+    "L3_CODE": "2_8_4",
+    "L3_NAME": "2_8_4 Mài, khắc, đánh bóng thủy tinh, tạo hình các chi Tiết chính xác, chế tạo các dụng cụ thủy tinh"
+}, {
+    "L1_CODE": 2,
+    "L1_NAME": "2_ Hoạt động công nghiệp và thủ công",
+    "L2_CODE": "2_8",
+    "L2_NAME": "2_8_ Công nghiệp gốm, thủy tinh, tấm lợp",
+    "L3_CODE": "2_8_5",
+    "L3_NAME": "2_8_5 Mài kính quang học, mài và khắc pha lê bằng tay"
+}, {
+    "L1_CODE": 2,
+    "L1_NAME": "2_ Hoạt động công nghiệp và thủ công",
+    "L2_CODE": "2_8",
+    "L2_NAME": "2_8_ Công nghiệp gốm, thủy tinh, tấm lợp",
+    "L3_CODE": "2_8_6",
+    "L3_NAME": "2_8_6 Công việc chính xác; ví dụ: mài, vẽ, trang trí___"
+}, {
+    "L1_CODE": 2,
+    "L1_NAME": "2_ Hoạt động công nghiệp và thủ công",
+    "L2_CODE": "2_8",
+    "L2_NAME": "2_8_ Công nghiệp gốm, thủy tinh, tấm lợp",
+    "L3_CODE": "2_8_7",
+    "L3_NAME": "2_8_7 Chế tác đá quý nhân tạo"
+}, {
+    "L1_CODE": 2,
+    "L1_NAME": "2_ Hoạt động công nghiệp và thủ công",
+    "L2_CODE": "2_9",
+    "L2_NAME": "2_9_ Công nghiệp hóa chất, chất dẻo và cao su",
+    "L3_CODE": "2_9_1",
+    "L3_NAME": "2_9_1 Lắp đặt quy trình sản xuất Điều khiển từ xa"
+}, {
+    "L1_CODE": 2,
+    "L1_NAME": "2_ Hoạt động công nghiệp và thủ công",
+    "L2_CODE": "2_9",
+    "L2_NAME": "2_9_ Công nghiệp hóa chất, chất dẻo và cao su",
+    "L3_CODE": "2_9_2",
+    "L3_NAME": "2_9_2 Lắp đặt quy trình sản xuất với thao tác bằng tay"
+}, {
+    "L1_CODE": 2,
+    "L1_NAME": "2_ Hoạt động công nghiệp và thủ công",
+    "L2_CODE": "2_9",
+    "L2_NAME": "2_9_ Công nghiệp hóa chất, chất dẻo và cao su",
+    "L3_CODE": "2_9_3",
+    "L3_NAME": "2_9_3 Công việc ổn định trong quy trình sản xuất"
+}, {
+    "L1_CODE": 2,
+    "L1_NAME": "2_ Hoạt động công nghiệp và thủ công",
+    "L2_CODE": "2_9",
+    "L2_NAME": "2_9_ Công nghiệp hóa chất, chất dẻo và cao su",
+    "L3_CODE": "2_9_4",
+    "L3_NAME": "2_9_4 Phòng đo chính xác, phòng thí nghiệm"
+}, {
+    "L1_CODE": 2,
+    "L1_NAME": "2_ Hoạt động công nghiệp và thủ công",
+    "L2_CODE": "2_9",
+    "L2_NAME": "2_9_ Công nghiệp hóa chất, chất dẻo và cao su",
+    "L3_CODE": "2_9_5",
+    "L3_NAME": "2_9_5 Sản xuất dược phẩm"
+}, {
+    "L1_CODE": 2,
+    "L1_NAME": "2_ Hoạt động công nghiệp và thủ công",
+    "L2_CODE": "2_9",
+    "L2_NAME": "2_9_ Công nghiệp hóa chất, chất dẻo và cao su",
+    "L3_CODE": "2_9_6",
+    "L3_NAME": "2_9_6 Sản xuất lốp xe"
+}, {
+    "L1_CODE": 2,
+    "L1_NAME": "2_ Hoạt động công nghiệp và thủ công",
+    "L2_CODE": "2_9",
+    "L2_NAME": "2_9_ Công nghiệp hóa chất, chất dẻo và cao su",
+    "L3_CODE": "2_9_7",
+    "L3_NAME": "2_9_7 Kiểm tra màu"
+}, {
+    "L1_CODE": 2,
+    "L1_NAME": "2_ Hoạt động công nghiệp và thủ công",
+    "L2_CODE": "2_9",
+    "L2_NAME": "2_9_ Công nghiệp hóa chất, chất dẻo và cao su",
+    "L3_CODE": "2_9_8",
+    "L3_NAME": "2_9_8 Cắt, sửa, kiểm tra"
+}, {
+    "L1_CODE": 2,
+    "L1_NAME": "2_ Hoạt động công nghiệp và thủ công",
+    "L2_CODE": "2_10",
+    "L2_NAME": "2_10_ Công nghiệp giấy",
+    "L3_CODE": "2_10_1",
+    "L3_NAME": "2_10_1 Bóc gỗ, máy nghiền bột giấy"
+}, {
+    "L1_CODE": 2,
+    "L1_NAME": "2_ Hoạt động công nghiệp và thủ công",
+    "L2_CODE": "2_10",
+    "L2_NAME": "2_10_ Công nghiệp giấy",
+    "L3_CODE": "2_10_2",
+    "L3_NAME": "2_10_2 Sản xuất giấy, máy gấp giấy, sản xuất bìa các tông"
+}, {
+    "L1_CODE": 2,
+    "L1_NAME": "2_ Hoạt động công nghiệp và thủ công",
+    "L2_CODE": "2_10",
+    "L2_NAME": "2_10_ Công nghiệp giấy",
+    "L3_CODE": "2_10_3",
+    "L3_NAME": "2_10_3 Công việc đóng sách; ví dụ: gấp giấy, sắp xếp, dán keo, xén, đóng bìa, khâu sách"
+}, {
+    "L1_CODE": 2,
+    "L1_NAME": "2_ Hoạt động công nghiệp và thủ công",
+    "L2_CODE": "2_11",
+    "L2_NAME": "2_11_ Công nghiệp in",
+    "L3_CODE": "2_11_1",
+    "L3_NAME": "2_11_1 Xén giấy, mạ vàng, chạm nổi, chế bản khắc chữ, làm trên đá và tấm ấn giấy, máy in, làm ma trận (matrix)"
+}, {
+    "L1_CODE": 2,
+    "L1_NAME": "2_ Hoạt động công nghiệp và thủ công",
+    "L2_CODE": "2_11",
+    "L2_NAME": "2_11_ Công nghiệp in",
+    "L3_CODE": "2_11_2",
+    "L3_NAME": "2_11_2 Phân loại giấy và in bằng tay"
+}, {
+    "L1_CODE": 2,
+    "L1_NAME": "2_ Hoạt động công nghiệp và thủ công",
+    "L2_CODE": "2_11",
+    "L2_NAME": "2_11_ Công nghiệp in",
+    "L3_CODE": "2_11_3",
+    "L3_NAME": "2_11_3 Sắp chữ, sửa bản bông, in li tô"
+}, {
+    "L1_CODE": 2,
+    "L1_NAME": "2_ Hoạt động công nghiệp và thủ công",
+    "L2_CODE": "2_11",
+    "L2_NAME": "2_11_ Công nghiệp in",
+    "L3_CODE": "2_11_4",
+    "L3_NAME": "2_11_4 Kiểm tra màu trong in nhiều màu"
+}, {
+    "L1_CODE": 2,
+    "L1_NAME": "2_ Hoạt động công nghiệp và thủ công",
+    "L2_CODE": "2_11",
+    "L2_NAME": "2_11_ Công nghiệp in",
+    "L3_CODE": "2_11_5",
+    "L3_NAME": "2_11_5 Khắc bản thép và đồng"
+}, {
+    "L1_CODE": 2,
+    "L1_NAME": "2_ Hoạt động công nghiệp và thủ công",
+    "L2_CODE": "2_12",
+    "L2_NAME": "2_12_ Công nghiệp da",
+    "L3_CODE": "2_12_1",
+    "L3_NAME": "2_12_1 Bể, thùng ngâm, hầm chứa da"
+}, {
+    "L1_CODE": 2,
+    "L1_NAME": "2_ Hoạt động công nghiệp và thủ công",
+    "L2_CODE": "2_12",
+    "L2_NAME": "2_12_ Công nghiệp da",
+    "L3_CODE": "2_12_2",
+    "L3_NAME": "2_12_2 Lọc, bào, chà, xát, giũ da"
+}, {
+    "L1_CODE": 2,
+    "L1_NAME": "2_ Hoạt động công nghiệp và thủ công",
+    "L2_CODE": "2_12",
+    "L2_NAME": "2_12_ Công nghiệp da",
+    "L3_CODE": "2_12_3",
+    "L3_NAME": "2_12_3 Làm yên ngựa, đóng giày, khâu, may, đánh bóng, tạo phom, cắt, dập"
+}, {
+    "L1_CODE": 2,
+    "L1_NAME": "2_ Hoạt động công nghiệp và thủ công",
+    "L2_CODE": "2_12",
+    "L2_NAME": "2_12_ Công nghiệp da",
+    "L3_CODE": "2_12_4",
+    "L3_NAME": "2_12_4 Phân loại"
+}, {
+    "L1_CODE": 2,
+    "L1_NAME": "2_ Hoạt động công nghiệp và thủ công",
+    "L2_CODE": "2_12",
+    "L2_NAME": "2_12_ Công nghiệp da",
+    "L3_CODE": "2_12_5",
+    "L3_NAME": "2_12_5 Nhuộm da (máy nhuộm)"
+}, {
+    "L1_CODE": 2,
+    "L1_NAME": "2_ Hoạt động công nghiệp và thủ công",
+    "L2_CODE": "2_12",
+    "L2_NAME": "2_12_ Công nghiệp da",
+    "L3_CODE": "2_12_6",
+    "L3_NAME": "2_12_6 Kiểm tra chất lượng"
+}, {
+    "L1_CODE": 2,
+    "L1_NAME": "2_ Hoạt động công nghiệp và thủ công",
+    "L2_CODE": "2_12",
+    "L2_NAME": "2_12_ Công nghiệp da",
+    "L3_CODE": "2_12_7",
+    "L3_NAME": "2_12_7 Kiểm tra màu"
+}, {
+    "L1_CODE": 2,
+    "L1_NAME": "2_ Hoạt động công nghiệp và thủ công",
+    "L2_CODE": "2_12",
+    "L2_NAME": "2_12_ Công nghiệp da",
+    "L3_CODE": "2_12_8",
+    "L3_NAME": "2_12_8 Làm giày"
+}, {
+    "L1_CODE": 2,
+    "L1_NAME": "2_ Hoạt động công nghiệp và thủ công",
+    "L2_CODE": "2_12",
+    "L2_NAME": "2_12_ Công nghiệp da",
+    "L3_CODE": "2_12_9",
+    "L3_NAME": "2_12_9 Làm găng tay"
+}, {
+    "L1_CODE": 2,
+    "L1_NAME": "2_ Hoạt động công nghiệp và thủ công",
+    "L2_CODE": "2_13",
+    "L2_NAME": "2_13_ Công nghiệp dệt",
+    "L3_CODE": "2_13_1",
+    "L3_NAME": "2_13_1 Vị trí làm việc và vùng tháo dỡ kiện bông"
+}, {
+    "L1_CODE": 2,
+    "L1_NAME": "2_ Hoạt động công nghiệp và thủ công",
+    "L2_CODE": "2_13",
+    "L2_NAME": "2_13_ Công nghiệp dệt",
+    "L3_CODE": "2_13_2",
+    "L3_NAME": "2_13_2 Chải, giặt, là, máy xé bông, kéo sợi, ghép sợi thô, hồ sợi, cắt, xe sợi thô, xe sợi đay và sợi gai"
+}, {
+    "L1_CODE": 2,
+    "L1_NAME": "2_ Hoạt động công nghiệp và thủ công",
+    "L2_CODE": "2_13",
+    "L2_NAME": "2_13_ Công nghiệp dệt",
+    "L3_CODE": "2_13_3",
+    "L3_NAME": "2_13_3 Xe sợi con, đánh ống, mắc khung cửi, dệt, tết sợi, đan len"
+}, {
+    "L1_CODE": 2,
+    "L1_NAME": "2_ Hoạt động công nghiệp và thủ công",
+    "L2_CODE": "2_13",
+    "L2_NAME": "2_13_ Công nghiệp dệt",
+    "L3_CODE": "2_13_4",
+    "L3_NAME": "2_13_4 May, đan sợi nhỏ, thêu móc"
+}, {
+    "L1_CODE": 2,
+    "L1_NAME": "2_ Hoạt động công nghiệp và thủ công",
+    "L2_CODE": "2_13",
+    "L2_NAME": "2_13_ Công nghiệp dệt",
+    "L3_CODE": "2_13_5",
+    "L3_NAME": "2_13_5 Thiết kế bằng tay, vẽ mẫu"
+}, {
+    "L1_CODE": 2,
+    "L1_NAME": "2_ Hoạt động công nghiệp và thủ công",
+    "L2_CODE": "2_13",
+    "L2_NAME": "2_13_ Công nghiệp dệt",
+    "L3_CODE": "2_13_6",
+    "L3_NAME": "2_13_6 Hoàn thiện, nhuộm"
+}, {
+    "L1_CODE": 2,
+    "L1_NAME": "2_ Hoạt động công nghiệp và thủ công",
+    "L2_CODE": "2_13",
+    "L2_NAME": "2_13_ Công nghiệp dệt",
+    "L3_CODE": "2_13_7",
+    "L3_NAME": "2_13_7 Phòng phơi sấy"
+}, {
+    "L1_CODE": 2,
+    "L1_NAME": "2_ Hoạt động công nghiệp và thủ công",
+    "L2_CODE": "2_13",
+    "L2_NAME": "2_13_ Công nghiệp dệt",
+    "L3_CODE": "2_13_8",
+    "L3_NAME": "2_13_8 In vải tự động"
+}, {
+    "L1_CODE": 2,
+    "L1_NAME": "2_ Hoạt động công nghiệp và thủ công",
+    "L2_CODE": "2_13",
+    "L2_NAME": "2_13_ Công nghiệp dệt",
+    "L3_CODE": "2_13_9",
+    "L3_NAME": "2_13_9 Gỡ nút sợi, chỉnh sửa"
+}, {
+    "L1_CODE": 2,
+    "L1_NAME": "2_ Hoạt động công nghiệp và thủ công",
+    "L2_CODE": "2_13",
+    "L2_NAME": "2_13_ Công nghiệp dệt",
+    "L3_CODE": "2_13_10",
+    "L3_NAME": "2_13_10 Kiểm tra màu, kiểm tra vải"
+}, {
+    "L1_CODE": 2,
+    "L1_NAME": "2_ Hoạt động công nghiệp và thủ công",
+    "L2_CODE": "2_13",
+    "L2_NAME": "2_13_ Công nghiệp dệt",
+    "L3_CODE": "2_13_11",
+    "L3_NAME": "2_13_11 Sửa lỗi"
+}, {
+    "L1_CODE": 2,
+    "L1_NAME": "2_ Hoạt động công nghiệp và thủ công",
+    "L2_CODE": "2_13",
+    "L2_NAME": "2_13_ Công nghiệp dệt",
+    "L3_CODE": "2_13_12",
+    "L3_NAME": "2_13_12 May mũ"
+}, {
+    "L1_CODE": 2,
+    "L1_NAME": "2_ Hoạt động công nghiệp và thủ công",
+    "L2_CODE": "2_14",
+    "L2_NAME": "2_14_ Công nghiệp sản xuất đồ gỗ",
+    "L3_CODE": "2_14_1",
+    "L3_NAME": "2_14_1 Quy trình tự động; ví dụ: sấy khô, sản xuất gỗ dán"
+}, {
+    "L1_CODE": 2,
+    "L1_NAME": "2_ Hoạt động công nghiệp và thủ công",
+    "L2_CODE": "2_14",
+    "L2_NAME": "2_14_ Công nghiệp sản xuất đồ gỗ",
+    "L3_CODE": "2_14_2",
+    "L3_NAME": "2_14_2 Hầm xông hơi"
+}, {
+    "L1_CODE": 2,
+    "L1_NAME": "2_ Hoạt động công nghiệp và thủ công",
+    "L2_CODE": "2_14",
+    "L2_NAME": "2_14_ Công nghiệp sản xuất đồ gỗ",
+    "L3_CODE": "2_14_3",
+    "L3_NAME": "2_14_3 Xưởng cưa"
+}, {
+    "L1_CODE": 2,
+    "L1_NAME": "2_ Hoạt động công nghiệp và thủ công",
+    "L2_CODE": "2_14",
+    "L2_NAME": "2_14_ Công nghiệp sản xuất đồ gỗ",
+    "L3_CODE": "2_14_4",
+    "L3_NAME": "2_14_4 Làm trên bàn mộc, gắn keo, lắp ghép"
+}, {
+    "L1_CODE": 2,
+    "L1_NAME": "2_ Hoạt động công nghiệp và thủ công",
+    "L2_CODE": "2_14",
+    "L2_NAME": "2_14_ Công nghiệp sản xuất đồ gỗ",
+    "L3_CODE": "2_14_5",
+    "L3_NAME": "2_14_5 Đánh bóng, sơn, làm đồ mộc tinh xảo"
+}, {
+    "L1_CODE": 2,
+    "L1_NAME": "2_ Hoạt động công nghiệp và thủ công",
+    "L2_CODE": "2_14",
+    "L2_NAME": "2_14_ Công nghiệp sản xuất đồ gỗ",
+    "L3_CODE": "2_14_6",
+    "L3_NAME": "2_14_6 Làm việc trên các máy gia công gỗ; ví dụ: bào, soi, gọt đẽo, làm rãnh ghép ván, cắt, cưa, đục, khoan"
+}, {
+    "L1_CODE": 2,
+    "L1_NAME": "2_ Hoạt động công nghiệp và thủ công",
+    "L2_CODE": "2_14",
+    "L2_NAME": "2_14_ Công nghiệp sản xuất đồ gỗ",
+    "L3_CODE": "2_14_7",
+    "L3_NAME": "2_14_7 Chọn gỗ bọc, dát gỗ, chạm, khảm"
+}, {
+    "L1_CODE": 2,
+    "L1_NAME": "2_ Hoạt động công nghiệp và thủ công",
+    "L2_CODE": "2_14",
+    "L2_NAME": "2_14_ Công nghiệp sản xuất đồ gỗ",
+    "L3_CODE": "2_14_8",
+    "L3_NAME": "2_14_8 Kiểm tra chất lượng"
+}, {
+    "L1_CODE": 2,
+    "L1_NAME": "2_ Hoạt động công nghiệp và thủ công",
+    "L2_CODE": "2_15",
+    "L2_NAME": "2_15_ Công nghiệp thực phẩm",
+    "L3_CODE": "2_15_1",
+    "L3_NAME": "2_15_1 Nhà máy bia, xưởng mạch nha"
+}, {
+    "L1_CODE": 2,
+    "L1_NAME": "2_ Hoạt động công nghiệp và thủ công",
+    "L2_CODE": "2_15",
+    "L2_NAME": "2_15_ Công nghiệp thực phẩm",
+    "L3_CODE": "2_15_2",
+    "L3_NAME": "2_15_2 Rửa, đóng thùng, làm sạch, sàng lọc, bóc vỏ"
+}, {
+    "L1_CODE": 2,
+    "L1_NAME": "2_ Hoạt động công nghiệp và thủ công",
+    "L2_CODE": "2_15",
+    "L2_NAME": "2_15_ Công nghiệp thực phẩm",
+    "L3_CODE": "2_15_3",
+    "L3_NAME": "2_15_3 Nơi nấu trong nhà máy làm mứt và sôcôla"
+}, {
+    "L1_CODE": 2,
+    "L1_NAME": "2_ Hoạt động công nghiệp và thủ công",
+    "L2_CODE": "2_15",
+    "L2_NAME": "2_15_ Công nghiệp thực phẩm",
+    "L3_CODE": "2_15_4",
+    "L3_NAME": "2_15_4 Vùng làm việc và nơi làm việc trong nhà máy đường"
+}, {
+    "L1_CODE": 2,
+    "L1_NAME": "2_ Hoạt động công nghiệp và thủ công",
+    "L2_CODE": "2_15",
+    "L2_NAME": "2_15_ Công nghiệp thực phẩm",
+    "L3_CODE": "2_15_5",
+    "L3_NAME": "2_15_5 Sấy khô, ủ men thuốc lá thô, lên men"
+}, {
+    "L1_CODE": 2,
+    "L1_NAME": "2_ Hoạt động công nghiệp và thủ công",
+    "L2_CODE": "2_15",
+    "L2_NAME": "2_15_ Công nghiệp thực phẩm",
+    "L3_CODE": "2_15_6",
+    "L3_NAME": "2_15_6 Phân loại và rửa sản phẩm, nghiền, trộn, đóng gói"
+}, {
+    "L1_CODE": 2,
+    "L1_NAME": "2_ Hoạt động công nghiệp và thủ công",
+    "L2_CODE": "2_15",
+    "L2_NAME": "2_15_ Công nghiệp thực phẩm",
+    "L3_CODE": "2_15_7",
+    "L3_NAME": "2_15_7 Nơi làm việc và vùng giới hạn trong nhà giết mổ, cửa hàng thịt, nhà máy sản xuất bơ sữa, trên sàn lọc, ở nơi tinh chế đường"
+}, {
+    "L1_CODE": 2,
+    "L1_NAME": "2_ Hoạt động công nghiệp và thủ công",
+    "L2_CODE": "2_15",
+    "L2_NAME": "2_15_ Công nghiệp thực phẩm",
+    "L3_CODE": "2_15_8",
+    "L3_NAME": "2_15_8 Cắt và phân loại rau quả"
+}, {
+    "L1_CODE": 2,
+    "L1_NAME": "2_ Hoạt động công nghiệp và thủ công",
+    "L2_CODE": "2_15",
+    "L2_NAME": "2_15_ Công nghiệp thực phẩm",
+    "L3_CODE": "2_15_9",
+    "L3_NAME": "2_15_9 Chế biến thức ăn sẵn, công việc nhà bếp"
+}, {
+    "L1_CODE": 2,
+    "L1_NAME": "2_ Hoạt động công nghiệp và thủ công",
+    "L2_CODE": "2_15",
+    "L2_NAME": "2_15_ Công nghiệp thực phẩm",
+    "L3_CODE": "2_15_10",
+    "L3_NAME": "2_15_10 Sản xuất xì gà và thuốc lá"
+}, {
+    "L1_CODE": 2,
+    "L1_NAME": "2_ Hoạt động công nghiệp và thủ công",
+    "L2_CODE": "2_15",
+    "L2_NAME": "2_15_ Công nghiệp thực phẩm",
+    "L3_CODE": "2_15_11",
+    "L3_NAME": "2_15_11 Kiểm tra thủy tinh và chai lọ, kiểm tra sản phẩm, chỉnh sửa, trang trí"
+}, {
+    "L1_CODE": 2,
+    "L1_NAME": "2_ Hoạt động công nghiệp và thủ công",
+    "L2_CODE": "2_15",
+    "L2_NAME": "2_15_ Công nghiệp thực phẩm",
+    "L3_CODE": "2_15_12",
+    "L3_NAME": "2_15_12 Phòng thí nghiệm"
+}, {
+    "L1_CODE": 2,
+    "L1_NAME": "2_ Hoạt động công nghiệp và thủ công",
+    "L2_CODE": "2_15",
+    "L2_NAME": "2_15_ Công nghiệp thực phẩm",
+    "L3_CODE": "2_15_13",
+    "L3_NAME": "2_15_13 Kiểm tra màu"
+}, {
+    "L1_CODE": 2,
+    "L1_NAME": "2_ Hoạt động công nghiệp và thủ công",
+    "L2_CODE": "2_16",
+    "L2_NAME": "2_16_ Làm bánh",
+    "L3_CODE": "2_16_1",
+    "L3_NAME": "2_16_1 Chuẩn bị và nướng bánh"
+}, {
+    "L1_CODE": 2,
+    "L1_NAME": "2_ Hoạt động công nghiệp và thủ công",
+    "L2_CODE": "2_16",
+    "L2_NAME": "2_16_ Làm bánh",
+    "L3_CODE": "2_16_2",
+    "L3_NAME": "2_16_2 Sửa sang, đóng hộp, trang trí"
+}, {
+    "L1_CODE": 2,
+    "L1_NAME": "2_ Hoạt động công nghiệp và thủ công",
+    "L2_CODE": "2_17",
+    "L2_NAME": "2_17_ Nông nghiệp",
+    "L3_CODE": "2_17_1",
+    "L3_NAME": "2_17_1 Bốc xếp hàng hóa, sử dụng thiết bị và máy móc"
+}, {
+    "L1_CODE": 2,
+    "L1_NAME": "2_ Hoạt động công nghiệp và thủ công",
+    "L2_CODE": "2_17",
+    "L2_NAME": "2_17_ Nông nghiệp",
+    "L3_CODE": "2_17_2",
+    "L3_NAME": "2_17_2 Nhà chăn nuôi súc vật"
+}, {
+    "L1_CODE": 2,
+    "L1_NAME": "2_ Hoạt động công nghiệp và thủ công",
+    "L2_CODE": "2_17",
+    "L2_NAME": "2_17_ Nông nghiệp",
+    "L3_CODE": "2_17_3",
+    "L3_NAME": "2_17_3 Nơi nhốt súc vật ốm, chuồng cho súc vật đẻ"
+}, {
+    "L1_CODE": 2,
+    "L1_NAME": "2_ Hoạt động công nghiệp và thủ công",
+    "L2_CODE": "2_17",
+    "L2_NAME": "2_17_ Nông nghiệp",
+    "L3_CODE": "2_17_4",
+    "L3_NAME": "2_17_4 Chuẩn bị thức ăn, nơi trữ và sản xuất bơ sữa, rửa dụng cụ"
+}, {
+    "L1_CODE": 2,
+    "L1_NAME": "2_ Hoạt động công nghiệp và thủ công",
+    "L2_CODE": "2_18",
+    "L2_NAME": "2_18_ Chế tác đồ trang sức",
+    "L3_CODE": "2_18_1",
+    "L3_NAME": "2_18_1 Chế tác đá quý"
+}, {
+    "L1_CODE": 2,
+    "L1_NAME": "2_ Hoạt động công nghiệp và thủ công",
+    "L2_CODE": "2_18",
+    "L2_NAME": "2_18_ Chế tác đồ trang sức",
+    "L3_CODE": "2_18_2",
+    "L3_NAME": "2_18_2 Chế tác đồ trang sức"
+}, {
+    "L1_CODE": 2,
+    "L1_NAME": "2_ Hoạt động công nghiệp và thủ công",
+    "L2_CODE": "2_18",
+    "L2_NAME": "2_18_ Chế tác đồ trang sức",
+    "L3_CODE": "2_18_3",
+    "L3_NAME": "2_18_3 Làm đồng hồ (bằng tay)"
+}, {
+    "L1_CODE": 2,
+    "L1_NAME": "2_ Hoạt động công nghiệp và thủ công",
+    "L2_CODE": "2_18",
+    "L2_NAME": "2_18_ Chế tác đồ trang sức",
+    "L3_CODE": "2_18_4",
+    "L3_NAME": "2_18_4 Làm đồng hồ (tự động)"
+}, {
+    "L1_CODE": 2,
+    "L1_NAME": "2_ Hoạt động công nghiệp và thủ công",
+    "L2_CODE": "2_19",
+    "L2_NAME": "2_19_ Hiệu làm đầu",
+    "L3_CODE": "2_19_1",
+    "L3_NAME": "2_19_1 Làm tóc"
+}, {
+    "L1_CODE": 2,
+    "L1_NAME": "2_ Hoạt động công nghiệp và thủ công",
+    "L2_CODE": "2_20",
+    "L2_NAME": "2_20_ Xưởng giặt là và giặt khô",
+    "L3_CODE": "2_20_1",
+    "L3_NAME": "2_20_1 Nhận hàng hóa, đánh dấu và phân loại"
+}, {
+    "L1_CODE": 2,
+    "L1_NAME": "2_ Hoạt động công nghiệp và thủ công",
+    "L2_CODE": "2_20",
+    "L2_NAME": "2_20_ Xưởng giặt là và giặt khô",
+    "L3_CODE": "2_20_2",
+    "L3_NAME": "2_20_2 Giặt và giặt khô"
+}, {
+    "L1_CODE": 2,
+    "L1_NAME": "2_ Hoạt động công nghiệp và thủ công",
+    "L2_CODE": "2_20",
+    "L2_NAME": "2_20_ Xưởng giặt là và giặt khô",
+    "L3_CODE": "2_20_3",
+    "L3_NAME": "2_20_3 Là, ép"
+}, {
+    "L1_CODE": 2,
+    "L1_NAME": "2_ Hoạt động công nghiệp và thủ công",
+    "L2_CODE": "2_20",
+    "L2_NAME": "2_20_ Xưởng giặt là và giặt khô",
+    "L3_CODE": "2_20_4",
+    "L3_NAME": "2_20_4 Kiểm tra và chỉnh sửa"
+}, {
+    "L1_CODE": 2,
+    "L1_NAME": "2_ Hoạt động công nghiệp và thủ công",
+    "L2_CODE": "2_21",
+    "L2_NAME": "2_21_ Cửa hàng bán lẻ",
+    "L3_CODE": "2_21_1",
+    "L3_NAME": "2_21_1 Khu vực bán hàng"
+}, {
+    "L1_CODE": 2,
+    "L1_NAME": "2_ Hoạt động công nghiệp và thủ công",
+    "L2_CODE": "2_21",
+    "L2_NAME": "2_21_ Cửa hàng bán lẻ",
+    "L3_CODE": "2_21_2",
+    "L3_NAME": "2_21_2 Khu thu ngân"
+}, {
+    "L1_CODE": 2,
+    "L1_NAME": "2_ Hoạt động công nghiệp và thủ công",
+    "L2_CODE": "2_21",
+    "L2_NAME": "2_21_ Cửa hàng bán lẻ",
+    "L3_CODE": "2_21_3",
+    "L3_NAME": "2_21_3 Bàn đóng gói hàng"
+}, {
+    "L1_CODE": 2,
+    "L1_NAME": "2_ Hoạt động công nghiệp và thủ công",
+    "L2_CODE": "2_22",
+    "L2_NAME": "2_22_ Văn phòng, công sở",
+    "L3_CODE": "2_22_1",
+    "L3_NAME": "2_22_1 Các phòng làm việc chung, phòng hồ sơ, photocopy"
+}, {
+    "L1_CODE": 2,
+    "L1_NAME": "2_ Hoạt động công nghiệp và thủ công",
+    "L2_CODE": "2_22",
+    "L2_NAME": "2_22_ Văn phòng, công sở",
+    "L3_CODE": "2_22_2",
+    "L3_NAME": "2_22_2 Phòng đánh máy, xử lý dữ liệu"
+}, {
+    "L1_CODE": 2,
+    "L1_NAME": "2_ Hoạt động công nghiệp và thủ công",
+    "L2_CODE": "2_22",
+    "L2_NAME": "2_22_ Văn phòng, công sở",
+    "L3_CODE": "2_22_3",
+    "L3_NAME": "2_22_3 Phòng vẽ kỹ thuật"
+}, {
+    "L1_CODE": 2,
+    "L1_NAME": "2_ Hoạt động công nghiệp và thủ công",
+    "L2_CODE": "2_22",
+    "L2_NAME": "2_22_ Văn phòng, công sở",
+    "L3_CODE": "2_22_4",
+    "L3_NAME": "2_22_4 Thiết kế vi tính"
+}, {
+    "L1_CODE": 2,
+    "L1_NAME": "2_ Hoạt động công nghiệp và thủ công",
+    "L2_CODE": "2_22",
+    "L2_NAME": "2_22_ Văn phòng, công sở",
+    "L3_CODE": "2_22_5",
+    "L3_NAME": "2_22_5 Phòng họp, hội nghị"
+}, {
+    "L1_CODE": 2,
+    "L1_NAME": "2_ Hoạt động công nghiệp và thủ công",
+    "L2_CODE": "2_22",
+    "L2_NAME": "2_22_ Văn phòng, công sở",
+    "L3_CODE": "2_22_6",
+    "L3_NAME": "2_22_6 Bàn tiếp dân"
+}, {
+    "L1_CODE": 2,
+    "L1_NAME": "2_ Hoạt động công nghiệp và thủ công",
+    "L2_CODE": "2_22",
+    "L2_NAME": "2_22_ Văn phòng, công sở",
+    "L3_CODE": "2_22_7",
+    "L3_NAME": "2_22_7 Phòng lưu trữ"
+}, {
+    "L1_CODE": 3,
+    "L1_NAME": "3_ Khu vực công cộng",
+    "L2_CODE": "3_1",
+    "L2_NAME": "3_1_ Khu vực chung",
+    "L3_CODE": "3_1_1",
+    "L3_NAME": "3_1_1 Lối vào, tiền sảnh"
+}, {
+    "L1_CODE": 3,
+    "L1_NAME": "3_ Khu vực công cộng",
+    "L2_CODE": "3_1",
+    "L2_NAME": "3_1_ Khu vực chung",
+    "L3_CODE": "3_1_2",
+    "L3_NAME": "3_1_2 Phòng gửi đồ"
+}, {
+    "L1_CODE": 3,
+    "L1_NAME": "3_ Khu vực công cộng",
+    "L2_CODE": "3_1",
+    "L2_NAME": "3_1_ Khu vực chung",
+    "L3_CODE": "3_1_3",
+    "L3_NAME": "3_1_3 Phòng đợi"
+}, {
+    "L1_CODE": 3,
+    "L1_NAME": "3_ Khu vực công cộng",
+    "L2_CODE": "3_1",
+    "L2_NAME": "3_1_ Khu vực chung",
+    "L3_CODE": "3_1_4",
+    "L3_NAME": "3_1_4 Phòng bán vé"
+}, {
+    "L1_CODE": 3,
+    "L1_NAME": "3_ Khu vực công cộng",
+    "L2_CODE": "3_2",
+    "L2_NAME": "3_2_ Nhà hàng, khách sạn",
+    "L3_CODE": "3_2_1",
+    "L3_NAME": "3_2_1 Bàn tiếp tân, thu ngân, bàn ký gửi hành lý"
+}, {
+    "L1_CODE": 3,
+    "L1_NAME": "3_ Khu vực công cộng",
+    "L2_CODE": "3_2",
+    "L2_NAME": "3_2_ Nhà hàng, khách sạn",
+    "L3_CODE": "3_2_2",
+    "L3_NAME": "3_2_2 Nhà bếp"
+}, {
+    "L1_CODE": 3,
+    "L1_NAME": "3_ Khu vực công cộng",
+    "L2_CODE": "3_2",
+    "L2_NAME": "3_2_ Nhà hàng, khách sạn",
+    "L3_CODE": "3_2_3",
+    "L3_NAME": "3_2_3 Nhà hàng, phòng ăn, phòng chức năng"
+}, {
+    "L1_CODE": 3,
+    "L1_NAME": "3_ Khu vực công cộng",
+    "L2_CODE": "3_2",
+    "L2_NAME": "3_2_ Nhà hàng, khách sạn",
+    "L3_CODE": "3_2_4",
+    "L3_NAME": "3_2_4 Nhà hàng tự phục vụ"
+}, {
+    "L1_CODE": 3,
+    "L1_NAME": "3_ Khu vực công cộng",
+    "L2_CODE": "3_2",
+    "L2_NAME": "3_2_ Nhà hàng, khách sạn",
+    "L3_CODE": "3_2_5",
+    "L3_NAME": "3_2_5 Búp phê (Buffets)"
+}, {
+    "L1_CODE": 3,
+    "L1_NAME": "3_ Khu vực công cộng",
+    "L2_CODE": "3_2",
+    "L2_NAME": "3_2_ Nhà hàng, khách sạn",
+    "L3_CODE": "3_2_6",
+    "L3_NAME": "3_2_6 Phòng họp"
+}, {
+    "L1_CODE": 3,
+    "L1_NAME": "3_ Khu vực công cộng",
+    "L2_CODE": "3_2",
+    "L2_NAME": "3_2_ Nhà hàng, khách sạn",
+    "L3_CODE": "3_2_7",
+    "L3_NAME": "3_2_7 Hành lang"
+}, {
+    "L1_CODE": 3,
+    "L1_NAME": "3_ Khu vực công cộng",
+    "L2_CODE": "3_3",
+    "L2_NAME": "3_3_ Nhà hát, phòng hòa nhạc, rạp chiếu phim",
+    "L3_CODE": "3_3_1",
+    "L3_NAME": "3_3_1 Phòng tập, phòng thay trang phục"
+}, {
+    "L1_CODE": 3,
+    "L1_NAME": "3_ Khu vực công cộng",
+    "L2_CODE": "3_3",
+    "L2_NAME": "3_3_ Nhà hát, phòng hòa nhạc, rạp chiếu phim",
+    "L3_CODE": "3_3_2",
+    "L3_NAME": "3_3_2 Bảo trì, làm vệ sinh khu vực ghế ngồi"
+}, {
+    "L1_CODE": 3,
+    "L1_NAME": "3_ Khu vực công cộng",
+    "L2_CODE": "3_3",
+    "L2_NAME": "3_3_ Nhà hát, phòng hòa nhạc, rạp chiếu phim",
+    "L3_CODE": "3_3_3",
+    "L3_NAME": "3_3_3 Xây dựng, lắp ráp sân khấu"
+}, {
+    "L1_CODE": 3,
+    "L1_NAME": "3_ Khu vực công cộng",
+    "L2_CODE": "3_4",
+    "L2_NAME": "3_4_ Hội chợ thương mại, phòng triển lãm",
+    "L3_CODE": "3_4_1",
+    "L3_NAME": "3_4_1 Chiếu sáng chung"
+}, {
+    "L1_CODE": 3,
+    "L1_NAME": "3_ Khu vực công cộng",
+    "L2_CODE": "3_5",
+    "L2_NAME": "3_5_ Thư viện",
+    "L3_CODE": "3_5_1",
+    "L3_NAME": "3_5_1 Giá sách"
+}, {
+    "L1_CODE": 3,
+    "L1_NAME": "3_ Khu vực công cộng",
+    "L2_CODE": "3_5",
+    "L2_NAME": "3_5_ Thư viện",
+    "L3_CODE": "3_5_2",
+    "L3_NAME": "3_5_2 Phòng đọc"
+}, {
+    "L1_CODE": 3,
+    "L1_NAME": "3_ Khu vực công cộng",
+    "L2_CODE": "3_5",
+    "L2_NAME": "3_5_ Thư viện",
+    "L3_CODE": "3_5_3",
+    "L3_NAME": "3_5_3 Quầy thu ngân, nhận sách"
+}, {
+    "L1_CODE": 3,
+    "L1_NAME": "3_ Khu vực công cộng",
+    "L2_CODE": "3_6",
+    "L2_NAME": "3_6_ Nơi để xe công cộng (trong nhà)",
+    "L3_CODE": "3_6_1",
+    "L3_NAME": "3_6_1 Đường dốc ra\/vào (ban ngày)"
+}, {
+    "L1_CODE": 3,
+    "L1_NAME": "3_ Khu vực công cộng",
+    "L2_CODE": "3_6",
+    "L2_NAME": "3_6_ Nơi để xe công cộng (trong nhà)",
+    "L3_CODE": "3_6_2",
+    "L3_NAME": "3_6_2 Đường dốc ra\/vào (ban đêm)"
+}, {
+    "L1_CODE": 3,
+    "L1_NAME": "3_ Khu vực công cộng",
+    "L2_CODE": "3_6",
+    "L2_NAME": "3_6_ Nơi để xe công cộng (trong nhà)",
+    "L3_CODE": "3_6_3",
+    "L3_NAME": "3_6_3 Đường lưu thông"
+}, {
+    "L1_CODE": 3,
+    "L1_NAME": "3_ Khu vực công cộng",
+    "L2_CODE": "3_6",
+    "L2_NAME": "3_6_ Nơi để xe công cộng (trong nhà)",
+    "L3_CODE": "3_6_4",
+    "L3_NAME": "3_6_4 Khu vực đỗ xe"
+}, {
+    "L1_CODE": 3,
+    "L1_NAME": "3_ Khu vực công cộng",
+    "L2_CODE": "3_6",
+    "L2_NAME": "3_6_ Nơi để xe công cộng (trong nhà)",
+    "L3_CODE": "3_6_5",
+    "L3_NAME": "3_6_5 Phòng vé"
+}, {
+    "L1_CODE": 4,
+    "L1_NAME": "4_ Nhà trường",
+    "L2_CODE": "4_1",
+    "L2_NAME": "4_1_ Nhà trẻ, mẫu giáo",
+    "L3_CODE": "4_1_1",
+    "L3_NAME": "4_1_1 Phòng chơi"
+}, {
+    "L1_CODE": 4,
+    "L1_NAME": "4_ Nhà trường",
+    "L2_CODE": "4_1",
+    "L2_NAME": "4_1_ Nhà trẻ, mẫu giáo",
+    "L3_CODE": "4_1_2",
+    "L3_NAME": "4_1_2 Phòng chăm sóc trẻ"
+}, {
+    "L1_CODE": 4,
+    "L1_NAME": "4_ Nhà trường",
+    "L2_CODE": "4_1",
+    "L2_NAME": "4_1_ Nhà trẻ, mẫu giáo",
+    "L3_CODE": "4_1_3",
+    "L3_NAME": "4_1_3 Phòng học thủ công"
+}, {
+    "L1_CODE": 4,
+    "L1_NAME": "4_ Nhà trường",
+    "L2_CODE": "4_2",
+    "L2_NAME": "4_2_ Trường học",
+    "L3_CODE": "4_2_1",
+    "L3_NAME": "4_2_1 Giảng đường, lớp học, phòng học"
+}, {
+    "L1_CODE": 4,
+    "L1_NAME": "4_ Nhà trường",
+    "L2_CODE": "4_2",
+    "L2_NAME": "4_2_ Trường học",
+    "L3_CODE": "4_2_2",
+    "L3_NAME": "4_2_2 Bảng đen, bảng xanh treo tường, bảng trắng"
+}, {
+    "L1_CODE": 4,
+    "L1_NAME": "4_ Nhà trường",
+    "L2_CODE": "4_2",
+    "L2_NAME": "4_2_ Trường học",
+    "L3_CODE": "4_2_3",
+    "L3_NAME": "4_2_3 Bàn trình diễn"
+}, {
+    "L1_CODE": 4,
+    "L1_NAME": "4_ Nhà trường",
+    "L2_CODE": "4_2",
+    "L2_NAME": "4_2_ Trường học",
+    "L3_CODE": "4_2_4",
+    "L3_NAME": "4_2_4 Phòng học mỹ thuật"
+}, {
+    "L1_CODE": 4,
+    "L1_NAME": "4_ Nhà trường",
+    "L2_CODE": "4_2",
+    "L2_NAME": "4_2_ Trường học",
+    "L3_CODE": "4_2_5",
+    "L3_NAME": "4_2_5 Phòng học mỹ thuật trong các trường mỹ thuật"
+}, {
+    "L1_CODE": 4,
+    "L1_NAME": "4_ Nhà trường",
+    "L2_CODE": "4_2",
+    "L2_NAME": "4_2_ Trường học",
+    "L3_CODE": "4_2_6",
+    "L3_NAME": "4_2_6 Phòng học vẽ kỹ thuật"
+}, {
+    "L1_CODE": 4,
+    "L1_NAME": "4_ Nhà trường",
+    "L2_CODE": "4_2",
+    "L2_NAME": "4_2_ Trường học",
+    "L3_CODE": "4_2_7",
+    "L3_NAME": "4_2_7 Phòng thực hành và thí nghiệm"
+}, {
+    "L1_CODE": 4,
+    "L1_NAME": "4_ Nhà trường",
+    "L2_CODE": "4_2",
+    "L2_NAME": "4_2_ Trường học",
+    "L3_CODE": "4_2_8",
+    "L3_NAME": "4_2_8 Xưởng dạy nghề, phòng thủ công"
+}, {
+    "L1_CODE": 4,
+    "L1_NAME": "4_ Nhà trường",
+    "L2_CODE": "4_2",
+    "L2_NAME": "4_2_ Trường học",
+    "L3_CODE": "4_2_9",
+    "L3_NAME": "4_2_9 Phòng thực hành âm nhạc"
+}, {
+    "L1_CODE": 4,
+    "L1_NAME": "4_ Nhà trường",
+    "L2_CODE": "4_2",
+    "L2_NAME": "4_2_ Trường học",
+    "L3_CODE": "4_2_10",
+    "L3_NAME": "4_2_10 Phòng thực hành máy tính"
+}, {
+    "L1_CODE": 4,
+    "L1_NAME": "4_ Nhà trường",
+    "L2_CODE": "4_2",
+    "L2_NAME": "4_2_ Trường học",
+    "L3_CODE": "4_2_11",
+    "L3_NAME": "4_2_11 Phòng chuẩn bị và xưởng thực nghiệm"
+}, {
+    "L1_CODE": 4,
+    "L1_NAME": "4_ Nhà trường",
+    "L2_CODE": "4_2",
+    "L2_NAME": "4_2_ Trường học",
+    "L3_CODE": "4_2_12",
+    "L3_NAME": "4_2_12 Khu vực lưu thông, hành lang"
+}, {
+    "L1_CODE": 4,
+    "L1_NAME": "4_ Nhà trường",
+    "L2_CODE": "4_2",
+    "L2_NAME": "4_2_ Trường học",
+    "L3_CODE": "4_2_13",
+    "L3_NAME": "4_2_13 Cầu thang"
+}, {
+    "L1_CODE": 4,
+    "L1_NAME": "4_ Nhà trường",
+    "L2_CODE": "4_2",
+    "L2_NAME": "4_2_ Trường học",
+    "L3_CODE": "4_2_14",
+    "L3_NAME": "4_2_14 Phòng học chung của sinh viên và phòng họp của Hội đồng nhà trường"
+}, {
+    "L1_CODE": 4,
+    "L1_NAME": "4_ Nhà trường",
+    "L2_CODE": "4_2",
+    "L2_NAME": "4_2_ Trường học",
+    "L3_CODE": "4_2_15",
+    "L3_NAME": "4_2_15 Phòng giáo viên"
+}, {
+    "L1_CODE": 4,
+    "L1_NAME": "4_ Nhà trường",
+    "L2_CODE": "4_2",
+    "L2_NAME": "4_2_ Trường học",
+    "L3_CODE": "4_2_16",
+    "L3_NAME": "4_2_16 Thư viện: Giá sách"
+}, {
+    "L1_CODE": 4,
+    "L1_NAME": "4_ Nhà trường",
+    "L2_CODE": "4_2",
+    "L2_NAME": "4_2_ Trường học",
+    "L3_CODE": "4_2_17",
+    "L3_NAME": "4_2_17 Thư viện: Phòng đọc"
+}, {
+    "L1_CODE": 4,
+    "L1_NAME": "4_ Nhà trường",
+    "L2_CODE": "4_2",
+    "L2_NAME": "4_2_ Trường học",
+    "L3_CODE": "4_2_18",
+    "L3_NAME": "4_2_18 Kho chứa dụng cụ giảng dạy"
+}, {
+    "L1_CODE": 4,
+    "L1_NAME": "4_ Nhà trường",
+    "L2_CODE": "4_2",
+    "L2_NAME": "4_2_ Trường học",
+    "L3_CODE": "4_2_19",
+    "L3_NAME": "4_2_19 Phòng thể thao, thể dục, bể bơi (sử dụng chung)"
+}, {
+    "L1_CODE": 4,
+    "L1_NAME": "4_ Nhà trường",
+    "L2_CODE": "4_2",
+    "L2_NAME": "4_2_ Trường học",
+    "L3_CODE": "4_2_20",
+    "L3_NAME": "4_2_20 Căng tin nhà trường"
+}, {
+    "L1_CODE": 4,
+    "L1_NAME": "4_ Nhà trường",
+    "L2_CODE": "4_2",
+    "L2_NAME": "4_2_ Trường học",
+    "L3_CODE": "4_2_21",
+    "L3_NAME": "4_2_21 Nhà bếp"
+}, {
+    "L1_CODE": 5,
+    "L1_NAME": "5_ Cơ sở chăm sóc sức khỏe",
+    "L2_CODE": "5_1",
+    "L2_NAME": "5_1_ Các phòng sử dụng chung",
+    "L3_CODE": "5_1_1",
+    "L3_NAME": "5_1_1 Hành lang: ban ngày"
+}, {
+    "L1_CODE": 5,
+    "L1_NAME": "5_ Cơ sở chăm sóc sức khỏe",
+    "L2_CODE": "5_1",
+    "L2_NAME": "5_1_ Các phòng sử dụng chung",
+    "L3_CODE": "5_1_2",
+    "L3_NAME": "5_1_2 Hành lang: làm vệ sinh"
+}, {
+    "L1_CODE": 5,
+    "L1_NAME": "5_ Cơ sở chăm sóc sức khỏe",
+    "L2_CODE": "5_1",
+    "L2_NAME": "5_1_ Các phòng sử dụng chung",
+    "L3_CODE": "5_1_3",
+    "L3_NAME": "5_1_3 Hành lang: ban đêm"
+}, {
+    "L1_CODE": 5,
+    "L1_NAME": "5_ Cơ sở chăm sóc sức khỏe",
+    "L2_CODE": "5_1",
+    "L2_NAME": "5_1_ Các phòng sử dụng chung",
+    "L3_CODE": "5_1_4",
+    "L3_NAME": "5_1_4 Hành lang: sử dụng cho nhiều Mục đích"
+}, {
+    "L1_CODE": 5,
+    "L1_NAME": "5_ Cơ sở chăm sóc sức khỏe",
+    "L2_CODE": "5_1",
+    "L2_NAME": "5_1_ Các phòng sử dụng chung",
+    "L3_CODE": "5_1_5",
+    "L3_NAME": "5_1_5 Cầu thang máy cho người"
+}, {
+    "L1_CODE": 5,
+    "L1_NAME": "5_ Cơ sở chăm sóc sức khỏe",
+    "L2_CODE": "5_1",
+    "L2_NAME": "5_1_ Các phòng sử dụng chung",
+    "L3_CODE": "5_1_6",
+    "L3_NAME": "5_1_6 Cầu thang máy phục vụ (chuyển máy móc, thiết bị, dụng cụ)"
+}, {
+    "L1_CODE": 5,
+    "L1_NAME": "5_ Cơ sở chăm sóc sức khỏe",
+    "L2_CODE": "5_1",
+    "L2_NAME": "5_1_ Các phòng sử dụng chung",
+    "L3_CODE": "5_1_7",
+    "L3_NAME": "5_1_7 Phòng đợi"
+}, {
+    "L1_CODE": 5,
+    "L1_NAME": "5_ Cơ sở chăm sóc sức khỏe",
+    "L2_CODE": "5_1",
+    "L2_NAME": "5_1_ Các phòng sử dụng chung",
+    "L3_CODE": "5_1_8",
+    "L3_NAME": "5_1_8 Phòng trực"
+}, {
+    "L1_CODE": 5,
+    "L1_NAME": "5_ Cơ sở chăm sóc sức khỏe",
+    "L2_CODE": "5_1",
+    "L2_NAME": "5_1_ Các phòng sử dụng chung",
+    "L3_CODE": "5_1_9",
+    "L3_NAME": "5_1_9 Phòng tắm và vệ sinh của bệnh nhân"
+}, {
+    "L1_CODE": 5,
+    "L1_NAME": "5_ Cơ sở chăm sóc sức khỏe",
+    "L2_CODE": "5_2",
+    "L2_NAME": "5_2_ Phòng nhân viên",
+    "L3_CODE": "5_2_1",
+    "L3_NAME": "5_2_1 Phòng hành chính"
+}, {
+    "L1_CODE": 5,
+    "L1_NAME": "5_ Cơ sở chăm sóc sức khỏe",
+    "L2_CODE": "5_2",
+    "L2_NAME": "5_2_ Phòng nhân viên",
+    "L3_CODE": "5_2_2",
+    "L3_NAME": "5_2_2 Phòng nhân viên"
+}, {
+    "L1_CODE": 5,
+    "L1_NAME": "5_ Cơ sở chăm sóc sức khỏe",
+    "L2_CODE": "5_3",
+    "L2_NAME": "5_3_ Phòng khám phụ sản",
+    "L3_CODE": "5_3_1",
+    "L3_NAME": "5_3_1 Chiếu sáng chung"
+}, {
+    "L1_CODE": 5,
+    "L1_NAME": "5_ Cơ sở chăm sóc sức khỏe",
+    "L2_CODE": "5_3",
+    "L2_NAME": "5_3_ Phòng khám phụ sản",
+    "L3_CODE": "5_3_2",
+    "L3_NAME": "5_3_2 Khám thông thường"
+}, {
+    "L1_CODE": 5,
+    "L1_NAME": "5_ Cơ sở chăm sóc sức khỏe",
+    "L2_CODE": "5_3",
+    "L2_NAME": "5_3_ Phòng khám phụ sản",
+    "L3_CODE": "5_3_3",
+    "L3_NAME": "5_3_3 Khám và Điều trị"
+}, {
+    "L1_CODE": 5,
+    "L1_NAME": "5_ Cơ sở chăm sóc sức khỏe",
+    "L2_CODE": "5_4",
+    "L2_NAME": "5_4_ Phòng khám chung",
+    "L3_CODE": "5_4_1",
+    "L3_NAME": "5_4_1 Chiếu sáng chung"
+}, {
+    "L1_CODE": 5,
+    "L1_NAME": "5_ Cơ sở chăm sóc sức khỏe",
+    "L2_CODE": "5_4",
+    "L2_NAME": "5_4_ Phòng khám chung",
+    "L3_CODE": "5_4_2",
+    "L3_NAME": "5_4_2 Khám và Điều trị"
+}, {
+    "L1_CODE": 5,
+    "L1_NAME": "5_ Cơ sở chăm sóc sức khỏe",
+    "L2_CODE": "5_5",
+    "L2_NAME": "5_5_ Phòng khám mắt",
+    "L3_CODE": "5_5_1",
+    "L3_NAME": "5_5_1 Chiếu sáng chung"
+}, {
+    "L1_CODE": 5,
+    "L1_NAME": "5_ Cơ sở chăm sóc sức khỏe",
+    "L2_CODE": "5_5",
+    "L2_NAME": "5_5_ Phòng khám mắt",
+    "L3_CODE": "5_5_2",
+    "L3_NAME": "5_5_2 Khám mắt"
+}, {
+    "L1_CODE": 5,
+    "L1_NAME": "5_ Cơ sở chăm sóc sức khỏe",
+    "L2_CODE": "5_5",
+    "L2_NAME": "5_5_ Phòng khám mắt",
+    "L3_CODE": "5_5_3",
+    "L3_NAME": "5_5_3 Kiểm tra thị lực và sắc giác bằng các biểu đồ"
+}, {
+    "L1_CODE": 5,
+    "L1_NAME": "5_ Cơ sở chăm sóc sức khỏe",
+    "L2_CODE": "5_6",
+    "L2_NAME": "5_6_ Phòng khám tai",
+    "L3_CODE": "5_6_1",
+    "L3_NAME": "5_6_1 Chiếu sáng chung"
+}, {
+    "L1_CODE": 5,
+    "L1_NAME": "5_ Cơ sở chăm sóc sức khỏe",
+    "L2_CODE": "5_6",
+    "L2_NAME": "5_6_ Phòng khám tai",
+    "L3_CODE": "5_6_1",
+    "L3_NAME": "5_6_1 Khám tai"
+}, {
+    "L1_CODE": 5,
+    "L1_NAME": "5_ Cơ sở chăm sóc sức khỏe",
+    "L2_CODE": "5_7",
+    "L2_NAME": "5_7_ Phòng chẩn đoán hình ảnh (Scanner)",
+    "L3_CODE": "5_7_1",
+    "L3_NAME": "5_7_1 Chiếu sáng chung"
+}, {
+    "L1_CODE": 5,
+    "L1_NAME": "5_ Cơ sở chăm sóc sức khỏe",
+    "L2_CODE": "5_7",
+    "L2_NAME": "5_7_ Phòng chẩn đoán hình ảnh (Scanner)",
+    "L3_CODE": "5_7_2",
+    "L3_NAME": "5_7_2 Máy chụp cắt lớp có phóng đại hình ảnh và các hệ thống ti vi"
+}, {
+    "L1_CODE": 5,
+    "L1_NAME": "5_ Cơ sở chăm sóc sức khỏe",
+    "L2_CODE": "5_8",
+    "L2_NAME": "5_8_ Phòng đẻ",
+    "L3_CODE": "5_8_1",
+    "L3_NAME": "5_8_1 Chiếu sáng chung"
+}, {
+    "L1_CODE": 5,
+    "L1_NAME": "5_ Cơ sở chăm sóc sức khỏe",
+    "L2_CODE": "5_8",
+    "L2_NAME": "5_8_ Phòng đẻ",
+    "L3_CODE": "5_8_2",
+    "L3_NAME": "5_8_2 Khám và Điều trị"
+}, {
+    "L1_CODE": 5,
+    "L1_NAME": "5_ Cơ sở chăm sóc sức khỏe",
+    "L2_CODE": "5_9",
+    "L2_NAME": "5_9_ Phòng Điều trị (chung)",
+    "L3_CODE": "5_9_1",
+    "L3_NAME": "5_9_1 Phòng chạy thận nhân tạo"
+}, {
+    "L1_CODE": 5,
+    "L1_NAME": "5_ Cơ sở chăm sóc sức khỏe",
+    "L2_CODE": "5_9",
+    "L2_NAME": "5_9_ Phòng Điều trị (chung)",
+    "L3_CODE": "5_9_2",
+    "L3_NAME": "5_9_2 Phòng da liễu"
+}, {
+    "L1_CODE": 5,
+    "L1_NAME": "5_ Cơ sở chăm sóc sức khỏe",
+    "L2_CODE": "5_9",
+    "L2_NAME": "5_9_ Phòng Điều trị (chung)",
+    "L3_CODE": "5_9_3",
+    "L3_NAME": "5_9_3 Phòng nội soi"
+}, {
+    "L1_CODE": 5,
+    "L1_NAME": "5_ Cơ sở chăm sóc sức khỏe",
+    "L2_CODE": "5_9",
+    "L2_NAME": "5_9_ Phòng Điều trị (chung)",
+    "L3_CODE": "5_9_4",
+    "L3_NAME": "5_9_4 Phòng bó bột"
+}, {
+    "L1_CODE": 5,
+    "L1_NAME": "5_ Cơ sở chăm sóc sức khỏe",
+    "L2_CODE": "5_9",
+    "L2_NAME": "5_9_ Phòng Điều trị (chung)",
+    "L3_CODE": "5_9_5",
+    "L3_NAME": "5_9_5 Phòng tắm trị liệu"
+}, {
+    "L1_CODE": 5,
+    "L1_NAME": "5_ Cơ sở chăm sóc sức khỏe",
+    "L2_CODE": "5_9",
+    "L2_NAME": "5_9_ Phòng Điều trị (chung)",
+    "L3_CODE": "5_9_6",
+    "L3_NAME": "5_9_6 Phòng mát xa và xạ trị"
+}, {
+    "L1_CODE": 5,
+    "L1_NAME": "5_ Cơ sở chăm sóc sức khỏe",
+    "L2_CODE": "5_10",
+    "L2_NAME": "5_10_ Khu phẫu thuật",
+    "L3_CODE": "5_10_1",
+    "L3_NAME": "5_10_1 Phòng tiền phẫu thuật và hậu phẫu"
+}, {
+    "L1_CODE": 5,
+    "L1_NAME": "5_ Cơ sở chăm sóc sức khỏe",
+    "L2_CODE": "5_10",
+    "L2_NAME": "5_10_ Khu phẫu thuật",
+    "L3_CODE": "5_10_2",
+    "L3_NAME": "5_10_2 Phòng phẫu thuật"
+}, {
+    "L1_CODE": 5,
+    "L1_NAME": "5_ Cơ sở chăm sóc sức khỏe",
+    "L2_CODE": "5_11",
+    "L2_NAME": "5_11_ Phòng Điều trị tích cực",
+    "L3_CODE": "5_11_1",
+    "L3_NAME": "5_11_1 Chiếu sáng chung"
+}, {
+    "L1_CODE": 5,
+    "L1_NAME": "5_ Cơ sở chăm sóc sức khỏe",
+    "L2_CODE": "5_11",
+    "L2_NAME": "5_11_ Phòng Điều trị tích cực",
+    "L3_CODE": "5_11_2",
+    "L3_NAME": "5_11_2 Khám thông thường"
+}, {
+    "L1_CODE": 5,
+    "L1_NAME": "5_ Cơ sở chăm sóc sức khỏe",
+    "L2_CODE": "5_11",
+    "L2_NAME": "5_11_ Phòng Điều trị tích cực",
+    "L3_CODE": "5_11_3",
+    "L3_NAME": "5_11_3 Khám và Điều trị"
+}, {
+    "L1_CODE": 5,
+    "L1_NAME": "5_ Cơ sở chăm sóc sức khỏe",
+    "L2_CODE": "5_11",
+    "L2_NAME": "5_11_ Phòng Điều trị tích cực",
+    "L3_CODE": "5_11_4",
+    "L3_NAME": "5_11_4 Chiếu sáng trực đêm"
+}, {
+    "L1_CODE": 5,
+    "L1_NAME": "5_ Cơ sở chăm sóc sức khỏe",
+    "L2_CODE": "5_12",
+    "L2_NAME": "5_12_ Phòng khám, chữa răng",
+    "L3_CODE": "5_12_1",
+    "L3_NAME": "5_12_1 Chiếu sáng chung"
+}, {
+    "L1_CODE": 5,
+    "L1_NAME": "5_ Cơ sở chăm sóc sức khỏe",
+    "L2_CODE": "5_12",
+    "L2_NAME": "5_12_ Phòng khám, chữa răng",
+    "L3_CODE": "5_12_2",
+    "L3_NAME": "5_12_2 Chỗ bệnh nhân"
+}, {
+    "L1_CODE": 5,
+    "L1_NAME": "5_ Cơ sở chăm sóc sức khỏe",
+    "L2_CODE": "5_13",
+    "L2_NAME": "5_13_ Các phòng thí nghiệm và phòng dược",
+    "L3_CODE": "5_13_1",
+    "L3_NAME": "5_13_1 Chiếu sáng chung"
+}, {
+    "L1_CODE": 5,
+    "L1_NAME": "5_ Cơ sở chăm sóc sức khỏe",
+    "L2_CODE": "5_13",
+    "L2_NAME": "5_13_ Các phòng thí nghiệm và phòng dược",
+    "L3_CODE": "5_13_2",
+    "L3_NAME": "5_13_2 Kiểm tra màu"
+}, {
+    "L1_CODE": 5,
+    "L1_NAME": "5_ Cơ sở chăm sóc sức khỏe",
+    "L2_CODE": "5_14",
+    "L2_NAME": "5_14_ Phòng tiệt trùng",
+    "L3_CODE": "5_14_1",
+    "L3_NAME": "5_14_1 Phòng tiệt trùng, tẩy uế"
+}, {
+    "L1_CODE": 5,
+    "L1_NAME": "5_ Cơ sở chăm sóc sức khỏe",
+    "L2_CODE": "5_15",
+    "L2_NAME": "5_15_ Phòng mổ tử thi và nhà xác",
+    "L3_CODE": "5_15_1",
+    "L3_NAME": "5_15_1 Chiếu sáng chung"
+}, {
+    "L1_CODE": 5,
+    "L1_NAME": "5_ Cơ sở chăm sóc sức khỏe",
+    "L2_CODE": "5_15",
+    "L2_NAME": "5_15_ Phòng mổ tử thi và nhà xác",
+    "L3_CODE": "5_15_2",
+    "L3_NAME": "5_15_2 Bàn mổ tử thi và bàn giải phẫu"
+}, {
+    "L1_CODE": 6,
+    "L1_NAME": "6_ Cảng hàng không",
+    "L2_CODE": "6_1",
+    "L2_NAME": "6_1 khu vực chung hàng không",
+    "L3_CODE": "6_1_1",
+    "L3_NAME": "6_1_1 Phòng đi và đến, khu nhận hành lý"
+}, {
+    "L1_CODE": 6,
+    "L1_NAME": "6_ Cảng hàng không",
+    "L2_CODE": "6_1",
+    "L2_NAME": "6_1 khu vực chung hàng không",
+    "L3_CODE": "6_1_2",
+    "L3_NAME": "6_1_2 Khu chuyển tiếp, băng chuyền"
+}, {
+    "L1_CODE": 6,
+    "L1_NAME": "6_ Cảng hàng không",
+    "L2_CODE": "6_1",
+    "L2_NAME": "6_1 khu vực chung hàng không",
+    "L3_CODE": "6_1_3",
+    "L3_NAME": "6_1_3 Bàn thông tin, bàn đăng ký bay"
+}, {
+    "L1_CODE": 6,
+    "L1_NAME": "6_ Cảng hàng không",
+    "L2_CODE": "6_1",
+    "L2_NAME": "6_1 khu vực chung hàng không",
+    "L3_CODE": "6_1_4",
+    "L3_NAME": "6_1_4 Hải quan và bàn kiểm tra hộ chiếu"
+}, {
+    "L1_CODE": 6,
+    "L1_NAME": "6_ Cảng hàng không",
+    "L2_CODE": "6_1",
+    "L2_NAME": "6_1 khu vực chung hàng không",
+    "L3_CODE": "6_1_5",
+    "L3_NAME": "6_1_5 Khu vực đợi vào cửa"
+}, {
+    "L1_CODE": 6,
+    "L1_NAME": "6_ Cảng hàng không",
+    "L2_CODE": "6_1",
+    "L2_NAME": "6_1 khu vực chung hàng không",
+    "L3_CODE": "6_1_6",
+    "L3_NAME": "6_1_6 Phòng lưu giữ hành lý"
+}, {
+    "L1_CODE": 6,
+    "L1_NAME": "6_ Cảng hàng không",
+    "L2_CODE": "6_1",
+    "L2_NAME": "6_1 khu vực chung hàng không",
+    "L3_CODE": "6_1_7",
+    "L3_NAME": "6_1_7 Khu kiểm tra an ninh"
+}, {
+    "L1_CODE": 6,
+    "L1_NAME": "6_ Cảng hàng không",
+    "L2_CODE": "6_1",
+    "L2_NAME": "6_1 khu vực chung hàng không",
+    "L3_CODE": "6_1_8",
+    "L3_NAME": "6_1_8 Trạm kiểm soát không lưu"
+}, {
+    "L1_CODE": 6,
+    "L1_NAME": "6_ Cảng hàng không",
+    "L2_CODE": "6_1",
+    "L2_NAME": "6_1 khu vực chung hàng không",
+    "L3_CODE": "6_1_9",
+    "L3_NAME": "6_1_9 Nhà chứa máy bay để kiểm tra và sửa chữa"
+}, {
+    "L1_CODE": 6,
+    "L1_NAME": "6_ Cảng hàng không",
+    "L2_CODE": "6_1",
+    "L2_NAME": "6_1 khu vực chung hàng không",
+    "L3_CODE": "6_1_10",
+    "L3_NAME": "6_1_10 Khu vực thử nghiệm động cơ"
+}, {
+    "L1_CODE": 6,
+    "L1_NAME": "6_ Cảng hàng không",
+    "L2_CODE": "6_1",
+    "L2_NAME": "6_1 khu vực chung hàng không",
+    "L3_CODE": "6_1_11",
+    "L3_NAME": "6_1_11 Khu vực đo kiểm trong nhà chứa máy bay"
+}, {
+    "L1_CODE": 6,
+    "L1_NAME": "6_ Cảng hàng không",
+    "L2_CODE": "6_1",
+    "L2_NAME": "6_1 khu vực chung hàng không",
+    "L3_CODE": "6_1_12",
+    "L3_NAME": "6_1_12 Bậc lên xuống và đường ngầm cho hành khách"
+}, {
+    "L1_CODE": 6,
+    "L1_NAME": "6_ Cảng hàng không",
+    "L2_CODE": "6_1",
+    "L2_NAME": "6_1 khu vực chung hàng không",
+    "L3_CODE": "6_1_13",
+    "L3_NAME": "6_1_13 Phòng làm thủ tục và phòng chờ"
+}, {
+    "L1_CODE": 6,
+    "L1_NAME": "6_ Cảng hàng không",
+    "L2_CODE": "6_1",
+    "L2_NAME": "6_1 khu vực chung hàng không",
+    "L3_CODE": "6_1_14",
+    "L3_NAME": "6_1_14 Phòng mua vé gửi hành lý và thu tiền"
+}, {
+    "L1_CODE": 6,
+    "L1_NAME": "6_ Cảng hàng không",
+    "L2_CODE": "6_1",
+    "L2_NAME": "6_1 khu vực chung hàng không",
+    "L3_CODE": "6_1_15",
+    "L3_NAME": "6_1_15 Phòng đợi lên máy bay"
+}]
