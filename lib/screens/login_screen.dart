@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'screens/dashboard_screen.dart'; // Thêm import này
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -15,8 +16,10 @@ class _LoginScreenState extends State<LoginScreen> {
   bool _obscureText = true;
 
   void _submitLogin() {
-    // Bỏ kiểm tra form, cho vào thẳng dashboard
-    Navigator.pushReplacementNamed(context, '/dashboard');
+    // Điều hướng đến DashboardScreen
+    Navigator.of(context).pushReplacement(
+      MaterialPageRoute(builder: (context) => const DashboardScreen()),
+    );
   }
 
   @override
@@ -112,6 +115,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   child: ElevatedButton(
                     onPressed: _submitLogin,
                     style: ElevatedButton.styleFrom(
+                      // Dòng code lỗi đã được xóa khỏi đây
                       backgroundColor: Colors.green,
                       padding: const EdgeInsets.symmetric(vertical: 14),
                       shape: RoundedRectangleBorder(

@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+import 'task_list_screen.dart'; // Thêm import này
+import '../login_screen.dart'; // Thêm import này
 
 class DashboardScreen extends StatelessWidget {
   const DashboardScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+    // Dữ liệu các nút chức năng
     final features = [
       {'icon': Icons.work_outline, 'label': 'Công việc', 'route': '/tasks'},
       {'icon': Icons.edit_note, 'label': 'Biên bản', 'route': '/records'},
@@ -17,6 +20,7 @@ class DashboardScreen extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Dashboard'),
         backgroundColor: Colors.green,
+        automaticallyImplyLeading: false, // Ẩn nút back
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -33,11 +37,31 @@ class DashboardScreen extends StatelessWidget {
             return GestureDetector(
               onTap: () {
                 final route = item['route'] as String;
-                if (route == '/') {
-                  Navigator.pushReplacementNamed(context, '/');
+
+                // --- LOGIC ĐIỀU HƯỚNG ĐÃ ĐƯỢC SỬA ---
+                if (route == '/tasks') {
+                  // Khi nhấn "Công việc", chuyển đến TaskListScreen
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const TaskListScreen()),
+                  );
+                } else if (route == '/') {
+                  // Khi nhấn "Đăng xuất", quay về LoginScreen
+                  Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const LoginScreen()),
+                  );
                 } else {
-                  Navigator.pushNamed(context, route);
+                  // Các nút khác chưa có chức năng, có thể hiển thị thông báo
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                        content: Text(
+                            'Chức năng "${item['label']}" đang được phát triển.')),
+                  );
                 }
+                // ------------------------------------
               },
               child: Container(
                 decoration: BoxDecoration(

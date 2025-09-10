@@ -1,6 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
-import 'package:flutter/material.dart'; // <--- DÒNG BỊ THIẾU ĐÃ ĐƯỢC THÊM VÀO ĐÂY
+import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:image_picker/image_picker.dart';
@@ -13,13 +13,16 @@ class Indicator {
   final TextEditingController valueController;
   final TextEditingController unitController;
   final bool isCustom; // Cờ để xác định đây có phải là chỉ tiêu mới không
+  final bool isDeletable; // <--- THÊM: Cờ để kiểm soát việc xóa
 
-  Indicator(
-      {required String name,
-      required String value,
-      required String unit,
-      this.isCustom = false})
-      : nameController = TextEditingController(text: name),
+  Indicator({
+    required String name,
+    required String value,
+    required String unit,
+    this.isCustom = false,
+    this.isDeletable =
+        true, // <--- MẶC ĐỊNH LÀ CÓ THỂ XÓA (cho các chỉ tiêu tự thêm)
+  })  : nameController = TextEditingController(text: name),
         valueController = TextEditingController(text: value),
         unitController = TextEditingController(text: unit);
 
@@ -52,6 +55,8 @@ class MeasurementPointState {
         name: name,
         value: initialValues[key] ?? '',
         unit: initialUnits[key] ?? '',
+        isDeletable: false, // <--- CÁC CHỈ TIÊU MẶC ĐỊNH SẼ KHÔNG XÓA ĐƯỢC
+        isCustom: false,
       ));
     });
   }
@@ -106,7 +111,7 @@ class _RecordListScreenState extends State<RecordListScreen> {
   final TextEditingController _caLamViecController =
       TextEditingController(text: "2 ca");
   final TextEditingController _tongLDController =
-      TextEditingController(text: "2846");
+      new TextEditingController(text: "2846");
   final TextEditingController _gioVaoController =
       TextEditingController(text: "08 giờ 30");
   final TextEditingController _vkhVaoController =
@@ -152,10 +157,10 @@ class _RecordListScreenState extends State<RecordListScreen> {
     'dust': 'mg/m³',
     'heat': '°C',
     'o2': '%',
-    'co': 'ppm',
-    'co2': 'ppm',
-    'so2': 'ppm',
-    'no2': 'ppm'
+    'co': 'Mẫu',
+    'co2': 'Mẫu',
+    'so2': 'Mẫu',
+    'no2': 'Mẫu'
   };
   final Map<String, String> _indicatorInitialValues = {
     'light': '234',
@@ -233,9 +238,13 @@ class _RecordListScreenState extends State<RecordListScreen> {
 
   void _addCustomIndicator(int pointIndex) {
     setState(() {
-      _measurementPoints[pointIndex]
-          .indicators
-          .add(Indicator(name: '---', value: '', unit: '---', isCustom: true));
+      _measurementPoints[pointIndex].indicators.add(Indicator(
+            name: '---',
+            value: '',
+            unit: '---',
+            isCustom: true,
+            isDeletable: true, // <--- Đảm bảo chỉ tiêu mới có thể xóa được
+          ));
     });
   }
 
@@ -714,19 +723,21 @@ class _RecordListScreenState extends State<RecordListScreen> {
                   ],
                 ),
               ),
-              Positioned(
-                top: -8,
-                right: -8,
-                child: InkWell(
-                  onTap: () => _removeIndicator(pointIndex, indicatorIndex),
-                  child: Container(
-                    decoration: const BoxDecoration(
-                        color: Colors.redAccent, shape: BoxShape.circle),
-                    child:
-                        const Icon(Icons.close, color: Colors.white, size: 14),
+              // Nút xóa chỉ hiển thị nếu isDeletable là true
+              if (indicator.isDeletable)
+                Positioned(
+                  top: -8,
+                  right: -8,
+                  child: InkWell(
+                    onTap: () => _removeIndicator(pointIndex, indicatorIndex),
+                    child: Container(
+                      decoration: const BoxDecoration(
+                          color: Colors.redAccent, shape: BoxShape.circle),
+                      child: const Icon(Icons.close,
+                          color: Colors.white, size: 14),
+                    ),
                   ),
                 ),
-              ),
             ],
           ),
         );

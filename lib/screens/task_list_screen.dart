@@ -141,10 +141,15 @@ class _TaskListScreenState extends State<TaskListScreen> {
 
                 return InkWell(
                   onTap: () {
-                    Navigator.pushNamed(
+                    // Điều hướng trực tiếp đến RecordListScreen và truyền dữ liệu
+                    Navigator.push(
                       context,
-                      '/records',
-                      arguments: {'companyId': task['name']},
+                      MaterialPageRoute(
+                        builder: (context) => RecordListScreen(
+                          companyName: task['name']!,
+                          companyAddress: task['address']!,
+                        ),
+                      ),
                     );
                   },
                   child: Container(
