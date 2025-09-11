@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'record_list_screen.dart';
 
 class TaskListScreen extends StatefulWidget {
   const TaskListScreen({super.key});
@@ -17,7 +18,7 @@ class _TaskListScreenState extends State<TaskListScreen> {
     final statuses = ['Đang làm', 'Tạm hoãn', 'Hoàn thành'];
     return {
       'name': 'Công ty ${index + 1}',
-      'address': 'Địa chỉ ${index + 1}',
+      'address': 'Địa chỉ công ty ${index + 1}',
       'date': '01/09/2025',
       'status': statuses[index % statuses.length],
     };
@@ -39,8 +40,7 @@ class _TaskListScreenState extends State<TaskListScreen> {
         backgroundColor: Colors.blue,
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
-          onPressed: () =>
-              Navigator.pushReplacementNamed(context, '/dashboard'),
+          onPressed: () => Navigator.pop(context),
         ),
         actions: [
           IconButton(
@@ -74,25 +74,25 @@ class _TaskListScreenState extends State<TaskListScreen> {
                 onChanged: (val) => setState(() => _search = val),
               ),
             ),
-          Padding(
-            padding:
-                const EdgeInsets.symmetric(vertical: 8.0, horizontal: 12.0),
+          SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 8.0),
             child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children:
                   ['Tất cả', 'Tạm hoãn', 'Đang làm', 'Hoàn thành'].map((label) {
                 final isSelected = _filterStatus == label;
-                return ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor:
-                        isSelected ? Colors.blue : Colors.grey.shade300,
-                    elevation: isSelected ? 2 : 0,
-                  ),
-                  onPressed: () => setState(() => _filterStatus = label),
-                  child: Text(
-                    label,
-                    style: TextStyle(
-                        color: isSelected ? Colors.white : Colors.black),
+                return Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 4.0),
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor:
+                          isSelected ? Colors.blue : Colors.grey.shade300,
+                      elevation: isSelected ? 2 : 0,
+                    ),
+                    onPressed: () => setState(() => _filterStatus = label),
+                    child: Text(label,
+                        style: TextStyle(
+                            color: isSelected ? Colors.white : Colors.black)),
                   ),
                 );
               }).toList(),
@@ -133,15 +133,14 @@ class _TaskListScreenState extends State<TaskListScreen> {
                 final task = filtered[index];
                 Color statusColor = Colors.grey;
                 if (task['status'] == 'Đang làm')
-                  statusColor = Colors.orange;
+                  statusColor = const Color.fromARGB(255, 144, 255, 39);
                 else if (task['status'] == 'Tạm hoãn')
                   statusColor = Colors.red;
                 else if (task['status'] == 'Hoàn thành')
-                  statusColor = Colors.green;
+                  statusColor = const Color.fromARGB(255, 97, 134, 255);
 
                 return InkWell(
                   onTap: () {
-                    // Điều hướng trực tiếp đến RecordListScreen và truyền dữ liệu
                     Navigator.push(
                       context,
                       MaterialPageRoute(
@@ -162,10 +161,9 @@ class _TaskListScreenState extends State<TaskListScreen> {
                       borderRadius: BorderRadius.circular(8),
                       boxShadow: [
                         BoxShadow(
-                          color: Colors.grey.shade200,
-                          blurRadius: 4,
-                          offset: const Offset(0, 2),
-                        )
+                            color: Colors.grey.shade200,
+                            blurRadius: 4,
+                            offset: const Offset(0, 2))
                       ],
                     ),
                     child: Row(
@@ -182,17 +180,15 @@ class _TaskListScreenState extends State<TaskListScreen> {
                             padding: const EdgeInsets.symmetric(
                                 horizontal: 6, vertical: 4),
                             decoration: BoxDecoration(
-                              color: statusColor.withOpacity(0.2),
-                              borderRadius: BorderRadius.circular(8),
-                            ),
+                                color: statusColor.withOpacity(0.2),
+                                borderRadius: BorderRadius.circular(8)),
                             child: Text(
                               task['status']!,
                               textAlign: TextAlign.center,
                               style: TextStyle(
-                                color: statusColor,
-                                fontWeight: FontWeight.w600,
-                                fontSize: 12,
-                              ),
+                                  color: statusColor,
+                                  fontWeight: FontWeight.w600,
+                                  fontSize: 12),
                             ),
                           ),
                         ),
@@ -210,15 +206,12 @@ class _TaskListScreenState extends State<TaskListScreen> {
             child: Row(
               children: [
                 IconButton(
-                  onPressed: () {
-                    // TODO: Tin nhắn sau này
-                  },
-                  icon: const Icon(Icons.message, color: Colors.blue, size: 32),
-                ),
+                    onPressed: () {},
+                    icon: const Icon(Icons.message,
+                        color: Colors.blue, size: 32)),
                 const Spacer(),
                 IconButton(
-                  onPressed: () =>
-                      Navigator.pushReplacementNamed(context, '/dashboard'),
+                  onPressed: () => Navigator.pop(context),
                   icon: const Icon(Icons.home, color: Colors.blue, size: 32),
                 ),
               ],

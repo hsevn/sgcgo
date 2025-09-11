@@ -4,25 +4,24 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:image_picker/image_picker.dart';
-import '../models/job_measurement.dart'; // Đảm bảo đường dẫn này đúng
+import '../models/job_measurement.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-// --- LỚP MỚI ĐỂ QUẢN LÝ TỪNG CHỈ TIÊU ĐO ---
+// --- CÁC LỚP HELPER (GIỮ NGUYÊN) ---
 class Indicator {
   final TextEditingController nameController;
   final TextEditingController valueController;
   final TextEditingController unitController;
-  final bool isCustom; // Cờ để xác định đây có phải là chỉ tiêu mới không
-  final bool isDeletable; // <--- THÊM: Cờ để kiểm soát việc xóa
+  final bool isCustom;
+  final bool isDeletable;
 
-  Indicator({
-    required String name,
-    required String value,
-    required String unit,
-    this.isCustom = false,
-    this.isDeletable =
-        true, // <--- MẶC ĐỊNH LÀ CÓ THỂ XÓA (cho các chỉ tiêu tự thêm)
-  })  : nameController = TextEditingController(text: name),
+  Indicator(
+      {required String name,
+      required String value,
+      required String unit,
+      this.isCustom = false,
+      this.isDeletable = true})
+      : nameController = TextEditingController(text: name),
         valueController = TextEditingController(text: value),
         unitController = TextEditingController(text: unit);
 
@@ -33,19 +32,13 @@ class Indicator {
   }
 }
 
-// --- LỚP QUẢN LÝ TRẠNG THÁI CHO TỪNG ĐIỂM ĐO ---
 class MeasurementPointState {
   final TextEditingController areaController =
       TextEditingController(text: "Kho nguyên liệu");
   final TextEditingController postureController = TextEditingController(
       text: "Nhân viên công đoạn này có nhiệm vụ cho liệu vào máy Chỉnh lý...");
-
-  // Danh sách các chỉ tiêu, giờ đây là một danh sách các đối tượng Indicator
   final List<Indicator> indicators = [];
-
-  String? selectedL1;
-  String? selectedL2;
-  String? selectedL3;
+  String? selectedL1, selectedL2, selectedL3;
   File? owasImage;
 
   MeasurementPointState(Map<String, String> initialNames,
@@ -55,7 +48,7 @@ class MeasurementPointState {
         name: name,
         value: initialValues[key] ?? '',
         unit: initialUnits[key] ?? '',
-        isDeletable: false, // <--- CÁC CHỈ TIÊU MẶC ĐỊNH SẼ KHÔNG XÓA ĐƯỢC
+        isDeletable: false,
         isCustom: false,
       ));
     });
@@ -70,23 +63,18 @@ class MeasurementPointState {
   }
 }
 
-// --- WIDGET CHÍNH CỦA MÀN HÌNH ---
+// --- WIDGET CHÍNH ---
 class RecordListScreen extends StatefulWidget {
   final String companyName;
   final String companyAddress;
-
-  const RecordListScreen({
-    super.key,
-    required this.companyName,
-    required this.companyAddress,
-  });
-
+  const RecordListScreen(
+      {super.key, required this.companyName, required this.companyAddress});
   @override
   State<RecordListScreen> createState() => _RecordListScreenState();
 }
 
 class _RecordListScreenState extends State<RecordListScreen> {
-  // === CÁC HẰNG SỐ ===
+  // === HẰNG SỐ ===
   static const Color scaffoldBgColor = Color(0xFFE6F7FB);
   static const Color appBarColor = Color(0xFFE6F7FB);
   static const Color cardBgColor = Colors.white;
@@ -101,7 +89,6 @@ class _RecordListScreenState extends State<RecordListScreen> {
   bool phoneVisible = false;
   bool _isLoading = true;
 
-  // Controllers cho thông tin chung
   final TextEditingController _nguoiQTController =
       TextEditingController(text: "Nguyễn Văn B");
   final TextEditingController _ngayQTController =
@@ -111,7 +98,7 @@ class _RecordListScreenState extends State<RecordListScreen> {
   final TextEditingController _caLamViecController =
       TextEditingController(text: "2 ca");
   final TextEditingController _tongLDController =
-      new TextEditingController(text: "2846");
+      TextEditingController(text: "2846");
   final TextEditingController _gioVaoController =
       TextEditingController(text: "08 giờ 30");
   final TextEditingController _vkhVaoController =
@@ -123,11 +110,9 @@ class _RecordListScreenState extends State<RecordListScreen> {
   final TextEditingController _daiDienKHController =
       TextEditingController(text: "Nguyễn Văn C");
 
-  // Dữ liệu dropdown
   List<Map<String, dynamic>> _phanCapData = [];
   List<String> _allL1Options = [];
 
-  // Dữ liệu ban đầu cho các chỉ số
   final Map<String, String> _indicatorNames = {
     'light': 'Ánh sáng',
     'noise': 'Ồn chung',
@@ -157,10 +142,10 @@ class _RecordListScreenState extends State<RecordListScreen> {
     'dust': 'mg/m³',
     'heat': '°C',
     'o2': '%',
-    'co': 'Mẫu',
-    'co2': 'Mẫu',
-    'so2': 'Mẫu',
-    'no2': 'Mẫu'
+    'co': 'ppm',
+    'co2': 'ppm',
+    'so2': 'ppm',
+    'no2': 'ppm'
   };
   final Map<String, String> _indicatorInitialValues = {
     'light': '234',
@@ -179,8 +164,6 @@ class _RecordListScreenState extends State<RecordListScreen> {
     'so2': 'K1',
     'no2': 'K1'
   };
-
-  // Danh sách quản lý state của từng "Điểm Đo"
   final List<MeasurementPointState> _measurementPoints = [];
 
   @override
@@ -207,54 +190,49 @@ class _RecordListScreenState extends State<RecordListScreen> {
     super.dispose();
   }
 
-  // --- LOGIC & HÀNH VI ---
-
   Future<void> _loadDataAndInitialize() async {
-    final rawData = await rootBundle.loadString('assets/phan_cap.json');
-    final List<dynamic> jsonData = json.decode(rawData);
-
-    setState(() {
-      _phanCapData = List<Map<String, dynamic>>.from(jsonData);
-      _allL1Options =
-          _phanCapData.map((e) => e['L1_NAME'].toString()).toSet().toList();
-
-      if (_measurementPoints.isEmpty) {
-        _addMeasurementPoint();
+    try {
+      final rawData = await rootBundle.loadString('assets/phan_cap.json');
+      final List<dynamic> jsonData = json.decode(rawData);
+      setState(() {
+        _phanCapData = List<Map<String, dynamic>>.from(jsonData);
+        _allL1Options =
+            _phanCapData.map((e) => e['L1_NAME'].toString()).toSet().toList();
+        if (_measurementPoints.isEmpty) {
+          _addMeasurementPoint();
+        }
+        _isLoading = false;
+      });
+    } catch (e) {
+      print("LỖI KHI TẢI phan_cap.json: $e");
+      setState(() {
+        _isLoading = false;
+      });
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+            content: Text('Lỗi: Không thể tải dữ liệu phân cấp.')));
       }
-      _isLoading = false;
-    });
+    }
   }
 
   void _addMeasurementPoint() =>
       setState(() => _measurementPoints.add(MeasurementPointState(
           _indicatorNames, _indicatorInitialValues, _indicatorUnits)));
-
-  void _removeMeasurementPoint(int index) {
-    setState(() {
-      _measurementPoints[index].dispose();
-      _measurementPoints.removeAt(index);
-    });
-  }
-
-  void _addCustomIndicator(int pointIndex) {
-    setState(() {
-      _measurementPoints[pointIndex].indicators.add(Indicator(
-            name: '---',
-            value: '',
-            unit: '---',
-            isCustom: true,
-            isDeletable: true, // <--- Đảm bảo chỉ tiêu mới có thể xóa được
-          ));
-    });
-  }
-
-  void _removeIndicator(int pointIndex, int indicatorIndex) {
-    setState(() {
-      _measurementPoints[pointIndex].indicators[indicatorIndex].dispose();
-      _measurementPoints[pointIndex].indicators.removeAt(indicatorIndex);
-    });
-  }
-
+  void _removeMeasurementPoint(int index) => setState(() {
+        _measurementPoints[index].dispose();
+        _measurementPoints.removeAt(index);
+      });
+  void _addCustomIndicator(int pointIndex) =>
+      setState(() => _measurementPoints[pointIndex].indicators.add(Indicator(
+          name: '---',
+          value: '',
+          unit: '---',
+          isCustom: true,
+          isDeletable: true)));
+  void _removeIndicator(int pointIndex, int indicatorIndex) => setState(() {
+        _measurementPoints[pointIndex].indicators[indicatorIndex].dispose();
+        _measurementPoints[pointIndex].indicators.removeAt(indicatorIndex);
+      });
   Future<void> _pickImage(int index) async {
     final picker = ImagePicker();
     final pickedFile =
@@ -267,26 +245,27 @@ class _RecordListScreenState extends State<RecordListScreen> {
 
   Future<void> _copyToClipboard(String text) async {
     await Clipboard.setData(ClipboardData(text: text));
-    ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Đã sao chép vào clipboard')));
+    if (mounted)
+      ScaffoldMessenger.of(context)
+          .showSnackBar(const SnackBar(content: Text('Đã sao chép')));
   }
 
   Future<void> _openMap(String address) async {
     final Uri url = Uri.parse(
         "https://www.google.com/maps/search/?api=1&query=${Uri.encodeComponent(address)}");
     if (!await launchUrl(url, mode: LaunchMode.externalApplication)) {
-      ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Không thể mở Google Maps')));
+      if (mounted)
+        ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(content: Text('Không thể mở Google Maps')));
     }
   }
 
-  // --- PHẦN GIAO DIỆN (UI BUILD) ---
+  // --- BUILD METHOD ---
   @override
   Widget build(BuildContext context) {
     if (_isLoading) {
       return const Scaffold(body: Center(child: CircularProgressIndicator()));
     }
-
     return Scaffold(
       backgroundColor: scaffoldBgColor,
       appBar: AppBar(
@@ -294,24 +273,21 @@ class _RecordListScreenState extends State<RecordListScreen> {
         elevation: 1,
         backgroundColor: appBarColor,
         leading: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: InkWell(
-            onTap: () => Navigator.pop(context),
-            child: Container(
-              decoration: BoxDecoration(
-                  color: iconPurpleColor,
-                  borderRadius: BorderRadius.circular(12)),
-              child: const Icon(Icons.arrow_back_ios_new_rounded,
-                  size: 24, color: Colors.white),
-            ),
-          ),
-        ),
+            padding: const EdgeInsets.all(8.0),
+            child: InkWell(
+                onTap: () => Navigator.pop(context),
+                child: Container(
+                    decoration: BoxDecoration(
+                        color: iconPurpleColor,
+                        borderRadius: BorderRadius.circular(12)),
+                    child: const Icon(Icons.arrow_back_ios_new_rounded,
+                        size: 24, color: Colors.white)))),
         centerTitle: true,
-        title: const Text(
-          "BIÊN BẢN QUAN TRẮC MÔI TRƯỜNG LAO ĐỘNG",
-          style: TextStyle(
-              fontSize: 18, fontWeight: FontWeight.bold, color: Colors.black87),
-        ),
+        title: const Text("BIÊN BẢN QUAN TRẮC MÔI TRƯỜNG LAO ĐỘNG",
+            style: TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+                color: Colors.black87)),
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.fromLTRB(16, 16, 16, 80),
@@ -333,8 +309,6 @@ class _RecordListScreenState extends State<RecordListScreen> {
       bottomSheet: _buildActionButtons(),
     );
   }
-
-  // --- CÁC WIDGET CON ĐỂ TÁI SỬ DỤNG ---
 
   Widget _buildChip(String text) => Container(
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
@@ -434,8 +408,6 @@ class _RecordListScreenState extends State<RecordListScreen> {
       ),
     );
   }
-
-  // --- CÁC KHỐI GIAO DIỆN CHÍNH ---
 
   Widget _buildCustomerInfo() {
     return Card(
@@ -723,7 +695,6 @@ class _RecordListScreenState extends State<RecordListScreen> {
                   ],
                 ),
               ),
-              // Nút xóa chỉ hiển thị nếu isDeletable là true
               if (indicator.isDeletable)
                 Positioned(
                   top: -8,
