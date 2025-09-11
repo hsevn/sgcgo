@@ -17,6 +17,11 @@ dependencies:
   url_launcher: ^6.3.2
   scrollable_positioned_list: ^0.3.8
 
+  # --- THÊM 3 THƯ VIỆN MỚI ---
+  geolocator: ^12.0.0
+  proj4dart: ^2.1.0
+  image: ^4.2.0
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -31,4 +36,4 @@ flutter:
   assets:
     - assets/images/
     - assets/phan_cap.json
-    # - assets/tieu_chuan.json # Bạn có thể thêm lại dòng này nếu có file
+    - assets/tieu_chuan.json

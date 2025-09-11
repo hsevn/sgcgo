@@ -6,7 +6,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:image_picker/image_picker.dart';
 import '../models/job_measurement.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
+import 'package:scrollable_positioned_list/scrollable_positioned_list.dart'; // Thư viện cho cuộn chính xác
 
 // --- CÁC LỚP HELPER ---
 class Indicator {
@@ -652,7 +652,6 @@ class _RecordListScreenState extends State<RecordListScreen> {
     );
   }
 
-  // --- HÀM ĐÃ SỬA LỖI ---
   Widget _buildIndicatorsGrid(int pointIndex) {
     final pointState = _measurementPoints[pointIndex];
     return GridView.builder(
@@ -679,7 +678,6 @@ class _RecordListScreenState extends State<RecordListScreen> {
                     height: 22,
                     padding: const EdgeInsets.only(top: 6, left: 2, right: 2),
                     alignment: Alignment.topCenter,
-                    // --- SỬA LỖI: Đổi lại thành TextField để có thể nhập liệu ---
                     child: TextField(
                       controller: indicator.nameController,
                       readOnly: !indicator.isCustom,
