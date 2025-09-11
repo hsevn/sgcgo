@@ -34,11 +34,11 @@ class _LoginScreenState extends State<LoginScreen> {
             child: Column(
               children: [
                 // Logo
-                Image.asset('assets/images/sgc_logo.png', height: 100),
+                Image.asset('assets/images/sgc_logo.png', height: 300),
 
                 const SizedBox(height: 12),
                 const Text(
-                  'HSE Consulting',
+                  'Hello',
                   style: TextStyle(
                     fontSize: 18,
                     fontWeight: FontWeight.bold,

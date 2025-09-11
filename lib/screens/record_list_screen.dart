@@ -6,8 +6,9 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:image_picker/image_picker.dart';
 import '../models/job_measurement.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 
-// --- LỚP HELPER QUẢN LÝ TỪNG CHỈ TIÊU ĐO ---
+// --- CÁC LỚP HELPER ---
 class Indicator {
   final TextEditingController nameController;
   final TextEditingController valueController;
@@ -28,14 +29,12 @@ class Indicator {
   }
 }
 
-// --- LỚP HELPER QUẢN LÝ TRẠNG THÁI CỦA MỖI ĐIỂM ĐO ---
 class MeasurementPointState {
   final TextEditingController areaController;
   final TextEditingController postureController =
       TextEditingController(text: "Nhân viên công đoạn này có nhiệm vụ...");
   final List<Indicator> indicators = [];
-  final bool
-      isRemovable; // <-- THAY ĐỔI: Đổi tên thành isRemovable để rõ nghĩa hơn
+  final bool isRemovable;
   String? selectedL1, selectedL2, selectedL3;
   File? owasImage;
 
@@ -43,13 +42,13 @@ class MeasurementPointState {
     required String areaName,
     required Map<String, String> initialNames,
     required Map<String, String> initialValues,
-    this.isRemovable = false, // Mặc định là không thể xóa
+    this.isRemovable = false,
   }) : areaController = TextEditingController(text: areaName) {
     initialNames.forEach((key, name) {
       indicators.add(Indicator(
         name: name,
         value: initialValues[key] ?? '',
-        isDeletable: false, // Các chỉ tiêu mặc định không xóa được
+        isDeletable: false,
         isCustom: false,
       ));
     });
@@ -88,6 +87,9 @@ class _RecordListScreenState extends State<RecordListScreen> {
   static const Color labelTextColor = Colors.black54;
 
   // === BIẾN TRẠNG THÁI ===
+  final ItemScrollController _itemScrollController = ItemScrollController();
+  final ItemPositionsListener _itemPositionsListener =
+      ItemPositionsListener.create();
   int? _currentlySelectedCardIndex;
   bool phoneVisible = false;
   bool _isLoading = true;
@@ -219,7 +221,7 @@ class _RecordListScreenState extends State<RecordListScreen> {
           areaName: name,
           initialNames: _indicatorNames,
           initialValues: _indicatorInitialValues,
-          isRemovable: false)); // Không thể xóa
+          isRemovable: false));
     }
   }
 
@@ -228,25 +230,22 @@ class _RecordListScreenState extends State<RecordListScreen> {
           areaName: "Vị trí đo mới",
           initialNames: _indicatorNames,
           initialValues: _indicatorInitialValues,
-          isRemovable: true))); // Có thể xóa
+          isRemovable: true)));
   void _removeMeasurementPoint(int index) => setState(() {
         if (_measurementPoints[index].isRemovable) {
-          // Chỉ xóa nếu là thẻ có thể xóa
           _measurementPoints[index].dispose();
           _measurementPoints.removeAt(index);
           if (_currentlySelectedCardIndex == index) {
-            _currentlySelectedCardIndex =
-                null; // Bỏ chọn nếu thẻ đang chọn bị xóa
+            _currentlySelectedCardIndex = null;
           } else if (_currentlySelectedCardIndex != null &&
               _currentlySelectedCardIndex! > index) {
-            _currentlySelectedCardIndex = _currentlySelectedCardIndex! -
-                1; // Điều chỉnh chỉ số nếu thẻ đang chọn nằm sau thẻ bị xóa
+            _currentlySelectedCardIndex = _currentlySelectedCardIndex! - 1;
           }
         }
       });
   void _addCustomIndicator(int pointIndex) =>
-      setState(() => _measurementPoints[pointIndex].indicators.add(Indicator(
-          name: '---', value: '', isCustom: true, isDeletable: true)));
+      setState(() => _measurementPoints[pointIndex].indicators.add(
+          Indicator(name: '', value: '', isCustom: true, isDeletable: true)));
   void _removeIndicator(int pointIndex, int indicatorIndex) => setState(() {
         _measurementPoints[pointIndex].indicators[indicatorIndex].dispose();
         _measurementPoints[pointIndex].indicators.removeAt(indicatorIndex);
@@ -269,8 +268,8 @@ class _RecordListScreenState extends State<RecordListScreen> {
   }
 
   Future<void> _openMap(String address) async {
-    final Uri url = Uri.parse(
-        "http://googleusercontent.com/maps/google.com/1{Uri.encodeComponent(address)}");
+    final Uri url =
+        Uri.parse("https://maps.google.com/?q=${Uri.encodeComponent(address)}");
     if (!await launchUrl(url, mode: LaunchMode.externalApplication)) {
       if (mounted)
         ScaffoldMessenger.of(context).showSnackBar(
@@ -306,23 +305,27 @@ class _RecordListScreenState extends State<RecordListScreen> {
                 fontWeight: FontWeight.bold,
                 color: Colors.black87)),
       ),
-      body: Scrollbar(
-        thumbVisibility: true, // Luôn hiển thị thanh cuộn
-        thickness: 10.0, // Tăng độ dày thanh cuộn
-        radius: const Radius.circular(10),
-        child: ListView(
-          padding: const EdgeInsets.fromLTRB(16, 16, 16, 100),
-          children: [
-            _buildCustomerInfo(),
-            const SizedBox(height: 16),
-            _buildObservationInfo(),
-            const SizedBox(height: 16),
-            for (var i = 0; i < _measurementPoints.length; i++)
-              _buildMeasurementCard(i),
-          ],
-        ),
+      body: ScrollablePositionedList.builder(
+        itemScrollController: _itemScrollController,
+        itemPositionsListener: _itemPositionsListener,
+        padding: const EdgeInsets.fromLTRB(16, 16, 16, 120),
+        itemCount: _measurementPoints.length + 2,
+        itemBuilder: (context, index) {
+          if (index == 0) return _buildCustomerInfo();
+          if (index == 1)
+            return Padding(
+                padding: const EdgeInsets.only(top: 16.0),
+                child: _buildObservationInfo());
+
+          final cardIndex = index - 2;
+          return Padding(
+            padding: const EdgeInsets.only(top: 16.0),
+            child: _buildMeasurementCard(cardIndex),
+          );
+        },
       ),
-      bottomSheet: _buildActionButtons(),
+      floatingActionButton: _buildQuickNavFAB(),
+      bottomNavigationBar: _buildActionButtons(),
     );
   }
 
@@ -560,18 +563,16 @@ class _RecordListScreenState extends State<RecordListScreen> {
     final bool isSelected = _currentlySelectedCardIndex == index;
 
     return GestureDetector(
-      onTap: () => setState(() => _currentlySelectedCardIndex =
-          index), // Cập nhật trạng thái highlight khi nhấn
+      onTap: () => setState(() => _currentlySelectedCardIndex = index),
       child: Card(
         elevation: isSelected ? 4 : 0,
-        margin: const EdgeInsets.only(bottom: 16),
+        margin: const EdgeInsets.only(bottom: 0),
         color: isSelected ? cardHighlightColor : cardBgColor,
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(24),
-          side: isSelected
-              ? BorderSide(color: Colors.amber.shade600, width: 2)
-              : BorderSide.none,
-        ),
+            borderRadius: BorderRadius.circular(24),
+            side: isSelected
+                ? BorderSide(color: Colors.amber.shade600, width: 2)
+                : BorderSide.none),
         child: Padding(
           padding: const EdgeInsets.all(12.0),
           child: Column(
@@ -582,8 +583,7 @@ class _RecordListScreenState extends State<RecordListScreen> {
                     style: const TextStyle(
                         fontSize: 16, fontWeight: FontWeight.bold)),
                 const Spacer(),
-                if (pointState
-                    .isRemovable) // Chỉ hiển thị nút xóa nếu thẻ có thể xóa
+                if (pointState.isRemovable)
                   _buildIconBox(Icons.delete_outline_rounded,
                       onTap: () => _removeMeasurementPoint(index)),
                 if (index == _measurementPoints.length - 1) ...[
@@ -652,6 +652,7 @@ class _RecordListScreenState extends State<RecordListScreen> {
     );
   }
 
+  // --- HÀM ĐÃ SỬA LỖI ---
   Widget _buildIndicatorsGrid(int pointIndex) {
     final pointState = _measurementPoints[pointIndex];
     return GridView.builder(
@@ -672,21 +673,30 @@ class _RecordListScreenState extends State<RecordListScreen> {
             clipBehavior: Clip.none,
             children: [
               Column(
-                mainAxisAlignment: MainAxisAlignment
-                    .spaceBetween, // Phân bố đều tiêu đề và trường nhập
+                mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   Container(
-                    height: 20, // Chiều cao cố định cho tiêu đề
-                    padding: const EdgeInsets.only(top: 4), // Đẩy sát lên trên
+                    height: 22,
+                    padding: const EdgeInsets.only(top: 6, left: 2, right: 2),
                     alignment: Alignment.topCenter,
-                    child: Text(indicator.nameController.text,
-                        style: const TextStyle(
+                    // --- SỬA LỖI: Đổi lại thành TextField để có thể nhập liệu ---
+                    child: TextField(
+                      controller: indicator.nameController,
+                      readOnly: !indicator.isCustom,
+                      textAlign: TextAlign.center,
+                      style: const TextStyle(
+                          fontSize: 9,
+                          fontWeight: FontWeight.w600,
+                          color: valueTextColor),
+                      decoration: InputDecoration(
+                        border: InputBorder.none,
+                        contentPadding: const EdgeInsets.only(bottom: 8),
+                        hintText: indicator.isCustom ? 'Tên C.Tiêu' : '',
+                        hintStyle: TextStyle(
                             fontSize: 9,
-                            fontWeight: FontWeight.w600,
-                            color: valueTextColor),
-                        textAlign: TextAlign.center,
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis),
+                            color: valueTextColor.withOpacity(0.7)),
+                      ),
+                    ),
                   ),
                   Expanded(
                     child: Center(
@@ -713,7 +723,6 @@ class _RecordListScreenState extends State<RecordListScreen> {
                       ),
                     ),
                   ),
-                  const SizedBox(height: 4), // Padding dưới để giữ khoảng cách
                 ],
               ),
               if (indicator.isDeletable)
@@ -803,32 +812,71 @@ class _RecordListScreenState extends State<RecordListScreen> {
         Expanded(
             child: SizedBox(
                 height: 48,
-                child: ElevatedButton(
-                    onPressed: () {},
-                    style: ElevatedButton.styleFrom(
-                        backgroundColor: lightTealColor,
-                        foregroundColor: valueTextColor,
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(24)),
-                        elevation: 0),
-                    child: const Text("Lưu nháp",
-                        style: TextStyle(
-                            fontSize: 14, fontWeight: FontWeight.bold))))),
-        const SizedBox(width: 16),
+                child: ElevatedButton.icon(
+                  onPressed: () {},
+                  icon: const Icon(Icons.drafts_outlined, size: 20),
+                  label: const Text("Lưu nháp",
+                      style:
+                          TextStyle(fontSize: 14, fontWeight: FontWeight.bold)),
+                  style: ElevatedButton.styleFrom(
+                      backgroundColor: lightTealColor,
+                      foregroundColor: valueTextColor,
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(24)),
+                      elevation: 0),
+                ))),
+        const SizedBox(width: 24),
         Expanded(
             child: SizedBox(
                 height: 48,
-                child: ElevatedButton(
-                    onPressed: () {},
-                    style: ElevatedButton.styleFrom(
-                        backgroundColor: primaryTealColor,
-                        foregroundColor: Colors.black87,
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(24))),
-                    child: const Text("Lưu & Gửi",
-                        style: TextStyle(
-                            fontSize: 14, fontWeight: FontWeight.bold))))),
+                child: ElevatedButton.icon(
+                  onPressed: () {},
+                  icon: const Icon(Icons.send_outlined, size: 20),
+                  label: const Text("Lưu & Gửi",
+                      style:
+                          TextStyle(fontSize: 14, fontWeight: FontWeight.bold)),
+                  style: ElevatedButton.styleFrom(
+                      backgroundColor: primaryTealColor,
+                      foregroundColor: Colors.black87,
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(24))),
+                ))),
       ]),
+    );
+  }
+
+  Widget _buildQuickNavFAB() {
+    return FloatingActionButton(
+      onPressed: () {
+        showModalBottomSheet(
+          context: context,
+          shape: const RoundedRectangleBorder(
+              borderRadius: BorderRadius.vertical(top: Radius.circular(20))),
+          builder: (context) => Container(
+            padding: const EdgeInsets.all(8),
+            child: ListView.builder(
+              itemCount: _measurementPoints.length,
+              itemBuilder: (context, index) {
+                return ListTile(
+                  leading: CircleAvatar(child: Text("${index + 1}")),
+                  title: Text(_measurementPoints[index].areaController.text),
+                  onTap: () {
+                    // +2 vì 2 widget đầu tiên là CustomerInfo và ObservationInfo
+                    _itemScrollController.scrollTo(
+                      index: index + 2,
+                      duration: const Duration(milliseconds: 500),
+                      curve: Curves.easeInOutCubic,
+                    );
+                    Navigator.pop(context);
+                  },
+                );
+              },
+            ),
+          ),
+        );
+      },
+      backgroundColor: iconPurpleColor,
+      child: const Icon(Icons.list_alt_rounded, color: Colors.white),
     );
   }
 }
