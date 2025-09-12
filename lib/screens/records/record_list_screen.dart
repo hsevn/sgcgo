@@ -1,5 +1,5 @@
-import 'dart.convert';
-import 'dart.io';
+import 'dart:convert';
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:hive_flutter/hive_flutter.dart';
@@ -9,19 +9,18 @@ import 'package:url_launcher/url_launcher.dart';
 import '../../services/odoo_api_service.dart';
 
 // --- CÁC LỚP HELPER ---
-// Lớp Indicator được giữ nguyên từ file của bạn
 class Indicator {
   final TextEditingController nameController;
   final TextEditingController valueController;
   final bool isCustom;
   final bool isDeletable;
 
-  Indicator({
-    required String name,
-    required String value,
-    this.isCustom = false,
-    this.isDeletable = true,
-  })  : nameController = TextEditingController(text: name),
+  Indicator(
+      {required String name,
+      required String value,
+      this.isCustom = false,
+      this.isDeletable = true})
+      : nameController = TextEditingController(text: name),
         valueController = TextEditingController(text: value);
 
   void dispose() {
@@ -30,7 +29,6 @@ class Indicator {
   }
 }
 
-// Lớp MeasurementPointState được giữ nguyên từ file của bạn
 class MeasurementPointState {
   final TextEditingController areaController;
   final TextEditingController postureController;
@@ -50,11 +48,10 @@ class MeasurementPointState {
         indicators = [] {
     initialNames.forEach((key, name) {
       indicators.add(Indicator(
-        name: name,
-        value: initialValues[key] ?? '',
-        isDeletable: false,
-        isCustom: false,
-      ));
+          name: name,
+          value: initialValues[key] ?? '',
+          isDeletable: false,
+          isCustom: false));
     });
   }
 
@@ -69,28 +66,25 @@ class MeasurementPointState {
             map['owasImagePath'] != null ? File(map['owasImagePath']) : null,
         indicators = (map['indicators'] as List)
             .map((e) => Indicator(
-                  name: e['name'],
-                  value: e['value'],
-                  isCustom: e['isCustom'],
-                  isDeletable: e['isDeletable'],
-                ))
+                name: e['name'],
+                value: e['value'],
+                isCustom: e['isCustom'],
+                isDeletable: e['isDeletable']))
             .toList();
 
-  // HÀM MỚI: Dùng để tạo điểm đo từ dữ liệu Odoo (linh hoạt hơn)
-  MeasurementPointState.fromOdooData({
-    required String areaName,
-    String posture = "",
-    required List<dynamic> odooIndicators,
-  })  : areaController = TextEditingController(text: areaName),
+  MeasurementPointState.fromOdooData(
+      {required String areaName,
+      String posture = "",
+      required List<dynamic> odooIndicators})
+      : areaController = TextEditingController(text: areaName),
         postureController = TextEditingController(text: posture),
         isRemovable = false,
         indicators = odooIndicators
             .map((ind) => Indicator(
-                  name: ind['x_name'] ?? '',
-                  value: ind['x_value'] ?? '',
-                  isCustom: false, // Dữ liệu từ Odoo không phải custom
-                  isDeletable: false, // Dữ liệu từ Odoo không thể xóa
-                ))
+                name: ind['x_name'] ?? '',
+                value: ind['x_value'] ?? '',
+                isCustom: false,
+                isDeletable: false))
             .toList();
 
   Map<String, dynamic> toMap() {
@@ -106,7 +100,7 @@ class MeasurementPointState {
                 'name': e.nameController.text,
                 'value': e.valueController.text,
                 'isCustom': e.isCustom,
-                'isDeletable': e.isDeletable,
+                'isDeletable': e.isDeletable
               })
           .toList(),
     };
@@ -121,40 +115,50 @@ class MeasurementPointState {
   }
 }
 
-// --- WIDGET CHÍNH CỦA MÀN HÌNH ---
+// --- WIDGET CHÍNH ---
 class RecordListScreen extends StatefulWidget {
   final String companyName;
   final String companyAddress;
   final int taskId;
 
-  const RecordListScreen({
-    super.key,
-    required this.companyName,
-    required this.companyAddress,
-    required this.taskId,
-  });
+  const RecordListScreen(
+      {super.key,
+      required this.companyName,
+      required this.companyAddress,
+      required this.taskId});
 
   @override
   State<RecordListScreen> createState() => _RecordListScreenState();
 }
 
 class _RecordListScreenState extends State<RecordListScreen> {
-  // === BIẾN TRẠNG THÁI (THÊM _isReadOnly) ===
-  bool _isReadOnly = false;
-  bool _isLoadingData = true;
-  bool _isSending = false;
-  int? _currentlySelectedCardIndex;
-  bool phoneVisible = false;
+  // === HẰNG SỐ & MÀU SẮC ===
+  static const Color scaffoldBgColor = Color(0xFFE6F7FB);
+  static const Color appBarColor = Color(0xFFE6F7FB);
+  static const Color cardBgColor = Colors.white;
+  static const Color cardHighlightColor = Color(0xFFFFF9C4);
+  static const Color primaryTealColor = Color(0xFF4DD0E1);
+  static const Color lightTealColor = Color(0xFFB2EBF2);
+  static const Color chipPurpleColor = Color(0xFFB39DDB);
+  static const Color iconPurpleColor = Color(0xFF673AB7);
+  static const Color valueTextColor = Color(0xFF005662);
+  static const Color labelTextColor = Colors.black54;
 
-  // === CONTROLLERS & DATA (GIỮ NGUYÊN) ===
+  // === BIẾN TRẠNG THÁI ===
   final OdooApiService _apiService = OdooApiService();
   final ItemScrollController _itemScrollController = ItemScrollController();
   final ItemPositionsListener _itemPositionsListener =
       ItemPositionsListener.create();
-  final List<MeasurementPointState> _measurementPoints = [];
   late Box _recordBox;
+  final List<MeasurementPointState> _measurementPoints = [];
 
-  // ... các controllers và dữ liệu khác của bạn được giữ nguyên ...
+  bool _isLoadingData = true;
+  bool _isSending = false;
+  bool _isReadOnly = false;
+  int? _currentlySelectedCardIndex;
+  bool phoneVisible = false;
+  bool _bottomButtonsVisible = false;
+
   final TextEditingController _nguoiQTController =
       TextEditingController(text: "Nguyễn Văn B");
   final TextEditingController _ngayQTController =
@@ -175,6 +179,7 @@ class _RecordListScreenState extends State<RecordListScreen> {
       TextEditingController(text: "nắng, gió nhẹ");
   final TextEditingController _daiDienKHController =
       TextEditingController(text: "Nguyễn Văn C");
+
   List<Map<String, dynamic>> _phanCapData = [];
   List<String> _allL1Options = [];
   final Map<String, String> _indicatorNames = {
@@ -211,13 +216,11 @@ class _RecordListScreenState extends State<RecordListScreen> {
     'so2': 'K1',
     'no2': 'K1'
   };
-  bool _bottomButtonsVisible = false;
 
   @override
   void initState() {
     super.initState();
-    _loadInitialData(); // Cập nhật hàm này để kiểm tra Odoo trước
-
+    _loadInitialData();
     _itemPositionsListener.itemPositions.addListener(() {
       final positions = _itemPositionsListener.itemPositions.value;
       if (positions.isNotEmpty) {
@@ -234,7 +237,6 @@ class _RecordListScreenState extends State<RecordListScreen> {
 
   @override
   void dispose() {
-    // Giữ nguyên hàm dispose của bạn
     for (var point in _measurementPoints) {
       point.dispose();
     }
@@ -251,7 +253,6 @@ class _RecordListScreenState extends State<RecordListScreen> {
     super.dispose();
   }
 
-  // === CẬP NHẬT LOGIC TẢI DỮ LIỆU ===
   Future<void> _loadInitialData() async {
     try {
       final rawData = await rootBundle.loadString('assets/phan_cap.json');
@@ -259,17 +260,15 @@ class _RecordListScreenState extends State<RecordListScreen> {
       _allL1Options =
           _phanCapData.map((e) => e['L1_NAME'].toString()).toSet().toList();
 
-      // Bước 1: Luôn kiểm tra Odoo trước
       final odooRecord =
           await _apiService.fetchMeasurementRecord(widget.taskId);
       if (odooRecord != null && mounted) {
         _populateStateFromOdoo(odooRecord);
-        setState(() => _isReadOnly = true); // KHÓA MÀN HÌNH
+        setState(() => _isReadOnly = true);
       } else {
-        // Bước 2: Nếu không có trên Odoo, mới tìm bản nháp
         _recordBox = await Hive.openBox('draft_records');
         await _loadDraftFromHive();
-        setState(() => _isReadOnly = false); // MỞ KHÓA MÀN HÌNH
+        setState(() => _isReadOnly = false);
       }
     } catch (e) {
       if (mounted)
@@ -321,7 +320,6 @@ class _RecordListScreenState extends State<RecordListScreen> {
       _vkhRaController.text = savedRecord['vkhRa'] ?? _vkhRaController.text;
       _daiDienKHController.text =
           savedRecord['daiDienKH'] ?? _daiDienKHController.text;
-
       final List<dynamic> pointsData = savedRecord['measurementPoints'] ?? [];
       _measurementPoints
           .addAll(pointsData.map((e) => MeasurementPointState.fromMap(e)));
@@ -330,7 +328,6 @@ class _RecordListScreenState extends State<RecordListScreen> {
     }
   }
 
-  // Các hàm logic của bạn được giữ nguyên
   void _addInitialMeasurementPoints() {
     final areaNames = [
       "Kho nguyên liệu",
@@ -402,9 +399,7 @@ class _RecordListScreenState extends State<RecordListScreen> {
           const SnackBar(content: Text('Không thể mở Google Maps')));
   }
 
-  // --- CẬP NHẬT LOGIC LƯU & GỬI ---
   Future<void> _saveDraft() async {
-    /* Giữ nguyên logic của bạn */
     if (widget.taskId == 0) return;
     final Map<String, dynamic> draftData = {
       'nguoiQT': _nguoiQTController.text,
@@ -435,21 +430,19 @@ class _RecordListScreenState extends State<RecordListScreen> {
 
   Future<void> _saveAndSend() async {
     final confirm = await showDialog<bool>(
-      context: context,
-      builder: (context) => AlertDialog(
-        title: const Text('Xác nhận gửi'),
-        content: const Text(
-            'Bạn có chắc chắn muốn gửi biên bản này không? Sau khi gửi sẽ không thể chỉnh sửa.'),
-        actions: [
-          TextButton(
-              onPressed: () => Navigator.pop(context, false),
-              child: const Text('Hủy')),
-          TextButton(
-              onPressed: () => Navigator.pop(context, true),
-              child: const Text('Gửi')),
-        ],
-      ),
-    );
+        context: context,
+        builder: (context) => AlertDialog(
+                title: const Text('Xác nhận gửi'),
+                content: const Text(
+                    'Bạn có chắc chắn muốn gửi biên bản này không? Sau khi gửi sẽ không thể chỉnh sửa.'),
+                actions: [
+                  TextButton(
+                      onPressed: () => Navigator.pop(context, false),
+                      child: const Text('Hủy')),
+                  TextButton(
+                      onPressed: () => Navigator.pop(context, true),
+                      child: const Text('Gửi'))
+                ]));
     if (confirm != true) return;
     setState(() => _isSending = true);
     try {
@@ -464,7 +457,7 @@ class _RecordListScreenState extends State<RecordListScreen> {
         'x_start_microclimate': _vkhVaoController.text,
         'x_end_time': _gioRaController.text,
         'x_end_microclimate': _vkhRaController.text,
-        'x_customer_representative': _daiDienKHController.text,
+        'x_customer_representative': _daiDienKHController.text
       };
       final pointsData = _measurementPoints
           .map((p) => {
@@ -479,11 +472,10 @@ class _RecordListScreenState extends State<RecordListScreen> {
                             'x_value': i.valueController.text
                           }
                         ])
-                    .toList(),
+                    .toList()
               })
           .toList();
-      final recordId =
-          await _apiService.createMeasurementRecord(data, pointsData);
+      await _apiService.createMeasurementRecord(data, pointsData);
       final doneStageId = await _apiService.getStageIdByName('Hoàn thành');
       if (doneStageId != null)
         await _apiService.updateTaskStage(widget.taskId, doneStageId);
@@ -492,7 +484,7 @@ class _RecordListScreenState extends State<RecordListScreen> {
         ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
             content: Text('Gửi biên bản thành công!'),
             backgroundColor: Colors.green));
-        Navigator.pop(context, true); // Trả về true để báo cho TaskList làm mới
+        Navigator.pop(context, true);
       }
     } catch (e) {
       if (mounted)
@@ -508,49 +500,46 @@ class _RecordListScreenState extends State<RecordListScreen> {
     if (_isLoadingData) {
       return const Scaffold(body: Center(child: CircularProgressIndicator()));
     }
-    // Giao diện của bạn được giữ nguyên, chỉ thêm logic điều khiển
     return Scaffold(
       backgroundColor: scaffoldBgColor,
       appBar: AppBar(
-        toolbarHeight: 56,
-        elevation: 1,
-        backgroundColor: appBarColor,
-        leading: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: InkWell(
-                onTap: () => Navigator.pop(context),
-                child: Container(
-                    decoration: BoxDecoration(
-                        color: iconPurpleColor,
-                        borderRadius: BorderRadius.circular(12)),
-                    child: const Icon(Icons.arrow_back_ios_new_rounded,
-                        size: 22, color: Colors.white)))),
-        centerTitle: true,
-        title: const Text("BIÊN BẢN QUAN TRẮC",
-            style: TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.bold,
-                color: Colors.black87)),
-      ),
+          toolbarHeight: 56,
+          elevation: 1,
+          backgroundColor: appBarColor,
+          leading: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: InkWell(
+                  onTap: () => Navigator.pop(context),
+                  child: Container(
+                      decoration: BoxDecoration(
+                          color: iconPurpleColor,
+                          borderRadius: BorderRadius.circular(12)),
+                      child: const Icon(Icons.arrow_back_ios_new_rounded,
+                          size: 22, color: Colors.white)))),
+          centerTitle: true,
+          title: const Text("BIÊN BẢN QUAN TRẮC",
+              style: TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.black87))),
       body: Stack(
         children: [
           ScrollablePositionedList.builder(
-            itemScrollController: _itemScrollController,
-            itemPositionsListener: _itemPositionsListener,
-            padding: const EdgeInsets.fromLTRB(16, 16, 16, 120),
-            itemCount: _measurementPoints.length + 2,
-            itemBuilder: (context, index) {
-              if (index == 0) return _buildCustomerInfo();
-              if (index == 1)
+              itemScrollController: _itemScrollController,
+              itemPositionsListener: _itemPositionsListener,
+              padding: const EdgeInsets.fromLTRB(16, 16, 16, 120),
+              itemCount: _measurementPoints.length + 2,
+              itemBuilder: (context, index) {
+                if (index == 0) return _buildCustomerInfo();
+                if (index == 1)
+                  return Padding(
+                      padding: const EdgeInsets.only(top: 16.0),
+                      child: _buildObservationInfo());
+                final cardIndex = index - 2;
                 return Padding(
                     padding: const EdgeInsets.only(top: 16.0),
-                    child: _buildObservationInfo());
-              final cardIndex = index - 2;
-              return Padding(
-                  padding: const EdgeInsets.only(top: 16.0),
-                  child: _buildMeasurementCard(cardIndex));
-            },
-          ),
+                    child: _buildMeasurementCard(cardIndex));
+              }),
           if (_isSending)
             Container(
                 color: Colors.black.withOpacity(0.5),
@@ -564,7 +553,6 @@ class _RecordListScreenState extends State<RecordListScreen> {
     );
   }
 
-  // --- CÁC WIDGET GIAO DIỆN CỦA BẠN (ĐƯỢC THÊM LOGIC _isReadOnly) ---
   Widget _buildChip(String text) => Container(
       padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
       decoration: BoxDecoration(
@@ -591,29 +579,6 @@ class _RecordListScreenState extends State<RecordListScreen> {
           decoration: BoxDecoration(
               color: iconPurpleColor, borderRadius: BorderRadius.circular(20)),
           child: Icon(icon, color: Colors.white, size: 24)));
-  Widget _buildAddButton(String label, VoidCallback onPressed) => InkWell(
-      onTap: _isReadOnly ? null : onPressed,
-      borderRadius: BorderRadius.circular(20),
-      child: Container(
-          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-          decoration: BoxDecoration(
-              color: cardBgColor,
-              borderRadius: BorderRadius.circular(20),
-              border: Border.all(color: iconPurpleColor, width: 2)),
-          child: Row(mainAxisSize: MainAxisSize.min, children: [
-            Container(
-                padding: const EdgeInsets.all(4),
-                decoration: const BoxDecoration(
-                    color: iconPurpleColor, shape: BoxShape.circle),
-                child: const Icon(Icons.add, color: Colors.white, size: 18)),
-            const SizedBox(width: 8),
-            Text(label,
-                style: const TextStyle(
-                    fontSize: 12,
-                    color: Colors.black,
-                    fontWeight: FontWeight.w600))
-          ])));
-
   Widget _buildStyledDropdown(
           {required String hint,
           String? value,
@@ -646,7 +611,6 @@ class _RecordListScreenState extends State<RecordListScreen> {
                               overflow: TextOverflow.ellipsis, maxLines: 3)))
                       .toList(),
                   onChanged: _isReadOnly ? null : onChanged)));
-
   Widget _buildStyledTextField(
           {required TextEditingController controller,
           required String label,
@@ -677,7 +641,28 @@ class _RecordListScreenState extends State<RecordListScreen> {
                         borderRadius: BorderRadius.circular(12),
                         borderSide: BorderSide.none))))
       ]);
-
+  Widget _buildAddButton(String label, VoidCallback onPressed) => InkWell(
+      onTap: _isReadOnly ? null : onPressed,
+      borderRadius: BorderRadius.circular(20),
+      child: Container(
+          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+          decoration: BoxDecoration(
+              color: cardBgColor,
+              borderRadius: BorderRadius.circular(20),
+              border: Border.all(color: iconPurpleColor, width: 2)),
+          child: Row(mainAxisSize: MainAxisSize.min, children: [
+            Container(
+                padding: const EdgeInsets.all(4),
+                decoration: const BoxDecoration(
+                    color: iconPurpleColor, shape: BoxShape.circle),
+                child: const Icon(Icons.add, color: Colors.white, size: 18)),
+            const SizedBox(width: 8),
+            Text(label,
+                style: const TextStyle(
+                    fontSize: 12,
+                    color: Colors.black,
+                    fontWeight: FontWeight.w600))
+          ])));
   Widget _buildCustomerInfo() => Card(
       elevation: 0,
       color: cardBgColor,
@@ -716,27 +701,8 @@ class _RecordListScreenState extends State<RecordListScreen> {
                   onTap: () => setState(() => phoneVisible = !phoneVisible))
             ])
           ])));
-
-  Widget _buildObservationInfo() =>
-      LayoutBuilder(builder: (context, constraints) {
-        bool isNarrow = constraints.maxWidth < 600;
-        final content = _buildInfoContent(isRow: !isNarrow);
-        return Card(
-            elevation: 0,
-            color: cardBgColor,
-            shape:
-                RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
-            child: Padding(
-                padding: const EdgeInsets.all(12.0),
-                child: isNarrow
-                    ? Column(children: content)
-                    : Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: content)));
-      });
-
   List<Widget> _buildInfoContent({bool isRow = false}) {
-    /* Giữ nguyên của bạn */ final leftColumn =
+    final leftColumn =
         Column(mainAxisAlignment: MainAxisAlignment.start, children: [
       _buildStyledTextField(
           label: "Người QT",
@@ -780,6 +746,23 @@ class _RecordListScreenState extends State<RecordListScreen> {
       return [leftColumn, const SizedBox(height: 16), rightColumn];
   }
 
+  Widget _buildObservationInfo() =>
+      LayoutBuilder(builder: (context, constraints) {
+        bool isNarrow = constraints.maxWidth < 600;
+        final content = _buildInfoContent(isRow: !isNarrow);
+        return Card(
+            elevation: 0,
+            color: cardBgColor,
+            shape:
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
+            child: Padding(
+                padding: const EdgeInsets.all(12.0),
+                child: isNarrow
+                    ? Column(children: content)
+                    : Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: content)));
+      });
   Widget _buildMeasurementCard(int index) {
     final pointState = _measurementPoints[index];
     final l2Options = pointState.selectedL1 != null
@@ -890,8 +873,7 @@ class _RecordListScreenState extends State<RecordListScreen> {
   }
 
   Widget _buildIndicatorsGrid(int pointIndex) {
-    /* Giữ nguyên của bạn với logic readOnly */ final pointState =
-        _measurementPoints[pointIndex];
+    final pointState = _measurementPoints[pointIndex];
     return GridView.builder(
         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: 5,
@@ -972,8 +954,7 @@ class _RecordListScreenState extends State<RecordListScreen> {
   }
 
   Widget _buildPhotoAndDescription(int index) {
-    /* Giữ nguyên của bạn với logic readOnly */ final pointState =
-        _measurementPoints[index];
+    final pointState = _measurementPoints[index];
     return Row(crossAxisAlignment: CrossAxisAlignment.start, children: [
       InkWell(
           onTap: () => _pickImage(index),
@@ -1033,72 +1014,66 @@ class _RecordListScreenState extends State<RecordListScreen> {
     ]);
   }
 
-  Widget _buildActionButtons() {
-    /* Giữ nguyên của bạn */ return Container(
-        color: Colors.white,
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12)
-            .copyWith(bottom: MediaQuery.of(context).padding.bottom + 12),
-        child: Row(children: [
-          Expanded(
-              child: SizedBox(
-                  height: 48,
-                  child: ElevatedButton.icon(
-                      onPressed: _saveDraft,
-                      icon: const Icon(Icons.drafts_outlined, size: 20),
-                      label: const Text("Lưu nháp",
-                          style: TextStyle(
-                              fontSize: 14, fontWeight: FontWeight.bold)),
-                      style: ElevatedButton.styleFrom(
-                          backgroundColor: lightTealColor,
-                          foregroundColor: valueTextColor,
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(24)),
-                          elevation: 0)))),
-          const SizedBox(width: 24),
-          Expanded(
-              child: SizedBox(
-                  height: 48,
-                  child: ElevatedButton.icon(
-                      onPressed: _saveAndSend,
-                      icon: const Icon(Icons.send_outlined, size: 20),
-                      label: const Text("Lưu & Gửi",
-                          style: TextStyle(
-                              fontSize: 14, fontWeight: FontWeight.bold)),
-                      style: ElevatedButton.styleFrom(
-                          backgroundColor: primaryTealColor,
-                          foregroundColor: Colors.black87,
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(24))))))
-        ]));
-  }
-
-  Widget _buildQuickNavFAB() {
-    /* Giữ nguyên của bạn */ return FloatingActionButton(
-        onPressed: () {
-          showModalBottomSheet(
-              context: context,
-              shape: const RoundedRectangleBorder(
-                  borderRadius:
-                      BorderRadius.vertical(top: Radius.circular(20))),
-              builder: (context) => Container(
-                  padding: const EdgeInsets.all(8),
-                  child: ListView.builder(
-                      itemCount: _measurementPoints.length,
-                      itemBuilder: (context, index) {
-                        return ListTile(
-                            leading: CircleAvatar(child: Text("${index + 1}")),
-                            title: Text(
-                                _measurementPoints[index].areaController.text),
-                            onTap: () {
-                              _itemScrollController.scrollTo(
-                                  index: index + 2,
-                                  duration: const Duration(milliseconds: 500),
-                                  curve: Curves.easeInOutCubic);
-                              Navigator.pop(context);
-                            });
-                      })));
-        },
-        backgroundColor: iconPurpleColor,
-        child: const Icon(Icons.list_alt_rounded, color: Colors.white));
-  }
+  Widget _buildActionButtons() => Container(
+      color: Colors.white,
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12)
+          .copyWith(bottom: MediaQuery.of(context).padding.bottom + 12),
+      child: Row(children: [
+        Expanded(
+            child: SizedBox(
+                height: 48,
+                child: ElevatedButton.icon(
+                    onPressed: _saveDraft,
+                    icon: const Icon(Icons.drafts_outlined, size: 20),
+                    label: const Text("Lưu nháp",
+                        style: TextStyle(
+                            fontSize: 14, fontWeight: FontWeight.bold)),
+                    style: ElevatedButton.styleFrom(
+                        backgroundColor: lightTealColor,
+                        foregroundColor: valueTextColor,
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(24)),
+                        elevation: 0)))),
+        const SizedBox(width: 24),
+        Expanded(
+            child: SizedBox(
+                height: 48,
+                child: ElevatedButton.icon(
+                    onPressed: _saveAndSend,
+                    icon: const Icon(Icons.send_outlined, size: 20),
+                    label: const Text("Lưu & Gửi",
+                        style: TextStyle(
+                            fontSize: 14, fontWeight: FontWeight.bold)),
+                    style: ElevatedButton.styleFrom(
+                        backgroundColor: primaryTealColor,
+                        foregroundColor: Colors.black87,
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(24))))))
+      ]));
+  Widget _buildQuickNavFAB() => FloatingActionButton(
+      onPressed: () {
+        showModalBottomSheet(
+            context: context,
+            shape: const RoundedRectangleBorder(
+                borderRadius: BorderRadius.vertical(top: Radius.circular(20))),
+            builder: (context) => Container(
+                padding: const EdgeInsets.all(8),
+                child: ListView.builder(
+                    itemCount: _measurementPoints.length,
+                    itemBuilder: (context, index) {
+                      return ListTile(
+                          leading: CircleAvatar(child: Text("${index + 1}")),
+                          title: Text(
+                              _measurementPoints[index].areaController.text),
+                          onTap: () {
+                            _itemScrollController.scrollTo(
+                                index: index + 2,
+                                duration: const Duration(milliseconds: 500),
+                                curve: Curves.easeInOutCubic);
+                            Navigator.pop(context);
+                          });
+                    })));
+      },
+      backgroundColor: iconPurpleColor,
+      child: const Icon(Icons.list_alt_rounded, color: Colors.white));
 }

@@ -114,7 +114,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 // --- TỐI ƯU HÌNH ẢNH ---
                 Image.asset(
                   'assets/images/sgc_logo.png',
-                  width: 250, // Dùng width để linh hoạt hơn
+                  width: 500, // Dùng width để linh hoạt hơn
                   fit: BoxFit.contain,
                 ),
                 const SizedBox(height: 12),
