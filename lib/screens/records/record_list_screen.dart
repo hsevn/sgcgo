@@ -1,26 +1,34 @@
+// File: lib/screens/records/record_list_screen.dart
+
 import 'dart:convert';
-import 'dart:io';
+import 'dart:io'; // Để làm việc với File (ảnh chụp)
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:hive_flutter/hive_flutter.dart';
-import 'package:image_picker/image_picker.dart';
-import '../models/job_measurement.dart';
-import 'package:url_launcher/url_launcher.dart';
+import 'package:flutter/services.dart'; // Để tải phan_cap.json từ assets
+import 'package:hive_flutter/hive_flutter.dart'; // Để làm việc với Hive
+import 'package:image_picker/image_picker.dart'; // Để chọn ảnh
+// TODO: Đảm bảo đường dẫn này đúng nếu bạn có model JobMeasurement
+// import '../../models/job_measurement.dart';
+import 'package:url_launcher/url_launcher.dart'; // Để mở Google Maps
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart'; // Thư viện cho cuộn chính xác
 
-// --- CÁC LỚP HELPER ---
+// TODO: IMPORT CÁC SERVICE CỦA BẠN TẠI ĐÂY
+// import '../../services/activity_log_service.dart';
+// import '../../services/gps_service.dart';
+// import '../../services/standard_service.dart';
+
+// --- CÁC LỚP HELPER (GIỮ NGUYÊN TỪ CỦA BẠN, KHÔNG THAY ĐỔI) ---
 class Indicator {
   final TextEditingController nameController;
   final TextEditingController valueController;
   final bool isCustom;
   final bool isDeletable;
 
-  Indicator(
-      {required String name,
-      required String value,
-      this.isCustom = false,
-      this.isDeletable = true})
-      : nameController = TextEditingController(text: name),
+  Indicator({
+    required String name,
+    required String value,
+    this.isCustom = false,
+    this.isDeletable = true,
+  })  : nameController = TextEditingController(text: name),
         valueController = TextEditingController(text: value);
 
   void dispose() {
@@ -31,27 +39,69 @@ class Indicator {
 
 class MeasurementPointState {
   final TextEditingController areaController;
-  final TextEditingController postureController =
-      TextEditingController(text: "Nhân viên công đoạn này có nhiệm vụ...");
-  final List<Indicator> indicators = [];
+  final TextEditingController postureController;
+  final List<Indicator> indicators;
   final bool isRemovable;
   String? selectedL1, selectedL2, selectedL3;
-  File? owasImage;
+  File? owasImage; // Ảnh OWAS cho điểm đo này
+  // TODO: Thêm các thông tin khác cần lưu cho mỗi điểm đo (ví dụ: tọa độ GPS)
 
   MeasurementPointState({
     required String areaName,
     required Map<String, String> initialNames,
     required Map<String, String> initialValues,
     this.isRemovable = false,
-  }) : areaController = TextEditingController(text: areaName) {
+  })  : areaController = TextEditingController(text: areaName),
+        postureController = TextEditingController(
+            text: "Nhân viên công đoạn này có nhiệm vụ..."),
+        indicators = [] {
     initialNames.forEach((key, name) {
       indicators.add(Indicator(
         name: name,
         value: initialValues[key] ?? '',
-        isDeletable: false,
+        isDeletable: false, // Các chỉ tiêu mặc định không thể xóa
         isCustom: false,
       ));
     });
+  }
+
+  // Hàm tạo từ dữ liệu Hive (nếu có)
+  MeasurementPointState.fromMap(Map<String, dynamic> map,
+      {this.isRemovable = false})
+      : areaController = TextEditingController(text: map['areaName']),
+        postureController = TextEditingController(text: map['posture']),
+        selectedL1 = map['selectedL1'],
+        selectedL2 = map['selectedL2'],
+        selectedL3 = map['selectedL3'],
+        owasImage =
+            map['owasImagePath'] != null ? File(map['owasImagePath']) : null,
+        indicators = (map['indicators'] as List)
+            .map((e) => Indicator(
+                  name: e['name'],
+                  value: e['value'],
+                  isCustom: e['isCustom'],
+                  isDeletable: e['isDeletable'],
+                ))
+            .toList();
+
+  // Chuyển đổi MeasurementPointState thành Map để lưu vào Hive
+  Map<String, dynamic> toMap() {
+    return {
+      'areaName': areaController.text,
+      'posture': postureController.text,
+      'selectedL1': selectedL1,
+      'selectedL2': selectedL2,
+      'selectedL3': selectedL3,
+      'owasImagePath': owasImage?.path,
+      'indicators': indicators
+          .map((e) => {
+                'name': e.nameController.text,
+                'value': e.valueController.text,
+                'isCustom': e.isCustom,
+                'isDeletable': e.isDeletable,
+              })
+          .toList(),
+    };
   }
 
   void dispose() {
@@ -66,15 +116,22 @@ class MeasurementPointState {
 // --- WIDGET CHÍNH CỦA MÀN HÌNH ---
 class RecordListScreen extends StatefulWidget {
   final String companyName;
-  final String companyAddress;
-  const RecordListScreen(
-      {super.key, required this.companyName, required this.companyAddress});
+  final String companyAddress; // Đây thực chất là Project Name từ Odoo
+  final int? taskId; // ID của công việc từ Odoo (để lưu biên bản liên quan)
+
+  const RecordListScreen({
+    super.key,
+    required this.companyName,
+    required this.companyAddress,
+    this.taskId, // Có thể truyền thêm taskId từ Odoo
+  });
+
   @override
   State<RecordListScreen> createState() => _RecordListScreenState();
 }
 
 class _RecordListScreenState extends State<RecordListScreen> {
-  // === HẰNG SỐ ===
+  // === HẰNG SỐ & MÀU SẮC (GIỮ NGUYÊN CỦA BẠN) ===
   static const Color scaffoldBgColor = Color(0xFFE6F7FB);
   static const Color appBarColor = Color(0xFFE6F7FB);
   static const Color cardBgColor = Colors.white;
@@ -86,14 +143,15 @@ class _RecordListScreenState extends State<RecordListScreen> {
   static const Color valueTextColor = Color(0xFF005662);
   static const Color labelTextColor = Colors.black54;
 
-  // === BIẾN TRẠNG THÁI ===
+  // === BIẾN TRẠNG THÁI & CONTROLLERS ===
   final ItemScrollController _itemScrollController = ItemScrollController();
   final ItemPositionsListener _itemPositionsListener =
       ItemPositionsListener.create();
   int? _currentlySelectedCardIndex;
   bool phoneVisible = false;
-  bool _isLoading = true;
+  bool _isLoadingData = true; // Đổi tên để tránh nhầm lẫn với loading API
 
+  // Controllers cho thông tin chung biên bản (giữ nguyên của bạn)
   final TextEditingController _nguoiQTController =
       TextEditingController(text: "Nguyễn Văn B");
   final TextEditingController _ngayQTController =
@@ -115,9 +173,11 @@ class _RecordListScreenState extends State<RecordListScreen> {
   final TextEditingController _daiDienKHController =
       TextEditingController(text: "Nguyễn Văn C");
 
+  // Dữ liệu phân cấp từ phan_cap.json
   List<Map<String, dynamic>> _phanCapData = [];
   List<String> _allL1Options = [];
 
+  // Các tên và giá trị ban đầu cho chỉ tiêu
   final Map<String, String> _indicatorNames = {
     'light': 'Ánh sáng',
     'noise': 'Ồn chung',
@@ -154,10 +214,21 @@ class _RecordListScreenState extends State<RecordListScreen> {
   };
   final List<MeasurementPointState> _measurementPoints = [];
 
+  // TODO: Khởi tạo các Service khác nếu cần (ví dụ: qua Provider hoặc GetIt)
+  // late final ActivityLogService _activityLogService;
+  // late final GpsService _gpsService;
+  // late final StandardService _standardService;
+  late Box _recordBox; // Box Hive để lưu biên bản nháp
+
   @override
   void initState() {
     super.initState();
-    _loadDataAndInitialize();
+    // TODO: Khởi tạo các service thực tế của bạn tại đây
+    // _activityLogService = ActivityLogService();
+    // _gpsService = GpsService();
+    // _standardService = StandardService();
+
+    _loadInitialData();
   }
 
   @override
@@ -178,31 +249,67 @@ class _RecordListScreenState extends State<RecordListScreen> {
     super.dispose();
   }
 
-  Future<void> _loadDataAndInitialize() async {
+  // Tải dữ liệu từ phan_cap.json và Hive
+  Future<void> _loadInitialData() async {
     try {
+      // 1. Mở Hive box
+      _recordBox = await Hive.openBox('draft_records');
+
+      // 2. Tải phan_cap.json
       final rawData = await rootBundle.loadString('assets/phan_cap.json');
       final List<dynamic> jsonData = json.decode(rawData);
+      _phanCapData = List<Map<String, dynamic>>.from(jsonData);
+      _allL1Options =
+          _phanCapData.map((e) => e['L1_NAME'].toString()).toSet().toList();
+
+      // 3. Tải dữ liệu biên bản nháp từ Hive (nếu có cho taskId này)
+      // Dùng taskId để định danh biên bản nháp
+      final savedRecord = _recordBox.get(widget.taskId);
+      if (savedRecord != null) {
+        // Nếu có dữ liệu nháp, khôi phục trạng thái
+        _nguoiQTController.text =
+            savedRecord['nguoiQT'] ?? _nguoiQTController.text;
+        _ngayQTController.text =
+            savedRecord['ngayQT'] ?? _ngayQTController.text;
+        _thoiTietController.text =
+            savedRecord['thoiTiet'] ?? _thoiTietController.text;
+        _caLamViecController.text =
+            savedRecord['caLamViec'] ?? _caLamViecController.text;
+        _tongLDController.text =
+            savedRecord['tongLD'] ?? _tongLDController.text;
+        _gioVaoController.text =
+            savedRecord['gioVao'] ?? _gioVaoController.text;
+        _vkhVaoController.text =
+            savedRecord['vkhVao'] ?? _vkhVaoController.text;
+        _gioRaController.text = savedRecord['gioRa'] ?? _gioRaController.text;
+        _vkhRaController.text = savedRecord['vkhRa'] ?? _vkhRaController.text;
+        _daiDienKHController.text =
+            savedRecord['daiDienKH'] ?? _daiDienKHController.text;
+
+        final List<dynamic> pointsData = savedRecord['measurementPoints'] ?? [];
+        _measurementPoints
+            .addAll(pointsData.map((e) => MeasurementPointState.fromMap(e)));
+      } else {
+        // Nếu không có dữ liệu nháp, tạo 10 điểm đo ban đầu
+        _addInitialMeasurementPoints();
+      }
+
       setState(() {
-        _phanCapData = List<Map<String, dynamic>>.from(jsonData);
-        _allL1Options =
-            _phanCapData.map((e) => e['L1_NAME'].toString()).toSet().toList();
-        if (_measurementPoints.isEmpty) {
-          _addInitialMeasurementPoints();
-        }
-        _isLoading = false;
+        _isLoadingData = false;
       });
     } catch (e) {
-      print("LỖI KHI TẢI phan_cap.json: $e");
+      print("LỖI KHI TẢI DỮ LIỆU BAN ĐẦU: $e");
       setState(() {
-        _isLoading = false;
+        _isLoadingData = false;
       });
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-            content: Text('Lỗi: Không thể tải dữ liệu phân cấp.')));
+            content: Text('Lỗi: Không thể tải dữ liệu biên bản.')));
       }
     }
   }
 
+  // Thêm 10 điểm đo ban đầu
   void _addInitialMeasurementPoints() {
     final areaNames = [
       "Kho nguyên liệu",
@@ -225,12 +332,15 @@ class _RecordListScreenState extends State<RecordListScreen> {
     }
   }
 
+  // Thêm một điểm đo mới
   void _addMeasurementPoint() =>
       setState(() => _measurementPoints.add(MeasurementPointState(
           areaName: "Vị trí đo mới",
           initialNames: _indicatorNames,
           initialValues: _indicatorInitialValues,
-          isRemovable: true)));
+          isRemovable: true))); // Điểm đo mới có thể xóa
+
+  // Xóa một điểm đo
   void _removeMeasurementPoint(int index) => setState(() {
         if (_measurementPoints[index].isRemovable) {
           _measurementPoints[index].dispose();
@@ -243,13 +353,19 @@ class _RecordListScreenState extends State<RecordListScreen> {
           }
         }
       });
+
+  // Thêm chỉ tiêu tùy chỉnh
   void _addCustomIndicator(int pointIndex) =>
       setState(() => _measurementPoints[pointIndex].indicators.add(
           Indicator(name: '', value: '', isCustom: true, isDeletable: true)));
+
+  // Xóa chỉ tiêu
   void _removeIndicator(int pointIndex, int indicatorIndex) => setState(() {
         _measurementPoints[pointIndex].indicators[indicatorIndex].dispose();
         _measurementPoints[pointIndex].indicators.removeAt(indicatorIndex);
       });
+
+  // Chụp ảnh OWAS
   Future<void> _pickImage(int index) async {
     final picker = ImagePicker();
     final pickedFile =
@@ -257,29 +373,95 @@ class _RecordListScreenState extends State<RecordListScreen> {
     if (pickedFile != null) {
       setState(
           () => _measurementPoints[index].owasImage = File(pickedFile.path));
+      // TODO: Ghi log hoạt động chụp ảnh
+      // _activityLogService.logActivity(
+      //   action: 'Chụp ảnh OWAS',
+      //   location: _gpsService.getCurrentLocation(),
+      // );
     }
   }
 
+  // Sao chép vào clipboard
   Future<void> _copyToClipboard(String text) async {
     await Clipboard.setData(ClipboardData(text: text));
-    if (mounted)
+    if (mounted) {
       ScaffoldMessenger.of(context)
           .showSnackBar(const SnackBar(content: Text('Đã sao chép')));
+    }
   }
 
+  // Mở Google Maps
   Future<void> _openMap(String address) async {
-    final Uri url =
-        Uri.parse("https://maps.google.com/?q=${Uri.encodeComponent(address)}");
+    final Uri url = Uri.parse(
+        "https://www.google.com/maps/search/?api=1&query=${Uri.encodeComponent(address)}");
     if (!await launchUrl(url, mode: LaunchMode.externalApplication)) {
-      if (mounted)
+      if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(content: Text('Không thể mở Google Maps')));
+      }
     }
+  }
+
+  // --- LƯU TRỮ VÀ GỬI BIÊN BẢN ---
+  Future<void> _saveDraft() async {
+    if (widget.taskId == null) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+            content: Text('Không thể lưu nháp: Không có ID công việc.')),
+      );
+      return;
+    }
+
+    final Map<String, dynamic> draftData = {
+      'nguoiQT': _nguoiQTController.text,
+      'ngayQT': _ngayQTController.text,
+      'thoiTiet': _thoiTietController.text,
+      'caLamViec': _caLamViecController.text,
+      'tongLD': _tongLDController.text,
+      'gioVao': _gioVaoController.text,
+      'vkhVao': _vkhVaoController.text,
+      'gioRa': _gioRaController.text,
+      'vkhRa': _vkhRaController.text,
+      'daiDienKH': _daiDienKHController.text,
+      'companyName': widget.companyName,
+      'companyAddress': widget.companyAddress, // Project Name
+      'measurementPoints': _measurementPoints.map((p) => p.toMap()).toList(),
+      // TODO: Thêm các thông tin khác cần lưu
+    };
+
+    try {
+      await _recordBox.put(widget.taskId, draftData);
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Đã lưu biên bản nháp.')),
+      );
+      // TODO: Ghi log hoạt động lưu nháp
+    } catch (e) {
+      print('Lỗi khi lưu nháp: $e');
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Lỗi khi lưu nháp: $e')),
+      );
+    }
+  }
+
+  Future<void> _saveAndSend() async {
+    // TODO: Triển khai logic lưu và gửi lên Odoo
+    // 1. Thu thập tất cả dữ liệu từ các controllers và _measurementPoints
+    // 2. Định dạng dữ liệu theo yêu cầu của Odoo API
+    // 3. Gọi OdooApiService để gửi dữ liệu
+    // 4. Xử lý kết quả (thành công/thất bại)
+    // 5. Sau khi gửi thành công, có thể xóa nháp trong Hive
+
+    // Ví dụ tạm thời:
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(
+          content: Text('Chức năng Lưu & Gửi đang được phát triển.')),
+    );
+    // TODO: Ghi log hoạt động gửi biên bản
   }
 
   @override
   Widget build(BuildContext context) {
-    if (_isLoading) {
+    if (_isLoadingData) {
       return const Scaffold(body: Center(child: CircularProgressIndicator()));
     }
     return Scaffold(
@@ -309,7 +491,8 @@ class _RecordListScreenState extends State<RecordListScreen> {
         itemScrollController: _itemScrollController,
         itemPositionsListener: _itemPositionsListener,
         padding: const EdgeInsets.fromLTRB(16, 16, 16, 120),
-        itemCount: _measurementPoints.length + 2,
+        itemCount: _measurementPoints.length +
+            2, // +2 cho CustomerInfo và ObservationInfo
         itemBuilder: (context, index) {
           if (index == 0) return _buildCustomerInfo();
           if (index == 1)
@@ -317,7 +500,7 @@ class _RecordListScreenState extends State<RecordListScreen> {
                 padding: const EdgeInsets.only(top: 16.0),
                 child: _buildObservationInfo());
 
-          final cardIndex = index - 2;
+          final cardIndex = index - 2; // Điều chỉnh index cho điểm đo
           return Padding(
             padding: const EdgeInsets.only(top: 16.0),
             child: _buildMeasurementCard(cardIndex),
@@ -329,6 +512,7 @@ class _RecordListScreenState extends State<RecordListScreen> {
     );
   }
 
+  // --- CÁC WIDGET HELPER UI (GIỮ NGUYÊN HOẶC CHỈNH SỬA NHỎ TỪ CỦA BẠN) ---
   Widget _buildChip(String text) => Container(
       padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
       decoration: BoxDecoration(
@@ -336,6 +520,7 @@ class _RecordListScreenState extends State<RecordListScreen> {
       child: Text(text,
           style: const TextStyle(
               fontSize: 12, fontWeight: FontWeight.bold, color: Colors.white)));
+
   Widget _buildValueBox(String text) => Container(
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
       width: double.infinity,
@@ -346,6 +531,7 @@ class _RecordListScreenState extends State<RecordListScreen> {
               fontSize: 13,
               fontWeight: FontWeight.w600,
               color: valueTextColor)));
+
   Widget _buildIconBox(IconData icon, {VoidCallback? onTap}) => InkWell(
       onTap: onTap,
       borderRadius: BorderRadius.circular(20),
@@ -355,11 +541,13 @@ class _RecordListScreenState extends State<RecordListScreen> {
           decoration: BoxDecoration(
               color: iconPurpleColor, borderRadius: BorderRadius.circular(20)),
           child: Icon(icon, color: Colors.white, size: 24)));
-  Widget _buildStyledDropdown(
-          {required String hint,
-          String? value,
-          required List<String> items,
-          required ValueChanged<String?> onChanged}) =>
+
+  Widget _buildStyledDropdown({
+    required String hint,
+    String? value,
+    required List<String> items,
+    required ValueChanged<String?> onChanged,
+  }) =>
       Container(
           height: 52,
           padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -387,10 +575,12 @@ class _RecordListScreenState extends State<RecordListScreen> {
                               overflow: TextOverflow.ellipsis, maxLines: 3)))
                       .toList(),
                   onChanged: onChanged)));
-  Widget _buildStyledTextField(
-          {required TextEditingController controller,
-          required String label,
-          Widget? suffixIcon}) =>
+
+  Widget _buildStyledTextField({
+    required TextEditingController controller,
+    required String label,
+    Widget? suffixIcon,
+  }) =>
       Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
         Text(label,
             style: const TextStyle(
@@ -416,6 +606,7 @@ class _RecordListScreenState extends State<RecordListScreen> {
                         borderRadius: BorderRadius.circular(12),
                         borderSide: BorderSide.none))))
       ]);
+
   Widget _buildAddButton(String label, VoidCallback onPressed) => InkWell(
       onTap: onPressed,
       borderRadius: BorderRadius.circular(20),
@@ -447,13 +638,14 @@ class _RecordListScreenState extends State<RecordListScreen> {
           padding: const EdgeInsets.all(12.0),
           child: Column(children: [
             Row(children: [
-              _buildChip("Tên"),
+              _buildChip("Tên Công ty"), // Đổi nhãn cho rõ ràng hơn
               const SizedBox(width: 12),
               Expanded(child: _buildValueBox(widget.companyName))
             ]),
             const SizedBox(height: 10),
             Row(children: [
-              _buildChip("Địa chỉ"),
+              _buildChip(
+                  "Dự án"), // Đổi nhãn cho rõ ràng hơn (companyAddress là Project Name)
               const SizedBox(width: 12),
               Expanded(child: _buildValueBox(widget.companyAddress)),
               const SizedBox(width: 8),
@@ -464,11 +656,14 @@ class _RecordListScreenState extends State<RecordListScreen> {
             Row(children: [
               _buildChip("Liên hệ"),
               const SizedBox(width: 12),
-              Expanded(child: _buildValueBox("Tên KH: Nguyễn Văn A")),
-              const SizedBox(width: 8),
               Expanded(
                   child: _buildValueBox(
-                      phoneVisible ? "0912 345 678" : "•0912...678")),
+                      "Tên KH: Nguyễn Văn A")), // TODO: Lấy từ Odoo
+              const SizedBox(width: 8),
+              Expanded(
+                  child: _buildValueBox(phoneVisible
+                      ? "0912 345 678"
+                      : "•0912...678")), // TODO: Lấy từ Odoo
               const SizedBox(width: 8),
               _buildIconBox(
                   phoneVisible
@@ -811,7 +1006,7 @@ class _RecordListScreenState extends State<RecordListScreen> {
             child: SizedBox(
                 height: 48,
                 child: ElevatedButton.icon(
-                  onPressed: () {},
+                  onPressed: _saveDraft, // Gán hàm lưu nháp
                   icon: const Icon(Icons.drafts_outlined, size: 20),
                   label: const Text("Lưu nháp",
                       style:
@@ -828,7 +1023,7 @@ class _RecordListScreenState extends State<RecordListScreen> {
             child: SizedBox(
                 height: 48,
                 child: ElevatedButton.icon(
-                  onPressed: () {},
+                  onPressed: _saveAndSend, // Gán hàm lưu & gửi
                   icon: const Icon(Icons.send_outlined, size: 20),
                   label: const Text("Lưu & Gửi",
                       style:

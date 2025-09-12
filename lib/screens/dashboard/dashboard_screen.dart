@@ -1,18 +1,22 @@
+// File: lib/screens/dashboard/dashboard_screen.dart
+
 import 'package:flutter/material.dart';
-import 'task_list_screen.dart';
-import 'login_screen.dart'; // Corrected path
+// Đảm bảo đường dẫn này đúng với vị trí file TaskListScreen của bạn
+import '../tasks/task_list_screen.dart';
+// Đảm bảo đường dẫn này đúng với vị trí file LoginScreen của bạn
+import '../login/login_screen.dart';
 
 class DashboardScreen extends StatelessWidget {
   const DashboardScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    // Data for the dashboard items
+    // Dữ liệu cho các mục trên Dashboard của bạn
     final features = [
       {
         'icon': Icons.assignment_late_outlined,
         'label': 'BB QTMT LĐ',
-        'route': '/tasks'
+        'route': '/tasks' // Sẽ điều hướng đến TaskListScreen
       },
       {
         'icon': Icons.receipt_long_outlined,
@@ -57,19 +61,20 @@ class DashboardScreen extends StatelessWidget {
     ];
 
     return Scaffold(
-      backgroundColor: const Color(0xFFE9F5F9),
+      backgroundColor: const Color(0xFFE9F5F9), // Màu nền tổng thể
       appBar: AppBar(
         toolbarHeight: 80,
-        backgroundColor: Colors.transparent,
-        elevation: 0,
+        backgroundColor: Colors.transparent, // Nền trong suốt
+        elevation: 0, // Không có đổ bóng
         flexibleSpace: Container(
+          // Thiết kế custom cho AppBar với bo tròn dưới
           decoration: const BoxDecoration(
             color: Colors.white,
             borderRadius: BorderRadius.vertical(bottom: Radius.circular(30)),
           ),
           child: const Center(
             child: Text(
-              'Nội dung công việc',
+              'Nội dung công việc', // Tiêu đề AppBar
               style: TextStyle(
                   fontSize: 24,
                   fontWeight: FontWeight.bold,
@@ -77,17 +82,17 @@ class DashboardScreen extends StatelessWidget {
             ),
           ),
         ),
-        automaticallyImplyLeading: false,
+        automaticallyImplyLeading: false, // Không hiển thị nút back mặc định
       ),
       body: Padding(
         padding: const EdgeInsets.all(24.0),
         child: GridView.builder(
           itemCount: features.length,
           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 3,
-            childAspectRatio: 0.9,
-            crossAxisSpacing: 16,
-            mainAxisSpacing: 16,
+            crossAxisCount: 3, // 3 cột
+            childAspectRatio: 0.9, // Tỷ lệ khung hình của mỗi ô
+            crossAxisSpacing: 16, // Khoảng cách ngang
+            mainAxisSpacing: 16, // Khoảng cách dọc
           ),
           itemBuilder: (context, index) {
             final item = features[index];
@@ -106,18 +111,26 @@ class DashboardScreen extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
+            // Nút chat
             IconButton(
               icon: const Icon(Icons.chat_bubble_outline,
                   color: Colors.blueAccent, size: 30),
-              onPressed: () {},
+              onPressed: () {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(
+                      content: Text('Chức năng Chat đang được phát triển.')),
+                );
+              },
             ),
+            // Nút đăng xuất
             IconButton(
               icon: const Icon(Icons.logout, color: Colors.redAccent, size: 30),
               onPressed: () {
-                Navigator.pushReplacement(
-                    context,
+                // Điều hướng về màn hình đăng nhập và xóa tất cả các màn hình trước đó khỏi stack
+                Navigator.of(context).pushAndRemoveUntil(
                     MaterialPageRoute(
-                        builder: (context) => const LoginScreen()));
+                        builder: (context) => const LoginScreen()),
+                    (Route<dynamic> route) => false);
               },
             ),
           ],
@@ -126,6 +139,7 @@ class DashboardScreen extends StatelessWidget {
     );
   }
 
+  // Widget riêng để xây dựng mỗi ô item trên Dashboard
   Widget _buildDashboardItem({
     required BuildContext context,
     required IconData icon,
@@ -135,12 +149,15 @@ class DashboardScreen extends StatelessWidget {
     return GestureDetector(
       onTap: () {
         if (route == '/tasks') {
+          // Điều hướng đến TaskListScreen
           Navigator.push(context,
               MaterialPageRoute(builder: (context) => const TaskListScreen()));
-        } else if (route == '/') {
+        } else if (route == '/login') {
+          // Trường hợp này là để test hoặc nếu có route riêng cho login
           Navigator.pushReplacement(context,
               MaterialPageRoute(builder: (context) => const LoginScreen()));
         } else {
+          // Hiển thị thông báo nếu chức năng chưa được triển khai
           ScaffoldMessenger.of(context).showSnackBar(SnackBar(
               content: Text('Chức năng "$label" đang được phát triển.')));
         }
@@ -154,16 +171,16 @@ class DashboardScreen extends StatelessWidget {
               color: Colors.grey.withOpacity(0.1),
               spreadRadius: 2,
               blurRadius: 5,
-              offset: const Offset(0, 3),
+              offset: const Offset(0, 3), // Hiệu ứng đổ bóng nhẹ
             ),
           ],
         ),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Icon(icon, size: 40, color: const Color(0xFF3F51B5)),
+            Icon(icon, size: 40, color: const Color(0xFF3F51B5)), // Icon
             const SizedBox(height: 12),
-            Text(label,
+            Text(label, // Tên chức năng
                 style: const TextStyle(
                     fontSize: 14,
                     fontWeight: FontWeight.w600,

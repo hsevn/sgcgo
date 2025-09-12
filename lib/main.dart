@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'models/job_measurement.dart';
-import 'screens/login_screen.dart'; // Đường dẫn đúng đến màn hình khởi động
+import 'screens/login/login_screen.dart'; // Đường dẫn đúng đến màn hình khởi động
+import 'screens/records/record_list_screen.dart';
 
 Future<void> main() async {
   // Đảm bảo các thành phần của Flutter đã được khởi tạo
