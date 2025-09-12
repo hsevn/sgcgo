@@ -1,9 +1,9 @@
 import 'package:hive/hive.dart';
-import 'package:sgcgo/services/gps_service.dart'; // Giả sử GpsService nằm ở đây
+import 'package:sgcgo/services/gps_service.dart';
 
-// Cần tạo adapter cho class này
-// Chạy lệnh: flutter pub run build_runner build --delete-conflicting-outputs
-@HiveType(typeId: 1) // ID phải khác với JobMeasurement
+part 'activity_log_service.g.dart'; // <--- DÒNG BỊ THIẾU LÀ DÒNG NÀY
+
+@HiveType(typeId: 1) // ID phải khác với JobMeasurement (typeId: 0)
 class ActivityLog extends HiveObject {
   @HiveField(0)
   late String action;
@@ -25,7 +25,6 @@ class ActivityLogService {
   ActivityLogService(this._gpsService);
 
   Future<void> init() async {
-    // Đăng ký adapter
     if (!Hive.isAdapterRegistered(ActivityLogAdapter().typeId)) {
       Hive.registerAdapter(ActivityLogAdapter());
     }
@@ -42,6 +41,7 @@ class ActivityLogService {
       ..longitude = position?.longitude;
 
     await _logBox.add(log);
-    print("LOGGED: ${log.action} at ${log.timestamp}");
+    print(
+        "LOGGED: ${log.action} at ${log.timestamp} with GPS: (${log.latitude}, ${log.longitude})");
   }
 }
